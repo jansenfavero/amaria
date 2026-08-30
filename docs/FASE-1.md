@@ -18,16 +18,18 @@ A curadoria foi informada pelo responsável pelo projeto. Nenhum conteúdo é ap
 
 ## Conexões inspecionadas em 30/08/2026
 
-- GitHub: `jansenfavero/amaria`, privado, branch principal `main`; base inicial `e836fac6932731bc48e704138e1645bae1309653` com README e .gitignore.
-- Vercel: equipe `GERE` (`team_ASMlw2Iuhd5hOwsVxCdpM0MW`) acessível; listagem vazia e projeto `amaria` não encontrado. Nenhum projeto foi criado.
-- Supabase: organização `GERE` (`vercel_icfg_rKPTaiJjAZBC8EiM8bjF7mrr`) acessível; os projetos existentes pertencem a outros produtos. Nenhum foi alterado ou reutilizado.
+- GitHub: `jansenfavero/amaria`, privado. A versão validada `e512716dc6333a496805ffd36a8b8a1fa06fcff7` foi aprovada e promovida à `main`, sem reescrever histórico. PR #1 incorporado.
+- Vercel: equipe `GERE` (`team_ASMlw2Iuhd5hOwsVxCdpM0MW`) confirmada e publicação autorizada. A conexão aceitou os 34 arquivos e informou o deploy `dpl_CHsFC3YhUjpw1B1gPP7VTnz8yYu6`, alvo production. Entretanto, consultas de projeto, status e logs retornaram 404. **Publicação não confirmada.** Não recriar um segundo projeto sem resolver essa inconsistência.
+- Supabase: projeto exclusivo `AMAR.IA`, ref `lhmrojqehenwviyytkmr`, na organização `GERE` (`vercel_icfg_rKPTaiJjAZBC8EiM8bjF7mrr`), região São Paulo (`sa-east-1`), status confirmado `ACTIVE_HEALTHY`. Custo informado pelo serviço: zero por mês no provisionamento atual. Consulta SQL de conexão aprovada; schema public vazio e verificação inicial de segurança sem alertas. Nenhum projeto de outro produto foi alterado.
+
+API Supabase: `https://lhmrojqehenwviyytkmr.supabase.co`. URL e publishable key configuradas em `.env.local`, excluído do Git. Não há service-role/secret no cliente. As variáveis ainda NÃO foram configuradas em um deploy Vercel verificado.
 
 Não confundir conexão da conta com provisionamento dos recursos da AMAR.IA.
 
 ## Implantação Vercel
 
-1. Confirmar a equipe GERE e autorizar a publicação: o deploy fornece o código do repositório privado à Vercel e cria um endpoint web.
-2. Importar `jansenfavero/amaria`; framework Next.js; diretório raiz `.`; Node 22; instalação `npm ci`; build `npm run build`.
+1. Autorização da equipe GERE já recebida. Resolver a divergência entre criação do deploy e consultas 404 antes de considerar a plataforma publicada ou disparar outro deploy.
+2. Vincular `jansenfavero/amaria` ao projeto correto para deploy automático; framework Next.js; Root Directory vazio para a raiz (a API rejeita `.`); Node 22; instalação `npm ci`; build `npm run build`.
 3. Configurar `NEXT_PUBLIC_SITE_URL=https://amar.ia.br` e `SITE_INDEXABLE=false`. Supabase/OpenAI não são necessários para executar a Fase 1.
 4. Verificar build, `/`, página 404, `/api/health`, ícones e navegação móvel.
 5. Adicionar `amar.ia.br` e aplicar exatamente os registros DNS indicados pelo painel. Não assumir propagação ou propriedade verificada.
@@ -35,9 +37,9 @@ Não confundir conexão da conta com provisionamento dos recursos da AMAR.IA.
 
 ## Preparação Supabase
 
-1. Confirmar organização e custo de um projeto novo, exclusivo AMAR.IA; preferência técnica de região: São Paulo (`sa-east-1`).
-2. Provisionar somente após a confirmação exigida pelo serviço. Não reativar nem reutilizar os outros projetos.
-3. Configurar URL e publishable key nas variáveis indicadas. Nunca colocar `service_role`/secret em `NEXT_PUBLIC_*`.
+1. Projeto exclusivo já provisionado e verificado: `lhmrojqehenwviyytkmr`. Não criar outro projeto, reativar ou reutilizar projetos de outros produtos.
+2. Região São Paulo (`sa-east-1`); custo informado e registrado no fluxo de confirmação do serviço: zero mensal. Alterações de plano, capacidade ou recursos pagos exigem nova avaliação.
+3. URL e publishable key configuradas localmente; ainda pendentes nas variáveis da Vercel. Nunca colocar `service_role`/secret em `NEXT_PUBLIC_*`.
 4. A homepage é estática e permanece funcional com essas variáveis vazias. Um consumidor futuro de Supabase recebe erro explícito se a configuração estiver ausente.
 5. Na Fase 2, implementar schema/migrações versionadas com CLI, autenticação e testes RLS para visitante, usuária A, usuária B e administradora. Não publicar tabelas antes disso.
 6. Ativar o helper `updateSession` em `src/proxy.ts` somente nas rotas privadas/auth; validar claims, autorização e resposta com cookies renovados e `no-store`.
@@ -64,5 +66,5 @@ Pacotes consultados diretamente no registro oficial npm; versões exatas em pack
 - `npm run smoke`: aprovado para as 10 URLs previstas, incluindo 404; conferidos cabeçalhos, âncoras, idioma, ausência de formulários, manifest e noindex.
 - `npm audit --omit=dev`: nenhuma vulnerabilidade reportada nas dependências de produção em 30/08/2026. Isso não substitui revisão de segurança contínua.
 - Ícones derivados do emblema aprovado com redução de tamanho para a web.
-- Não foi realizada verificação visual/interativa em navegador nem validação de um deploy remoto. Nenhuma conexão com banco ou OpenAI está sendo anunciada como ativa.
+- Não foi realizada verificação visual/interativa em navegador nem validação de um deploy remoto. O banco foi verificado pela conexão administrativa Supabase, mas os fluxos da aplicação ainda não consomem dados. OpenAI não integrada.
 - TypeScript 5.9 e ESLint 9 fixados por compatibilidade com o conjunto de lint do Next.js; a primeira tentativa com TypeScript 7 foi rejeitada pelo typescript-eslint.
