@@ -31,6 +31,10 @@ A conexão administrativa Vercel continua retornando 404 ao consultar `amaria` n
 
 O script `node scripts/static-check.mjs` permite verificar o HTML real gerado das sete páginas sem depender de rede: idioma, heading principal único, links internos, âncoras, quatro cards, doze ações sociais, ausência de formulários e noindex. Ele complementa, mas não substitui, o smoke HTTP e a verificação interativa.
 
+Resultado final local: lint, TypeScript, compilação de produção e `static-check` aprovados para as sete páginas. Interface salva na `main` em `aa7e9ba683c7f7ee24f5926dad9f9272d2989c29`.
+
+**Publicação desta revisão bloqueada:** o envio ao projeto `amaria`, equipe GERE, foi rejeitado pela proteção de publicação porque a consulta anterior retornou 404 e não confirmou a identidade do destino. Não houve novo deploy confirmado nem alteração do site já existente. Não repetir o envio ou mudar de caminho para contornar esse bloqueio; confirmar o Project ID correto e resolver a autorização antes de continuar.
+
 ## Conexões inspecionadas em 30/08/2026
 
 - GitHub: `jansenfavero/amaria`, privado. A versão validada `e512716dc6333a496805ffd36a8b8a1fa06fcff7` foi aprovada e promovida à `main`, sem reescrever histórico. PR #1 incorporado.
