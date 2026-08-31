@@ -8,6 +8,8 @@ Fase 1: fundação e interface de app com feed editorial, sidebar, quatro temas 
 
 Rotas: `/`, `/sobre`, `/maria`, `/podcasts`, `/comunidade`, `/curadoria` e `/privacidade`. As reflexões são prévias editoriais, não conteúdo anunciado como revisado pelas curadoras.
 
+Interface com fundo degradê lilás/rosa, superfícies brancas contrastantes e imagens editoriais locais. Texto principal móvel de pelo menos 16 px; ações sociais de 14 px. Procedência das imagens em [docs/IMAGENS.md](docs/IMAGENS.md).
+
 Stack: Next.js App Router, TypeScript e Tailwind CSS; clientes Supabase preparados; GitHub → Vercel. OpenAI Responses API será integrada exclusivamente no servidor em uma fase posterior.
 
 ## Desenvolvimento
@@ -29,6 +31,7 @@ npm run lint
 npm run typecheck
 npm run build
 node scripts/static-check.mjs
+node scripts/visual-check.mjs
 npm run smoke
 npm start
 ```

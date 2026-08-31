@@ -34,6 +34,17 @@ for (const route of routes) {
     assert.match(html, /noindex/);
   if (route === "index") {
     assert.equal((html.match(/class="post-card"/g) || []).length, 4);
+    assert.equal((html.match(/class="post-photo"/g) || []).length, 4);
+    for (const name of [
+      "amor-proprio",
+      "limites",
+      "relacionamentos",
+      "recomecos",
+    ])
+      assert.ok(
+        html.includes(`${name}.webp`),
+        `Missing editorial image: ${name}`,
+      );
     for (const action of ["Curtir:", "Comentar:", "Compartilhar:"])
       assert.equal(
         (html.match(new RegExp(`aria-label="${action}`, "g")) || []).length,

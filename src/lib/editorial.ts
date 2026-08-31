@@ -33,6 +33,12 @@ export const posts = [
     topic: "amor-proprio" as TopicId,
     kicker: "UM LEMBRETE GENTIL",
     title: "Você também merece o amor que oferece.",
+    image: {
+      src: "/editorial/amor-proprio.webp",
+      alt: "Mulher em um momento de carinho consigo mesma, em um ambiente iluminado pelo sol.",
+      credit: "Imagem ilustrativa gerada por IA; não retrata uma usuária.",
+      creditUrl: "",
+    },
     excerpt:
       "Entre cuidar de quem você ama e dar conta de tanta coisa, existe alguém que também precisa de espaço: você.",
     question: "Que gesto de carinho você gostaria de oferecer a si mesma hoje?",
@@ -48,6 +54,12 @@ export const posts = [
     topic: "limites" as TopicId,
     kicker: "RELAÇÕES COM MAIS ESPAÇO",
     title: "Seu limite também merece ser ouvido.",
+    image: {
+      src: "/editorial/limites.webp",
+      alt: "Mulher fazendo uma pausa em seu espaço pessoal, perto de uma varanda aberta.",
+      credit: "Imagem ilustrativa gerada por IA; não retrata uma usuária.",
+      creditUrl: "",
+    },
     excerpt:
       "Estar perto de alguém não precisa significar deixar de escutar o que é importante para você.",
     question:
@@ -64,6 +76,12 @@ export const posts = [
     topic: "relacionamentos" as TopicId,
     kicker: "VÍNCULOS QUE FAZEM SENTIDO",
     title: "Amar alguém. Continuar sendo você.",
+    image: {
+      src: "/editorial/relacionamentos.webp",
+      alt: "Duas mulheres conversando em uma mesa ao ar livre, com espaço para cada uma.",
+      credit: "Imagem ilustrativa gerada por IA; não retrata usuárias.",
+      creditUrl: "",
+    },
     excerpt:
       "Há muitas formas de construir um vínculo. Queremos conversar sobre aquelas em que também existe espaço para a sua individualidade.",
     question:
@@ -80,6 +98,12 @@ export const posts = [
     topic: "recomecos" as TopicId,
     kicker: "CADA HISTÓRIA TEM SEU TEMPO",
     title: "Você não precisa florescer com pressa.",
+    image: {
+      src: "/editorial/recomecos.webp",
+      alt: "Flores cor-de-rosa em diferentes estágios de abertura, iluminadas pelo sol.",
+      credit: "Fotografia de Photos of Korea, no Unsplash.",
+      creditUrl: "https://unsplash.com/photos/a-field-of-flowers-hvq52lUadYw",
+    },
     excerpt:
       "Um novo capítulo pode começar devagar. Com espaço para o que ficou, para as dúvidas e para o que ainda está por vir.",
     question:

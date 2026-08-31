@@ -63,6 +63,10 @@ try {
     "/icon-512.png",
     "/apple-icon.png",
     "/brand/emblem.webp",
+    "/editorial/amor-proprio.webp",
+    "/editorial/limites.webp",
+    "/editorial/relacionamentos.webp",
+    "/editorial/recomecos.webp",
     "/pagina-inexistente",
   ]) {
     const response = await fetch(`${origin}${path}`, {

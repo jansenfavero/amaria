@@ -245,28 +245,31 @@ export function Feed() {
                     {topics.find((item) => item.id === post.topic)?.name}
                   </span>
                 </header>
-                <div className={`post-art art-${post.tone}`}>
-                  <span className="art-topline">
-                    <span>{post.kicker}</span>
-                    <span>REFLEXÃO / {post.number}</span>
-                  </span>
-                  <h2 id={`${post.id}-title`}>{post.title}</h2>
-                  <span className="art-bottomline">
-                    <span>PARA AMAR SEM SE PERDER DE VOCÊ</span>
-                    <span className="art-wordmark">
-                      amar.ia <span aria-hidden="true">✦</span>
-                    </span>
-                  </span>
+                <div className={`post-visual art-${post.tone}`}>
+                  <Image
+                    src={post.image.src}
+                    alt={post.image.alt}
+                    fill
+                    sizes="(max-width: 760px) calc(100vw - 48px), (max-width: 1180px) 650px, 660px"
+                    preload={post.number === "01"}
+                    className="post-photo"
+                  />
                   <button
                     type="button"
-                    className="post-art-link"
+                    className="post-image-action"
                     onClick={() => openDetail(post, "read")}
                     aria-label={`Ler reflexão: ${post.title}`}
                     aria-haspopup="dialog"
-                  />
+                  >
+                    <span>
+                      Ler reflexão <ArrowUpRight size={18} aria-hidden="true" />
+                    </span>
+                  </button>
                 </div>
                 <div className="post-body">
-                  <p>{post.excerpt}</p>
+                  <p className="post-kicker">{post.kicker}</p>
+                  <h2 id={`${post.id}-title`}>{post.title}</h2>
+                  <p className="post-excerpt">{post.excerpt}</p>
                   <button
                     type="button"
                     className="read-link"
@@ -368,6 +371,27 @@ export function Feed() {
             <>
               <span className="eyebrow">AMAR.IA · PRÉVIA EDITORIAL</span>
               <h2 id="detail-title">{detail.post.title}</h2>
+              <div className="dialog-photo">
+                <Image
+                  src={detail.post.image.src}
+                  alt={detail.post.image.alt}
+                  fill
+                  sizes="(max-width: 600px) calc(100vw - 80px), 520px"
+                />
+              </div>
+              <p className="image-credit">
+                {detail.post.image.creditUrl ? (
+                  <a
+                    href={detail.post.image.creditUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {detail.post.image.credit}
+                  </a>
+                ) : (
+                  detail.post.image.credit
+                )}
+              </p>
               {detail.post.paragraphs.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}

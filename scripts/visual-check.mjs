@@ -1,0 +1,141 @@
+import assert from "node:assert/strict";
+import { readFile, stat } from "node:fs/promises";
+import postcss from "postcss";
+import sharp from "sharp";
+
+// Static design contracts, not browser layout or a full accessibility audit.
+const css = postcss.parse(await readFile("src/app/globals.css", "utf8"));
+function value(selector, property, width = 390) {
+  let result;
+  css.walkRules((rule) => {
+    if (!rule.selectors.includes(selector)) return;
+    for (let parent = rule.parent; parent; parent = parent.parent) {
+      if (parent.type !== "atrule" || parent.name !== "media") continue;
+      const max = parent.params.match(/max-width:\s*(\d+)px/);
+      const min = parent.params.match(/min-width:\s*(\d+)px/);
+      if ((max && width > Number(max[1])) || (min && width < Number(min[1])))
+        return;
+      if (parent.params.includes("prefers-reduced-motion")) return;
+    }
+    rule.walkDecls(property, (declaration) => {
+      result = declaration.value;
+    });
+  });
+  assert.ok(result, `Missing ${selector}: ${property}`);
+  return result.replace(/var\((--[\w-]+)\)/g, (_, name) =>
+    value(":root", name, width),
+  );
+}
+function pixels(size) {
+  assert.match(size, /^[\d.]+(rem|px)$/);
+  return parseFloat(size) * (size.endsWith("rem") ? 16 : 1);
+}
+for (const width of [320, 360, 390, 430, 760]) {
+  for (const selector of [
+    ".post-excerpt",
+    ".dialog-inner > p",
+    ".info-description",
+    ".info-text p",
+    ".info-tile p",
+    ".info-callout p",
+    ".safety-note p",
+  ])
+    assert.ok(
+      pixels(value(selector, "font-size", width)) >= 16,
+      `${selector} below 16px at ${width}px`,
+    );
+  assert.ok(pixels(value(".post-actions button", "font-size", width)) >= 14);
+  assert.ok(pixels(value(".post-actions button", "min-height", width)) >= 44);
+  assert.ok(
+    pixels(value(".mobile-drawer .nav-item", "font-size", width)) >= 16,
+  );
+  console.log(`PASS mobile type / controls at ${width}px (static CSS)`);
+}
+function rgb(color) {
+  if (color === "white") return [255, 255, 255];
+  assert.match(color, /^#[\da-f]{6}$/i);
+  return color
+    .slice(1)
+    .match(/../g)
+    .map((part) => parseInt(part, 16));
+}
+function luminance(channels) {
+  return channels
+    .map((channel) => {
+      const c = channel / 255;
+      return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+    })
+    .reduce((sum, c, index) => sum + c * [0.2126, 0.7152, 0.0722][index], 0);
+}
+function ratio(a, b) {
+  const [light, dark] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+  return (light + 0.05) / (dark + 0.05);
+}
+const checks = [
+  ["post text", value(".post-excerpt", "color"), value(":root", "--surface")],
+  ["post kicker", value(".post-kicker", "color"), value(":root", "--surface")],
+  [
+    "primary button",
+    value(".button-primary", "color"),
+    value(".button-primary", "background"),
+  ],
+  [
+    "active menu",
+    value(".nav-item.active", "color"),
+    value(".nav-item.active", "background"),
+  ],
+  ...["rose", "sage", "lilac", "sand"].map((tone) => [
+    `topic ${tone}`,
+    value(`.tone-${tone}`, "color"),
+    value(`.tone-${tone}`, "background"),
+  ]),
+];
+for (const [label, foreground, background] of checks) {
+  const contrast = ratio(rgb(foreground), rgb(background));
+  assert.ok(contrast >= 4.5, `${label}: ${contrast.toFixed(2)}:1`);
+  console.log(`PASS ${label} contrast ${contrast.toFixed(2)}:1`);
+}
+const stops = value("body", "background-image")
+  .match(/#[\da-f]{6}/gi)
+  .map(rgb);
+for (const selector of [
+  "body",
+  ".feed-disclosure",
+  ".section-heading h2",
+  ".feed-welcome > div > p:last-child",
+]) {
+  let minimum = Infinity;
+  for (let stop = 0; stop < stops.length - 1; stop++) {
+    for (let step = 0; step <= 100; step++) {
+      const background = stops[stop].map(
+        (c, index) => c + ((stops[stop + 1][index] - c) * step) / 100,
+      );
+      minimum = Math.min(
+        minimum,
+        ratio(rgb(value(selector, "color")), background),
+      );
+    }
+  }
+  assert.ok(minimum >= 4.5, `${selector} on gradient: ${minimum.toFixed(2)}:1`);
+  console.log(
+    `PASS ${selector} on gradient, minimum sampled ${minimum.toFixed(2)}:1`,
+  );
+}
+for (const name of [
+  "amor-proprio",
+  "limites",
+  "relacionamentos",
+  "recomecos",
+]) {
+  const path = `public/editorial/${name}.webp`;
+  const [metadata, file] = await Promise.all([
+    sharp(path).metadata(),
+    stat(path),
+  ]);
+  assert.equal(metadata.format, "webp");
+  assert.ok(metadata.width >= 1000 && metadata.height >= 650);
+  assert.ok(file.size < 300000, `${path} must remain below 300 KB`);
+  console.log(
+    `PASS ${path}: ${metadata.width}×${metadata.height}, ${Math.round(file.size / 1024)} KiB`,
+  );
+}

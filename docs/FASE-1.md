@@ -21,6 +21,19 @@ A curadoria foi informada pelo responsável pelo projeto. Nenhum conteúdo é ap
 
 ## Atualização visual — 31/08/2026
 
+### Refinamento de contraste, imagens e leitura móvel
+
+- Fundo das telas em degradê lilás e rosa, com cards e painéis internos claros, bordas definidas e sombras suaves. Títulos escuros, botões roxos e navegação ativa com contraste reforçado.
+- Quatro imagens relacionadas aos títulos, servidas localmente em WebP. As três cenas com pessoas são ilustrações geradas por IA; a fotografia de flores tem crédito e fonte registrados em [IMAGENS.md](IMAGENS.md). Não representam usuárias ou depoimentos.
+- Imagens separadas dos títulos e textos, evitando depender da fotografia para o contraste de leitura. A leitura ampliada também exibe a imagem e seu crédito.
+- Textos principais de no mínimo 16 px no celular, entrelinhas ampliadas e ações sociais de pelo menos 14 px, com alvos de toque espaçosos. Sidebar, navegação móvel, filtros e ações existentes preservados.
+- Lint, TypeScript e compilação de produção aprovados. HTML das sete páginas aprovado no `static-check`; smoke HTTP local aprovado nas 20 URLs, incluindo as quatro novas imagens e a resposta 404 esperada.
+- `node scripts/visual-check.mjs` valida regras estáticas de tipografia e controles nas larguras 320, 360, 390, 430 e 760 px, razões de contraste das combinações declaradas e tamanho/formato das imagens. Não substitui inspeção visual ou testes interativos em navegador.
+
+O foco solicitado passou a ser visual e experiência de uso. Nenhuma tarefa de monitoramento foi criada, nem houve nova tentativa de publicação administrativa na Vercel. A versão anterior com feed foi posteriormente observada por HTTP no domínio público; isso não confirma a publicação deste refinamento nem resolve o bloqueio administrativo registrado abaixo.
+
+### Histórico da conversão para feed
+
 A homepage institucional foi reorganizada como feed de app premium, mantendo a identidade aprovada. Os quatro textos são prévias editoriais para apresentar os temas; não constituem acervo clínico revisado. Nenhuma nova integração com banco, autenticação ou cobrança foi ativada.
 
 O responsável confirmou que a publicação anterior abre em `https://amaria-nine.vercel.app`. As capturas mostram o projeto `amaria`, na equipe GERE, com status Ready e botão Connect Git: a integração automática com GitHub ainda precisa ser configurada.
