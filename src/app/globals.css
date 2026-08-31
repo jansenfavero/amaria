@@ -897,6 +897,8 @@ svg {
   background: #efdef5;
 }
 .mobile-brand,
+.mobile-menu-toggle,
+.mobile-page-status,
 .mobile-bottom-nav {
   display: none;
 }
@@ -908,7 +910,7 @@ dialog::backdrop {
   backdrop-filter: blur(6px);
 }
 .mobile-drawer {
-  margin: 0;
+  margin: 0 0 0 auto;
   padding: 0;
   border: 0;
   max-height: 100dvh;
@@ -916,6 +918,8 @@ dialog::backdrop {
   max-width: 91vw;
   width: 340px;
   background: #fffbfe;
+  border-left: 1px solid #d2b4dd;
+  box-shadow: -12px 0 40px #3216401f;
 }
 .drawer-inner {
   padding: 22px 18px 35px;
@@ -1439,37 +1443,56 @@ dialog::backdrop {
     display: none;
   }
   .app-topbar {
-    height: 72px;
-    padding: 0 16px 0 8px;
+    height: 76px;
+    padding: 0 18px;
   }
   .topbar-message,
-  .topbar-symbol {
-    display: none;
-  }
   .topbar-end {
-    gap: 0;
-  }
-  .preview-badge {
-    font-size: 0.625rem;
-    letter-spacing: 0.4px;
+    display: none;
   }
   .mobile-brand {
     display: flex;
     align-items: center;
-    gap: 2px;
+    min-width: 0;
   }
   .mobile-brand .brand {
-    gap: 2px;
+    gap: 6px;
+    min-height: 48px;
   }
   .mobile-brand .brand-icon {
-    width: 34px;
-    height: 34px;
+    width: 44px;
+    height: 44px;
   }
   .mobile-brand .wordmark {
-    font-size: 2.25rem;
+    font-size: 2.625rem;
+  }
+  .mobile-menu-toggle {
+    display: inline-flex;
+    width: 48px;
+    height: 48px;
+    margin-left: auto;
+    border: 1px solid #d9bce3;
+    border-radius: 14px;
+    background: #f3e7f8;
+  }
+  .mobile-page-status {
+    display: flex;
+    margin-bottom: 18px;
+  }
+  .mobile-page-status .preview-badge {
+    display: inline-flex;
+    min-height: 30px;
+    padding: 5px 11px;
+    border: 1px solid #caa2d7;
+    border-radius: 999px;
+    background: #fffafd;
+    color: #683178;
+    font-size: 0.75rem;
+    letter-spacing: 0.65px;
+    line-height: 1.5;
   }
   .app-main {
-    padding: 27px 18px 102px;
+    padding: 16px 18px 102px;
   }
   .feed-welcome {
     margin-bottom: 27px;
@@ -1781,14 +1804,9 @@ dialog::backdrop {
   }
 }
 @media (max-width: 380px) {
+  .app-topbar,
   .app-main {
     padding-inline: 14px;
-  }
-  .preview-badge {
-    max-width: 88px;
-    white-space: normal;
-    font-size: 0.625rem;
-    line-height: 1.4;
   }
   .post-header > div > span {
     font-size: 0.75rem;

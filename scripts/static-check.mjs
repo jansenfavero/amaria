@@ -18,6 +18,24 @@ for (const route of routes) {
   assert.doesNotMatch(html, /<(input|textarea|form)(?:\s|>)/i);
   assert.match(html, /O que é amar\.ia\?/);
   assert.match(html, /id="conteudo-principal"/);
+  const topbar = html.match(
+    /<header class="app-topbar">([\s\S]*?)<\/header>/,
+  )?.[1];
+  assert.ok(topbar, `${route}: missing app header`);
+  assert.ok(
+    topbar.indexOf('class="mobile-brand"') <
+      topbar.indexOf('class="icon-button mobile-menu-toggle"'),
+    `${route}: logo must precede the right-hand menu`,
+  );
+  assert.match(
+    topbar,
+    /aria-label="Abrir menu"[^>]*aria-controls="amaria-navigation"/,
+  );
+  assert.match(
+    html,
+    /<main[^>]*class="app-main"><div class="mobile-page-status">/,
+  );
+  assert.match(html, /<dialog[^>]*id="amaria-navigation"/);
   for (const href of [
     "/sobre",
     "/maria",

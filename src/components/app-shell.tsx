@@ -96,15 +96,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </aside>
       <header className="app-topbar">
         <div className="mobile-brand">
-          <button
-            type="button"
-            className="icon-button"
-            aria-label="Abrir menu"
-            aria-haspopup="dialog"
-            onClick={() => drawer.current?.showModal()}
-          >
-            <Menu size={23} />
-          </button>
           <Brand />
         </div>
         <p className="topbar-message">
@@ -113,7 +104,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </p>
         <div className="topbar-end">
           <span className="preview-badge">
-            <span /> PRÉ-LANÇAMENTO
+            <span aria-hidden="true" /> PRÉ-LANÇAMENTO
           </span>
           <Link
             href="/sobre"
@@ -123,12 +114,28 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <Image src="/brand/emblem.webp" alt="" width={40} height={40} />
           </Link>
         </div>
+        <button
+          type="button"
+          className="icon-button mobile-menu-toggle"
+          aria-label="Abrir menu"
+          aria-haspopup="dialog"
+          aria-controls="amaria-navigation"
+          onClick={() => drawer.current?.showModal()}
+        >
+          <Menu size={25} aria-hidden="true" />
+        </button>
       </header>
       <main id="conteudo-principal" className="app-main">
+        <div className="mobile-page-status">
+          <span className="preview-badge">
+            <span aria-hidden="true" /> PRÉ-LANÇAMENTO
+          </span>
+        </div>
         {children}
       </main>
       <dialog
         ref={drawer}
+        id="amaria-navigation"
         className="mobile-drawer"
         aria-label="Menu da AMAR.IA"
         onClick={(event) => {
@@ -166,6 +173,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <button
           type="button"
           aria-haspopup="dialog"
+          aria-controls="amaria-navigation"
           onClick={() => drawer.current?.showModal()}
         >
           <Menu size={21} aria-hidden="true" />

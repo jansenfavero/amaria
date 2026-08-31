@@ -49,8 +49,31 @@ for (const width of [320, 360, 390, 430, 760]) {
   assert.ok(
     pixels(value(".mobile-drawer .nav-item", "font-size", width)) >= 16,
   );
+  assert.equal(value(".topbar-end", "display", width), "none");
+  assert.equal(value(".mobile-page-status", "display", width), "flex");
+  assert.equal(value(".mobile-menu-toggle", "display", width), "inline-flex");
+  assert.equal(value(".mobile-menu-toggle", "margin-left", width), "auto");
+  assert.ok(pixels(value(".mobile-menu-toggle", "width", width)) >= 48);
+  assert.ok(pixels(value(".mobile-menu-toggle", "height", width)) >= 48);
+  assert.ok(pixels(value(".mobile-brand .brand-icon", "width", width)) >= 44);
+  assert.ok(pixels(value(".mobile-brand .wordmark", "font-size", width)) >= 42);
+  assert.ok(
+    pixels(value(".mobile-page-status .preview-badge", "font-size", width)) >=
+      12,
+  );
   console.log(`PASS mobile type / controls at ${width}px (static CSS)`);
 }
+for (const width of [761, 1024, 1440]) {
+  assert.equal(value(".topbar-end", "display", width), "flex");
+  for (const selector of [
+    ".mobile-menu-toggle",
+    ".mobile-page-status",
+    ".mobile-brand",
+  ])
+    assert.equal(value(selector, "display", width), "none");
+}
+assert.equal(value(".mobile-drawer", "margin"), "0 0 0 auto");
+console.log("PASS responsive header / right-hand drawer (static CSS)");
 function rgb(color) {
   if (color === "white") return [255, 255, 255];
   assert.match(color, /^#[\da-f]{6}$/i);
@@ -72,6 +95,11 @@ function ratio(a, b) {
   return (light + 0.05) / (dark + 0.05);
 }
 const checks = [
+  [
+    "mobile launch badge",
+    value(".mobile-page-status .preview-badge", "color"),
+    value(".mobile-page-status .preview-badge", "background"),
+  ],
   ["post text", value(".post-excerpt", "color"), value(":root", "--surface")],
   ["post kicker", value(".post-kicker", "color"), value(":root", "--surface")],
   [
