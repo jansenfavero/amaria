@@ -3,9 +3,12 @@
 ## Escopo entregue no código
 
 - Next.js App Router + TypeScript estrito + Tailwind CSS.
-- Homepage responsiva em PT-BR: marca, três pilares, proposta da Maria, curadoria e Instagram.
+- Interface responsiva de app em PT-BR: feed editorial, sidebar no desktop, drawer e atalhos inferiores no celular.
+- Quatro temas iniciais com filtros: amor-próprio, limites saudáveis, relacionamentos e recomeços. Cards com leitura ampliada, coração, comentar e compartilhar.
+- Curtidas locais durante a visita, sem contadores fictícios; compartilhamento nativo com fallback de cópia ou exibição do link. Comentários não coletam texto e explicam a etapa futura.
+- Páginas internas `/sobre`, `/maria`, `/podcasts`, `/comunidade`, `/curadoria` e `/privacidade`.
 - Ícone mais recente aprovado, em fita rosa e roxa; tipografia e cores derivadas da identidade pastel.
-- Navegação por âncoras, menu móvel acessível, foco visível, link de salto, redução de movimento e páginas de erro.
+- Navegação por rotas e âncoras, diálogos nativos com Escape e contenção de foco, foco visível, link de salto, redução de movimento e páginas de erro.
 - Metadados, canonical, robots, sitemap, manifest e ícones. Indexação desabilitada por padrão no pré-lançamento e sempre em deploys Preview.
 - Clientes Supabase de navegador/servidor preparados; helper de renovação de sessão reservado à Fase 2.
 - Endpoint `/api/health` de liveness, cabeçalhos básicos de segurança e fontes locais sem chamadas Google Fonts.
@@ -15,6 +18,18 @@
 Cadastro, autenticação, conversas reais, conteúdo clínico, cobrança, podcasts e comunidade ainda não foram implementados. Não há formulários nem coleta de relatos, cookies de sessão próprios, analytics, Adsense ou chamadas à OpenAI na homepage. O manifest prepara instalação; não foi adicionado cache offline de conteúdo privado.
 
 A curadoria foi informada pelo responsável pelo projeto. Nenhum conteúdo é apresentado como já revisado pelas profissionais. As iniciais das curadoras são marcadores tipográficos; não representam retratos.
+
+## Atualização visual — 31/08/2026
+
+A homepage institucional foi reorganizada como feed de app premium, mantendo a identidade aprovada. Os quatro textos são prévias editoriais para apresentar os temas; não constituem acervo clínico revisado. Nenhuma nova integração com banco, autenticação ou cobrança foi ativada.
+
+O responsável confirmou que a publicação anterior abre em `https://amaria-nine.vercel.app`. As capturas mostram o projeto `amaria`, na equipe GERE, com status Ready e botão Connect Git: a integração automática com GitHub ainda precisa ser configurada.
+
+Na revisão visual, lint, TypeScript e a primeira compilação de produção passaram. A tentativa de navegador foi interrompida por queda de conexão do ambiente; o teste HTTP atualizado também não concluiu por cancelamento da aprovação de rede. Não considerar testes interativos ou publicação desta nova versão confirmados com base apenas no build. O smoke agora contempla 16 URLs e verifica também os quatro cards e seus três botões.
+
+A conexão administrativa Vercel continua retornando 404 ao consultar `amaria` na equipe GERE. A confirmação do site anterior veio do responsável e das capturas, não dessa consulta.
+
+O script `node scripts/static-check.mjs` permite verificar o HTML real gerado das sete páginas sem depender de rede: idioma, heading principal único, links internos, âncoras, quatro cards, doze ações sociais, ausência de formulários e noindex. Ele complementa, mas não substitui, o smoke HTTP e a verificação interativa.
 
 ## Conexões inspecionadas em 30/08/2026
 

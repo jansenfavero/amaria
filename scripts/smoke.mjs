@@ -49,6 +49,12 @@ try {
 
   for (const path of [
     "/",
+    "/sobre",
+    "/maria",
+    "/podcasts",
+    "/comunidade",
+    "/curadoria",
+    "/privacidade",
     "/api/health",
     "/robots.txt",
     "/manifest.webmanifest",
@@ -69,11 +75,31 @@ try {
     );
     assert.equal(response.headers.get("x-content-type-options"), "nosniff");
     assert.equal(response.headers.get("x-frame-options"), "DENY");
-    if (path === "/") {
+    if (
+      [
+        "/",
+        "/sobre",
+        "/maria",
+        "/podcasts",
+        "/comunidade",
+        "/curadoria",
+        "/privacidade",
+      ].includes(path)
+    ) {
       const html = await response.text();
       assert.match(html, /lang="pt-BR"/);
       assert.equal((html.match(/<h1(?:\s|>)/g) || []).length, 1);
       assert.doesNotMatch(html, /<(input|textarea|form)(?:\s|>)/i);
+      assert.match(html, /O que é amar\.ia\?/);
+      if (path === "/") {
+        assert.equal((html.match(/class="post-card"/g) || []).length, 4);
+        for (const action of ["Curtir:", "Comentar:", "Compartilhar:"])
+          assert.equal(
+            (html.match(new RegExp(`aria-label="${action}`, "g")) || []).length,
+            4,
+          );
+        assert.match(html, /Prévias editoriais/);
+      }
       const ids = new Set(
         [...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]),
       );

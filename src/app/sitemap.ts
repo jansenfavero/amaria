@@ -3,6 +3,18 @@ import { isIndexable, site } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return isIndexable
-    ? [{ url: site.url, changeFrequency: "weekly", priority: 1 }]
+    ? [
+        "",
+        "/sobre",
+        "/maria",
+        "/podcasts",
+        "/comunidade",
+        "/curadoria",
+        "/privacidade",
+      ].map((path) => ({
+        url: `${site.url}${path}`,
+        changeFrequency: "weekly" as const,
+        priority: path === "" ? 1 : 0.6,
+      }))
     : [];
 }

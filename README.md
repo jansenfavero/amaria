@@ -4,7 +4,9 @@
 
 ## Estado atual
 
-Fase 1: fundação e homepage institucional. A página apresenta os recursos futuros com seus estados reais. Ainda não oferece cadastro, chat, assinatura ou comunidade funcional, nem coleta dados pessoais.
+Fase 1: fundação e interface de app com feed editorial, sidebar, quatro temas iniciais e páginas internas. Corações funcionam durante a visita; compartilhamento usa o navegador ou copia o link. Comentários, contas, chat, podcasts e comunidade permanecem identificados como futuros, sem coleta de relatos pessoais.
+
+Rotas: `/`, `/sobre`, `/maria`, `/podcasts`, `/comunidade`, `/curadoria` e `/privacidade`. As reflexões são prévias editoriais, não conteúdo anunciado como revisado pelas curadoras.
 
 Stack: Next.js App Router, TypeScript e Tailwind CSS; clientes Supabase preparados; GitHub → Vercel. OpenAI Responses API será integrada exclusivamente no servidor em uma fase posterior.
 
@@ -26,6 +28,7 @@ A homepage funciona sem credenciais Supabase ou OpenAI. O arquivo `.env.local` n
 npm run lint
 npm run typecheck
 npm run build
+node scripts/static-check.mjs
 npm run smoke
 npm start
 ```
