@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import Script from "next/script";
 import "./globals.css";
 import { isIndexable, site } from "@/lib/site";
+import { ADSENSE_CLIENT } from "@/lib/adsense";
 import { AuthReturnBridge } from "@/components/auth/auth-return-bridge";
 
 const manrope = localFont({
@@ -77,6 +78,7 @@ export const metadata: Metadata = {
     description: site.description,
   },
   robots: { index: isIndexable, follow: isIndexable },
+  other: { "google-adsense-account": ADSENSE_CLIENT },
   icons: {
     icon: [{ url: "/icon.png", sizes: "192x192", type: "image/png" }],
     apple: "/apple-icon.png",
@@ -90,8 +92,6 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-const adSenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
-
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -102,15 +102,13 @@ export default function RootLayout({
           Pular para o conteúdo
         </a>
         {children}
-        {adSenseClient ? (
-          <Script
-            id="google-adsense"
-            async
-            strategy="afterInteractive"
-            crossOrigin="anonymous"
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adSenseClient}`}
-          />
-        ) : null}
+        <Script
+          id="google-adsense"
+          async
+          strategy="beforeInteractive"
+          crossOrigin="anonymous"
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
+        />
         <AuthReturnBridge />
       </body>
     </html>

@@ -73,6 +73,7 @@ try {
     "/privacidade",
     "/api/health",
     "/robots.txt",
+    "/ads.txt",
     "/manifest.webmanifest",
     "/sitemap.xml",
     "/icon.png",
@@ -122,6 +123,14 @@ try {
       assert.doesNotMatch(html, /AMAR\.IA/);
       assert.doesNotMatch(html, /https:\/\/amar\.ia\.br/);
       assert.match(html, /https:\/\/amaria\.me/);
+      assert.match(
+        html,
+        /name="google-adsense-account" content="ca-pub-7411565684386334"/,
+      );
+      assert.match(
+        html,
+        /pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=ca-pub-7411565684386334/,
+      );
       if (path === "/") {
         assert.equal(
           (html.match(/class="post-card editorial-card /g) || []).length,
@@ -224,6 +233,14 @@ try {
     );
     console.log(`PASS canonical redirect ${legacyHost}`);
   }
+  const adsText = await fetch(`${origin}/ads.txt`).then((response) =>
+    response.text(),
+  );
+  assert.equal(
+    adsText.trim(),
+    "google.com, pub-7411565684386334, DIRECT, f08c47fec0942fa0",
+  );
+  console.log("PASS Google AdSense ads.txt");
   for (const [path, expected] of [
     ["/entrar", /name="email"/],
     ["/recuperar-acesso", /Solicitar recuperação/],

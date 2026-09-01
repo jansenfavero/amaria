@@ -35,6 +35,14 @@ for (const route of routes) {
   assert.doesNotMatch(html, /AMAR\.IA/);
   assert.doesNotMatch(html, /https:\/\/amar\.ia\.br/);
   assert.match(html, /https:\/\/amaria\.me/);
+  assert.match(
+    html,
+    /name="google-adsense-account" content="ca-pub-7411565684386334"/,
+  );
+  assert.match(
+    html,
+    /pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=ca-pub-7411565684386334/,
+  );
   assert.ok(html.includes("logo-horizontal.png"));
   assert.match(html, /id="conteudo-principal"/);
   const topbar = html.match(

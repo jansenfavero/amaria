@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { ADSENSE_CLIENT } from "@/lib/adsense";
 
 type Placement = "article-top" | "article-middle" | "article-end";
 
@@ -17,7 +18,7 @@ const slots: Record<Placement, string | undefined> = {
 };
 
 export function AdSlot({ placement }: { placement: Placement }) {
-  const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
+  const client = ADSENSE_CLIENT;
   const slot = slots[placement];
   const active = Boolean(client && slot);
 
