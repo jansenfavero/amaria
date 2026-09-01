@@ -31,7 +31,10 @@ for (const route of routes) {
   assert.match(html, /lang="pt-BR"/);
   assert.equal((html.match(/<h1(?:\s|>)/g) || []).length, 1, route);
   assert.doesNotMatch(html, /<(input|textarea)(?:\s|>)/i);
-  assert.match(html, /O que é amar\.ia\?/);
+  assert.match(html, /O que é AMARIA\?/);
+  assert.doesNotMatch(html, /AMAR\.IA/);
+  assert.doesNotMatch(html, /https:\/\/amar\.ia\.br/);
+  assert.match(html, /https:\/\/amaria\.me/);
   assert.ok(html.includes("logo-horizontal.png"));
   assert.match(html, /id="conteudo-principal"/);
   const topbar = html.match(

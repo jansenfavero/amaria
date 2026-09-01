@@ -25,14 +25,14 @@ export function AuthFrame({
       </header>
       <main id="conteudo-principal" className="auth-main">
         <aside className="auth-story" aria-label="Nossa essência">
-          <span className="auth-kicker">INTELIGÊNCIA RELACIONAL</span>
           <Image
             src="/brand/logo-horizontal.png"
-            alt="AMAR.IA"
+            alt="AMARIA"
             width={636}
             height={207}
             className="auth-story-logo"
           />
+          <span className="auth-kicker">INTELIGÊNCIA RELACIONAL FEMININA</span>
           <p className="auth-motto">
             Para amar sem
             <br />
@@ -55,7 +55,7 @@ export function AuthFrame({
         </section>
       </main>
       <footer className="auth-footer">
-        <span>AMAR.IA · Feita de cuidado.</span>
+        <span>AMARIA · Feita de cuidado.</span>
         <Link href="/privacidade">Privacidade & cuidado</Link>
       </footer>
     </div>

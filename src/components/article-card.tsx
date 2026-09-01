@@ -28,7 +28,7 @@ export function ArticleCard({
         />
         <div>
           <strong>
-            AMAR.IA <span className="editorial-star">✦</span>
+            AMARIA <span className="editorial-star">✦</span>
           </strong>
           <span>Conteúdo de inteligência relacional</span>
         </div>

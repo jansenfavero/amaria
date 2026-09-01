@@ -13,7 +13,7 @@ export default function NotFound() {
         <em>ao começo?</em>
       </h1>
       <p>
-        Esse endereço não está disponível. A AMAR.IA ainda está em construção.
+        Esse endereço não está disponível. A AMARIA ainda está em construção.
       </p>
       <Link href="/" className="button button-primary">
         <ArrowLeft size={18} aria-hidden="true" /> Voltar à página inicial

@@ -15,7 +15,7 @@ export const collectionOne = [
       "critérios para namorar",
       "necessidades emocionais",
     ],
-    seoTitle: "Antes de namorar, defina o que você procura | AMAR.IA",
+    seoTitle: "Antes de namorar, defina o que você procura | AMARIA",
     seoDescription:
       "Aprenda a diferenciar preferências, valores, necessidades e não negociáveis para escolher um relacionamento sério com mais clareza.",
     hero: {
@@ -24,7 +24,7 @@ export const collectionOne = [
     },
     publishedAt: "2026-09-01T09:00:00.000Z",
     updatedAt: "2026-09-01T09:00:00.000Z",
-    author: "AMAR.IA",
+    author: "AMARIA",
     curators: ["Léa Fávero", "Juciane Carneiro"],
     introduction: [
       `Desejar um relacionamento sério é um ponto de partida, mas ainda não é uma direção completa. Duas pessoas podem usar a palavra “sério” e imaginar experiências muito diferentes: uma pensa em convivência cotidiana e planos compartilhados; outra, em exclusividade sem pressa para integrar as vidas; uma deseja filhos; outra não. Quando essas diferenças ficam invisíveis, a atração pode avançar enquanto a incompatibilidade se acumula em silêncio.`,
@@ -126,7 +126,7 @@ export const collectionOne = [
       "consistência afetiva",
       "iniciativa no namoro",
     ],
-    seoTitle: "Quem quer algo sério demonstra intenção | AMAR.IA",
+    seoTitle: "Quem quer algo sério demonstra intenção | AMARIA",
     seoDescription:
       "Entenda como a intenção de construir uma relação séria aparece em padrões de iniciativa, consistência, planejamento e continuidade.",
     hero: {
@@ -135,7 +135,7 @@ export const collectionOne = [
     },
     publishedAt: "2026-09-01T09:10:00.000Z",
     updatedAt: "2026-09-01T09:10:00.000Z",
-    author: "AMAR.IA",
+    author: "AMARIA",
     curators: ["Léa Fávero", "Juciane Carneiro"],
     introduction: [
       `No começo de uma relação, palavras e gestos podem parecer cheios de significado. Uma mensagem carinhosa, um encontro intenso ou uma declaração sobre querer compromisso alimentam esperança. Ainda assim, intenção relacional não é um evento. Ela é uma direção que se torna visível, pouco a pouco, na forma como alguém cuida do contato, cria continuidade e abre espaço para conhecer você de verdade.`,
@@ -231,7 +231,7 @@ export const collectionOne = [
       "valores do casal",
       "conexão inicial",
     ],
-    seoTitle: "Química não é compatibilidade: entenda | AMAR.IA",
+    seoTitle: "Química não é compatibilidade: entenda | AMARIA",
     seoDescription:
       "Entenda a diferença entre atração, química e compatibilidade relacional para avaliar valores, rotina, limites e projetos com mais clareza.",
     hero: {
@@ -240,7 +240,7 @@ export const collectionOne = [
     },
     publishedAt: "2026-09-01T09:20:00.000Z",
     updatedAt: "2026-09-01T09:20:00.000Z",
-    author: "AMAR.IA",
+    author: "AMARIA",
     curators: ["Léa Fávero", "Juciane Carneiro"],
     introduction: [
       `Há encontros em que a conversa parece continuar sozinha, o corpo responde à proximidade e algumas horas ganham a intensidade de uma história inteira. Essa química é uma experiência real. Ela pode trazer prazer, curiosidade, desejo e uma sensação rara de reconhecimento. O cuidado começa quando usamos essa força como prova de que duas vidas necessariamente combinam.`,
@@ -345,7 +345,7 @@ export const collectionOne = [
       "relacionamento saudável",
       "comunicação afetiva",
     ],
-    seoTitle: "Disponibilidade emocional importa | AMAR.IA",
+    seoTitle: "Disponibilidade emocional importa | AMARIA",
     seoDescription:
       "Saiba reconhecer disponibilidade emocional por diálogo, consistência e abertura progressiva, sem diagnósticos ou rótulos simplistas.",
     hero: {
@@ -354,7 +354,7 @@ export const collectionOne = [
     },
     publishedAt: "2026-09-01T09:30:00.000Z",
     updatedAt: "2026-09-01T09:30:00.000Z",
-    author: "AMAR.IA",
+    author: "AMARIA",
     curators: ["Léa Fávero", "Juciane Carneiro"],
     introduction: [
       `Você pode encontrar alguém interessante, afetuoso e genuinamente atraído por você que, ainda assim, não tenha disponibilidade emocional para construir uma relação. Essa constatação costuma ser difícil porque o sentimento parece prometer uma capacidade que nem sempre existe. Gostar é uma experiência; participar de um vínculo envolve também espaço, escolhas e responsabilidade.`,
@@ -458,7 +458,7 @@ export const collectionOne = [
       "presença no namoro",
       "promessas e ações",
     ],
-    seoTitle: "Interesse de verdade se sustenta em atitudes | AMAR.IA",
+    seoTitle: "Interesse de verdade se sustenta em atitudes | AMARIA",
     seoDescription:
       "Veja como palavras, presença, iniciativa, planejamento e cuidado formam padrões de interesse observáveis ao longo do tempo.",
     hero: {
@@ -467,7 +467,7 @@ export const collectionOne = [
     },
     publishedAt: "2026-09-01T09:40:00.000Z",
     updatedAt: "2026-09-01T09:40:00.000Z",
-    author: "AMAR.IA",
+    author: "AMARIA",
     curators: ["Léa Fávero", "Juciane Carneiro"],
     introduction: [
       `É bom ouvir que alguém gosta de você. Palavras nomeiam afetos, organizam expectativas e criam intimidade. O problema não está em valorizá-las, mas em pedir que carreguem sozinhas uma relação inteira. Quando declarações de interesse não encontram continuidade em presença, iniciativa e cuidado, você pode ficar vinculada ao que foi prometido enquanto vive algo muito diferente.`,

@@ -3,8 +3,8 @@ import type { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: "/",
-    name: "AMAR.IA",
-    short_name: "AMAR.IA",
+    name: "AMARIA",
+    short_name: "AMARIA",
     description: "Para amar sem se perder de você.",
     start_url: "/",
     scope: "/",

@@ -5,7 +5,7 @@ import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Brand } from "./brand";
 
 const links = [
-  { href: "#universo", label: "O universo AMAR.IA" },
+  { href: "#universo", label: "O universo AMARIA" },
   { href: "#maria", label: "Conselheira Maria" },
   { href: "#curadoria", label: "Nossa curadoria" },
 ];

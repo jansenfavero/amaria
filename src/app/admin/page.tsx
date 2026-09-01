@@ -18,7 +18,7 @@ export default async function AdminPage() {
         <header className="admin-heading">
           <p className="auth-kicker">ADMINISTRAÇÃO · FASE 2A</p>
           <h1>Cuidar de cada começo.</h1>
-          <p>Este é o ponto de partida da operação da AMAR.IA.</p>
+          <p>Este é o ponto de partida da operação da AMARIA.</p>
           <Link href="/minha-conta" className="auth-text-link">
             Minha conta <ArrowUpRight size={17} aria-hidden="true" />
           </Link>

@@ -65,7 +65,7 @@ export function ReceiveLink() {
       )}
       <p className="auth-form-note">
         Continue apenas se você solicitou a recuperação ou recebeu um convite da
-        administração da AMAR.IA.
+        administração da AMARIA.
       </p>
       <Link href="/entrar" className="auth-text-link">
         Voltar para entrar

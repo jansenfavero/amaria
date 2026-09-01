@@ -38,7 +38,7 @@ const navigation = [
   { href: "/comunidade", label: "Comunidade", icon: UsersRound, soon: true },
 ];
 const essentials = [
-  { href: "/sobre", label: "O que é amar.ia?", icon: Info },
+  { href: "/sobre", label: "O que é AMARIA?", icon: Info },
   { href: "/curadoria", label: "Nossa curadoria", icon: BookHeart },
   { href: "/privacidade", label: "Privacidade & cuidado", icon: ShieldCheck },
   { href: "/entrar", label: "Acesso da equipe", icon: LogIn },
@@ -64,7 +64,7 @@ function Navigation({ close }: { close?: () => void }) {
           </Link>
         ))}
         <div className="nav-divider" />
-        <p className="nav-caption">A AMAR.IA</p>
+        <p className="nav-caption">A AMARIA</p>
         {essentials.map(({ href, label, icon: Icon }) => (
           <Link
             key={href}
@@ -97,7 +97,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <div className="app-shell">
       <aside className="desktop-sidebar">
         <Brand />
-        <span className="brand-descriptor">INTELIGÊNCIA RELACIONAL</span>
+        <span className="brand-descriptor">
+          INTELIGÊNCIA RELACIONAL FEMININA
+        </span>
         <Navigation />
       </aside>
       <header className="app-topbar">
@@ -115,7 +117,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <Link
             href="/sobre"
             className="topbar-symbol"
-            aria-label="Conheça a AMAR.IA"
+            aria-label="Conheça a AMARIA"
           >
             <Image src="/brand/emblem.webp" alt="" width={40} height={40} />
           </Link>
@@ -143,7 +145,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         ref={drawer}
         id="amaria-navigation"
         className="mobile-drawer"
-        aria-label="Menu da AMAR.IA"
+        aria-label="Menu da AMARIA"
         onClick={(event) => {
           if (event.target === event.currentTarget) drawer.current?.close();
         }}
@@ -192,7 +194,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
 export function RightRail() {
   return (
-    <aside className="right-rail" aria-label="Explore a AMAR.IA">
+    <aside className="right-rail" aria-label="Explore a AMARIA">
       <section className="maria-preview">
         <div className="rail-top">
           <span className="eyebrow">CONSELHEIRA MARIA</span>
@@ -228,7 +230,7 @@ export function RightRail() {
           para caber no amor.
         </p>
         <div className="note-signature">
-          <span /> amar.ia
+          <span /> AMARIA
         </div>
       </section>
       <Link href="/comunidade" className="community-preview">
@@ -245,7 +247,7 @@ export function RightRail() {
         <Link href="/sobre">Sobre</Link>
         <Link href="/curadoria">Curadoria</Link>
         <Link href="/privacidade">Privacidade</Link>
-        <p>© AMAR.IA · Amar é também se escolher.</p>
+        <p>© AMARIA · Amar é também se escolher.</p>
       </footer>
     </aside>
   );

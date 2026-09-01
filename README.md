@@ -1,4 +1,4 @@
-# AMAR.IA
+# AMARIA
 
 **Para amar sem se perder de você.** Plataforma de inteligência relacional para mulheres, com conteúdo, Conselheira Maria com IA e comunidade privada.
 
@@ -45,7 +45,7 @@ O endpoint `/api/health` verifica apenas se a aplicação responde; não atesta 
 
 O registro da fundação está em [docs/FASE-1.md](docs/FASE-1.md). A implementação e os critérios de ativação do acesso estão em [docs/FASE-2A.md](docs/FASE-2A.md).
 
-- Domínio previsto: `amar.ia.br`.
+- Domínio principal: `amaria.me`.
 - `SITE_INDEXABLE=false` mantém o pré-lançamento fora dos mecanismos de busca; não substitui proteção de acesso.
 - O acesso usa somente a publishable key no aplicativo. Identidade e permissões são verificadas no servidor, com RLS e papéis mantidos fora do cliente.
 - Há manifest e ícones; não há service worker ou armazenamento offline de conversas.

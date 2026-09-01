@@ -18,7 +18,7 @@ export default async function AccountPage() {
   return (
     <AuthFrame
       eyebrow="MINHA CONTA"
-      title="Seu espaço na AMAR.IA."
+      title="Seu espaço na AMARIA."
       description="Acompanhe seu acesso e mantenha sua conta protegida."
     >
       <dl className="account-details">

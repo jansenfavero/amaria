@@ -59,7 +59,11 @@
   display: block;
   width: min(370px, 100%);
   height: auto;
-  margin: 28px 0 24px;
+  margin: 28px 0 10px;
+}
+.auth-story > .auth-kicker {
+  display: block;
+  margin-bottom: 24px;
 }
 .auth-motto {
   font-family: var(--font-cormorant), Georgia, serif;

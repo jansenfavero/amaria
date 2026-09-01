@@ -1,9 +1,16 @@
+const canonicalProductionUrl = "https://amaria.me";
+
+const configuredSiteUrl =
+  process.env.VERCEL_ENV === "production"
+    ? canonicalProductionUrl
+    : process.env.NEXT_PUBLIC_SITE_URL || canonicalProductionUrl;
+
 export const site = {
-  name: "AMAR.IA",
-  title: "AMAR.IA — Para amar sem se perder de você",
+  name: "AMARIA",
+  title: "AMARIA — Para amar sem se perder de você",
   description:
     "Um novo espaço de inteligência relacional para mulheres. Conteúdo, Conselheira Maria com IA e comunidade, com curadoria de psicólogas.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://amar.ia.br",
+  url: configuredSiteUrl.replace(/\/$/, ""),
   instagram: "https://www.instagram.com/amaria.club/",
 } as const;
 

@@ -27,7 +27,7 @@ export default async function SignInPage({
   return (
     <AuthFrame
       title="Que bom ter você aqui."
-      description="Entre para cuidar, construir e acompanhar os próximos passos da AMAR.IA."
+      description="Entre para cuidar, construir e acompanhar os próximos passos da AMARIA."
     >
       {message ? (
         <p className="auth-message auth-message-success" role="status">

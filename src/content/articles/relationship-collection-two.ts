@@ -15,7 +15,7 @@ export const collectionTwo = [
       "limites afetivos",
       "autoabandono",
     ],
-    seoTitle: "Não diminua seus padrões para não ficar sozinha | AMAR.IA",
+    seoTitle: "Não diminua seus padrões para não ficar sozinha | AMARIA",
     seoDescription:
       "Diferencie critérios saudáveis de idealização e aprenda a fazer concessões sem abandonar valores, limites e necessidades emocionais.",
     hero: {
@@ -24,7 +24,7 @@ export const collectionTwo = [
     },
     publishedAt: "2026-09-01T09:50:00.000Z",
     updatedAt: "2026-09-01T09:50:00.000Z",
-    author: "AMAR.IA",
+    author: "AMARIA",
     curators: ["Léa Fávero", "Juciane Carneiro"],
     introduction: [
       `O medo de ficar sozinha pode alterar a medida das coisas. Um comportamento que antes parecia incompatível passa a ser chamado de detalhe; uma necessidade importante vira “exigência demais”; um limite é adiado para quando a relação estiver mais segura. Essas mudanças nem sempre são conscientes. Às vezes, aparecem como esforço para ser compreensiva, flexível ou diferente de experiências anteriores.`,
@@ -128,7 +128,7 @@ export const collectionTwo = [
       "conversa sobre exclusividade",
       "alinhamento no namoro",
     ],
-    seoTitle: "Relacionamento sério começa com clareza | AMAR.IA",
+    seoTitle: "Relacionamento sério começa com clareza | AMARIA",
     seoDescription:
       "Aprenda a conversar sobre intenção, expectativas, ritmo e exclusividade com clareza, sem transformar diálogo em cobrança.",
     hero: {
@@ -137,7 +137,7 @@ export const collectionTwo = [
     },
     publishedAt: "2026-09-01T10:00:00.000Z",
     updatedAt: "2026-09-01T10:00:00.000Z",
-    author: "AMAR.IA",
+    author: "AMARIA",
     curators: ["Léa Fávero", "Juciane Carneiro"],
     introduction: [
       `Muitas mulheres evitam falar sobre o que desejam porque temem parecer apressadas, exigentes ou “emocionadas demais”. Esperam que a direção fique óbvia por meio de gestos, enquanto tentam interpretar mensagens, convites e silêncios. Essa espera pode parecer leve no início, mas prolonga dúvidas que uma conversa respeitosa poderia organizar.`,
@@ -242,7 +242,7 @@ export const collectionTwo = [
       "expectativas no namoro",
       "comportamento presente",
     ],
-    seoTitle: "Reciprocidade vale mais do que potencial | AMAR.IA",
+    seoTitle: "Reciprocidade vale mais do que potencial | AMARIA",
     seoDescription:
       "Pare de se relacionar apenas com o potencial e aprenda a observar reciprocidade, disponibilidade e comportamento presente.",
     hero: {
@@ -251,7 +251,7 @@ export const collectionTwo = [
     },
     publishedAt: "2026-09-01T10:10:00.000Z",
     updatedAt: "2026-09-01T10:10:00.000Z",
-    author: "AMAR.IA",
+    author: "AMARIA",
     curators: ["Léa Fávero", "Juciane Carneiro"],
     introduction: [
       `Potencial é uma das partes mais sedutoras de um encontro. Você percebe sensibilidade por trás da reserva, imagina a parceria que surgiria se a pessoa tivesse mais tempo, enxerga maturidade que talvez floresça depois de uma fase difícil. A capacidade de ver possibilidades pode ser generosa. O risco aparece quando a relação passa a existir principalmente naquilo que ainda não aconteceu.`,
@@ -356,7 +356,7 @@ export const collectionTwo = [
       "intensidade e paixão",
       "relacionamento tranquilo",
     ],
-    seoTitle: "Paz também é critério em um relacionamento | AMAR.IA",
+    seoTitle: "Paz também é critério em um relacionamento | AMARIA",
     seoDescription:
       "Entenda por que tranquilidade, confiança e consistência também importam ao avaliar uma relação, sem reduzir toda ansiedade a um sinal ruim.",
     hero: {
@@ -365,7 +365,7 @@ export const collectionTwo = [
     },
     publishedAt: "2026-09-01T10:20:00.000Z",
     updatedAt: "2026-09-01T10:20:00.000Z",
-    author: "AMAR.IA",
+    author: "AMARIA",
     curators: ["Léa Fávero", "Juciane Carneiro"],
     introduction: [
       `Algumas histórias começam como uma descarga elétrica: mensagens imprevisíveis, encontros intensos, medo de perder e enorme alívio quando a pessoa retorna. A alternância pode ser sentida como paixão porque ocupa pensamento, corpo e rotina. Quanto mais incerto o contato, mais cada sinal positivo ganha força.`,
@@ -471,7 +471,7 @@ export const collectionTwo = [
       "compromisso e reciprocidade",
       "decisões compartilhadas",
     ],
-    seoTitle: "Escolha alguém que queira construir com você | AMAR.IA",
+    seoTitle: "Escolha alguém que queira construir com você | AMARIA",
     seoDescription:
       "Entenda como compromisso, diálogo, rotina, decisões compartilhadas e reciprocidade formam uma parceria que constrói futuro.",
     hero: {
@@ -480,7 +480,7 @@ export const collectionTwo = [
     },
     publishedAt: "2026-09-01T10:30:00.000Z",
     updatedAt: "2026-09-01T10:30:00.000Z",
-    author: "AMAR.IA",
+    author: "AMARIA",
     curators: ["Léa Fávero", "Juciane Carneiro"],
     introduction: [
       `Alguém pode querer sua presença, sentir saudade, desejar intimidade e ainda não participar da construção de uma vida em comum. Estar junto é importante, mas parceria exige outro movimento: considerar o outro em decisões, sustentar conversas, atravessar rotinas e transformar intenção em acordos.`,

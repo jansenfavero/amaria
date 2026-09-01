@@ -1,4 +1,4 @@
-# Fase 1 — Fundação AMAR.IA
+# Fase 1 — Fundação AMARIA
 
 Registro histórico da fundação. Para o estado atual de autenticação e ativação da equipe, consulte [FASE-2A.md](FASE-2A.md).
 
@@ -54,19 +54,19 @@ Resultado final local: lint, TypeScript, compilação de produção e `static-ch
 
 - GitHub: `jansenfavero/amaria`, privado. A versão validada `e512716dc6333a496805ffd36a8b8a1fa06fcff7` foi aprovada e promovida à `main`, sem reescrever histórico. PR #1 incorporado.
 - Vercel: equipe `GERE` (`team_ASMlw2Iuhd5hOwsVxCdpM0MW`) confirmada e publicação autorizada. A conexão aceitou os 34 arquivos e informou o deploy `dpl_CHsFC3YhUjpw1B1gPP7VTnz8yYu6`, alvo production. Entretanto, consultas de projeto, status e logs retornaram 404. **Publicação não confirmada.** Não recriar um segundo projeto sem resolver essa inconsistência.
-- Supabase: projeto exclusivo `AMAR.IA`, ref `lhmrojqehenwviyytkmr`, na organização `GERE` (`vercel_icfg_rKPTaiJjAZBC8EiM8bjF7mrr`), região São Paulo (`sa-east-1`), status confirmado `ACTIVE_HEALTHY`. Custo informado pelo serviço: zero por mês no provisionamento atual. Consulta SQL de conexão aprovada; schema public vazio e verificação inicial de segurança sem alertas. Nenhum projeto de outro produto foi alterado.
+- Supabase: projeto exclusivo `AMARIA`, ref `lhmrojqehenwviyytkmr`, na organização `GERE` (`vercel_icfg_rKPTaiJjAZBC8EiM8bjF7mrr`), região São Paulo (`sa-east-1`), status confirmado `ACTIVE_HEALTHY`. Custo informado pelo serviço: zero por mês no provisionamento atual. Consulta SQL de conexão aprovada; schema public vazio e verificação inicial de segurança sem alertas. Nenhum projeto de outro produto foi alterado.
 
 API Supabase: `https://lhmrojqehenwviyytkmr.supabase.co`. URL e publishable key configuradas em `.env.local`, excluído do Git. Não há service-role/secret no cliente. As variáveis ainda NÃO foram configuradas em um deploy Vercel verificado.
 
-Não confundir conexão da conta com provisionamento dos recursos da AMAR.IA.
+Não confundir conexão da conta com provisionamento dos recursos da AMARIA.
 
 ## Implantação Vercel
 
 1. Autorização da equipe GERE já recebida. Resolver a divergência entre criação do deploy e consultas 404 antes de considerar a plataforma publicada ou disparar outro deploy.
 2. Vincular `jansenfavero/amaria` ao projeto correto para deploy automático; framework Next.js; Root Directory vazio para a raiz (a API rejeita `.`); Node 22; instalação `npm ci`; build `npm run build`.
-3. Configurar `NEXT_PUBLIC_SITE_URL=https://amar.ia.br` e `SITE_INDEXABLE=false`. Supabase/OpenAI não são necessários para executar a Fase 1.
+3. Configurar `NEXT_PUBLIC_SITE_URL=https://amaria.me` e `SITE_INDEXABLE=false`. Supabase/OpenAI não são necessários para executar a Fase 1.
 4. Verificar build, `/`, página 404, `/api/health`, ícones e navegação móvel.
-5. Adicionar `amar.ia.br` e aplicar exatamente os registros DNS indicados pelo painel. Não assumir propagação ou propriedade verificada.
+5. Adicionar `amaria.me` e aplicar exatamente os registros DNS indicados pelo painel. Não assumir propagação ou propriedade verificada.
 6. Manter preview protegido e indexação desligada. Após revisão e lançamento, ativar `SITE_INDEXABLE=true` somente em produção.
 
 ## Preparação Supabase

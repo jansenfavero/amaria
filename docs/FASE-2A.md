@@ -30,7 +30,7 @@ Convite, e-mail, definição de senha, login, recuperação, saída e administra
 
 ## Ativação controlada
 
-1. No Supabase Auth, usar Site URL `https://amar.ia.br` e permitir exatamente `https://amar.ia.br/auth/callback` como URL de redirecionamento.
+1. No Supabase Auth, usar Site URL `https://amaria.me` e permitir exatamente `https://amaria.me/auth/callback` como URL de redirecionamento.
 2. Convidar `contato@jansenfavero.com` pelo painel Auth, sem definir ou compartilhar senha no chat.
 3. Confirmar o e-mail e definir uma senha de pelo menos 12 caracteres pelo link.
 4. Localizar a conta confirmada pelo e-mail exato e, somente então, registrar `role = 'admin'` e `active = true` em `account_access` por operação administrativa.

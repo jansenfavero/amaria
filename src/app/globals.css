@@ -127,9 +127,12 @@ svg {
   object-fit: contain;
 }
 .brand-descriptor {
+  display: block;
   padding-left: 14px;
   margin-top: 6px;
+  max-width: 220px;
   font-size: 0.5625rem;
+  line-height: 1.45;
   letter-spacing: 1.1px;
   color: #714f79;
 }

@@ -6,7 +6,7 @@ import { articles } from "@/content/articles";
 export const metadata: Metadata = {
   title: "Buscar conteúdos",
   description:
-    "Busque artigos e reflexões da AMAR.IA sobre relacionamentos, intenção, compatibilidade e reciprocidade.",
+    "Busque artigos e reflexões da AMARIA sobre relacionamentos, intenção, compatibilidade e reciprocidade.",
   alternates: { canonical: "/buscar" },
   robots: { index: false, follow: true },
 };

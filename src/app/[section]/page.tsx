@@ -17,11 +17,11 @@ import { site } from "@/lib/site";
 
 const sections = {
   sobre: {
-    title: "O que é amar.ia?",
+    title: "O que é AMARIA?",
     eyebrow: "AMAR + INTELIGÊNCIA ARTIFICIAL",
     heading: "Para amar sem se perder de você.",
     description:
-      "Um espaço de inteligência relacional para mulheres. A AMAR.IA nasce do encontro entre conhecimento, tecnologia e conexão humana — com respeito à singularidade de cada história.",
+      "Um espaço de inteligência relacional para mulheres. A AMARIA nasce do encontro entre conhecimento, tecnologia e conexão humana — com respeito à singularidade de cada história.",
     icon: Heart,
   },
   maria: {
@@ -53,7 +53,7 @@ const sections = {
     eyebrow: "CONHECIMENTO COM RESPONSABILIDADE",
     heading: "Cuidado também é escolher como conversar.",
     description:
-      "A AMAR.IA conta com curadoria psicológica para orientar conteúdos, metodologia e limites de segurança da plataforma.",
+      "A AMARIA conta com curadoria psicológica para orientar conteúdos, metodologia e limites de segurança da plataforma.",
     icon: BookHeart,
   },
   privacidade: {
@@ -61,7 +61,7 @@ const sections = {
     eyebrow: "TRANSPARÊNCIA DESDE O COMEÇO",
     heading: "Seu espaço. A sua história.",
     description:
-      "A AMAR.IA está em pré-lançamento. Saiba como funciona a prévia pública e o acesso restrito da equipe, antes da abertura de contas ao público, conversas e comunidade.",
+      "A AMARIA está em pré-lançamento. Saiba como funciona a prévia pública e o acesso restrito da equipe, antes da abertura de contas ao público, conversas e comunidade.",
     icon: ShieldCheck,
   },
 };
@@ -109,7 +109,7 @@ export default async function SectionPage({
           <h1>{content.heading}</h1>
           <p className="info-description">{content.description}</p>
           <span className="info-watermark" aria-hidden="true">
-            amar.ia
+            AMARIA
           </span>
         </header>
         {section === "sobre" ? (
@@ -152,7 +152,7 @@ export default async function SectionPage({
             <div className="info-callout">
               <Image
                 src="/brand/emblem.webp"
-                alt="Símbolo da AMAR.IA em fita rosa e roxa."
+                alt="Símbolo da AMARIA em fita rosa e roxa."
                 width={104}
                 height={104}
               />
@@ -192,14 +192,14 @@ export default async function SectionPage({
               <h2>Curadoria técnico-científica.</h2>
               <p>
                 Léa Fávero e Juciane Carneiro orientam a curadoria psicológica
-                da AMAR.IA, com atenção à linguagem, aos limites de segurança e
-                à responsabilidade dos conteúdos relacionais.
+                da AMARIA, com atenção à linguagem, aos limites de segurança e à
+                responsabilidade dos conteúdos relacionais.
               </p>
               <p>
                 Este conteúdo tem caráter informativo e educativo e não
                 substitui acompanhamento psicológico ou atendimento profissional
                 em saúde mental. A especialização das curadoras não transforma a
-                AMAR.IA em psicoterapia ou ferramenta de EMDR.
+                AMARIA em psicoterapia ou ferramenta de EMDR.
               </p>
             </div>
           </section>
@@ -270,7 +270,7 @@ export default async function SectionPage({
               </li>
               <li>
                 O compartilhamento usa os recursos do seu navegador ou copia o
-                link. A AMAR.IA não publica por você.
+                link. A AMARIA não publica por você.
               </li>
               <li>
                 Não há cadastro público, chat, campo de comentários,
@@ -323,7 +323,7 @@ export default async function SectionPage({
           </section>
         ) : null}
         <footer className="info-footer">
-          <span>AMAR.IA · CONTEÚDO, MARIA E COMUNIDADE</span>
+          <span>AMARIA · CONTEÚDO, MARIA E COMUNIDADE</span>
           <a href={site.instagram} target="_blank" rel="noopener noreferrer">
             @amaria.club <ArrowUpRight size={15} aria-hidden="true" />
           </a>

@@ -17,10 +17,10 @@ const futureJourneys = [
 export const metadata: Metadata = {
   title: "Conteúdos sobre relacionamentos",
   description:
-    "Acesse o acervo público da AMAR.IA com reflexões sobre escolhas, reciprocidade, compatibilidade e relacionamentos sérios.",
+    "Acesse o acervo público da AMARIA com reflexões sobre escolhas, reciprocidade, compatibilidade e relacionamentos sérios.",
   alternates: { canonical: "/conteudos" },
   openGraph: {
-    title: "Conteúdos sobre relacionamentos | AMAR.IA",
+    title: "Conteúdos sobre relacionamentos | AMARIA",
     description:
       "Reflexões cuidadosas para escolher, se relacionar e continuar inteira.",
     url: "/conteudos",
@@ -37,7 +37,7 @@ export default function ContentsPage() {
         <header className="catalog-hero">
           <div>
             <p className="eyebrow">
-              <Sparkles size={13} aria-hidden="true" /> ACERVO AMAR.IA
+              <Sparkles size={13} aria-hidden="true" /> ACERVO AMARIA
             </p>
             <h1>Conteúdos para relações mais conscientes.</h1>
             <p>

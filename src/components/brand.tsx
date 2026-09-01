@@ -6,7 +6,7 @@ export function Brand() {
     <Link
       className="brand"
       href="/#inicio"
-      aria-label="AMAR.IA — página inicial"
+      aria-label="AMARIA — página inicial"
     >
       <Image
         src="/brand/logo-horizontal.png"

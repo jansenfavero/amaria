@@ -38,7 +38,7 @@ export function ArticleActions({
     trackEvent("article_share", { slug });
     if (navigator.share) {
       try {
-        await navigator.share({ title: `${title} | AMAR.IA`, url });
+        await navigator.share({ title: `${title} | AMARIA`, url });
         return;
       } catch (error) {
         if (error instanceof Error && error.name === "AbortError") return;

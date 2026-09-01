@@ -4,7 +4,7 @@ export function getSupabaseConfig() {
   const publishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
   if (!url || !publishableKey) {
-    throw new Error("O projeto Supabase da AMAR.IA ainda não foi configurado.");
+    throw new Error("O projeto Supabase da AMARIA ainda não foi configurado.");
   }
   if (!publishableKey.startsWith("sb_publishable_")) {
     throw new Error("Use apenas a chave pública publishable do Supabase.");

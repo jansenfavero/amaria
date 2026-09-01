@@ -202,7 +202,7 @@ export function ArticlePage({ article }: { article: Article }) {
             <section className="article-signup-cta">
               <UserRoundPlus aria-hidden="true" />
               <div>
-                <span>SEU ESPAÇO NA AMAR.IA</span>
+                <span>SEU ESPAÇO NA AMARIA</span>
                 <h2>Crie sua conta gratuita.</h2>
                 <p>
                   Receba o aviso de abertura e seja uma das primeiras a guardar

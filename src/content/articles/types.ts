@@ -25,7 +25,7 @@ export type ArticleDraft = {
   };
   publishedAt: string;
   updatedAt: string;
-  author: "AMAR.IA";
+  author: "AMARIA";
   curators: readonly string[];
   introduction: readonly string[];
   sections: readonly ArticleSection[];

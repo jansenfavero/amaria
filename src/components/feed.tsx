@@ -111,7 +111,7 @@ export function Feed() {
           login
         </p>
 
-        <div className="posts-list" aria-label="Artigos da AMAR.IA">
+        <div className="posts-list" aria-label="Artigos da AMARIA">
           {articles.map((article, index) => (
             <ArticleCard
               article={article}
@@ -125,7 +125,7 @@ export function Feed() {
           <span>✦</span>
           <p>Por hoje, fique com o que fez sentido.</p>
           <Link href="/conteudos">
-            Continue no acervo da AMAR.IA <ArrowRight size={14} />
+            Continue no acervo da AMARIA <ArrowRight size={14} />
           </Link>
         </div>
       </div>

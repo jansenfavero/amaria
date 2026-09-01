@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     canonical: "/conteudos/buscando-um-relacionamento",
   },
   openGraph: {
-    title: "Buscando um relacionamento | AMAR.IA",
+    title: "Buscando um relacionamento | AMARIA",
     description: articleCategory.description,
     url: "/conteudos/buscando-um-relacionamento",
   },

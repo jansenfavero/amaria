@@ -59,7 +59,7 @@ const cormorant = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: site.title, template: "%s | AMAR.IA" },
+  title: { default: site.title, template: "%s | AMARIA" },
   description: site.description,
   applicationName: site.name,
   alternates: { canonical: "/" },

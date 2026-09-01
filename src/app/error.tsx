@@ -10,7 +10,7 @@ export default function ErrorPage({
 }) {
   return (
     <main className="message-page">
-      <p className="eyebrow">AMAR.IA</p>
+      <p className="eyebrow">AMARIA</p>
       <h1>Uma pequena pausa.</h1>
       <p>
         Não foi possível carregar esta página agora. Tente novamente em

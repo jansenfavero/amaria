@@ -118,7 +118,10 @@ try {
       const html = await response.text();
       assert.match(html, /lang="pt-BR"/);
       assert.equal((html.match(/<h1(?:\s|>)/g) || []).length, 1);
-      assert.match(html, /O que é amar\.ia\?/);
+      assert.match(html, /O que é AMARIA\?/);
+      assert.doesNotMatch(html, /AMAR\.IA/);
+      assert.doesNotMatch(html, /https:\/\/amar\.ia\.br/);
+      assert.match(html, /https:\/\/amaria\.me/);
       if (path === "/") {
         assert.equal(
           (html.match(/class="post-card editorial-card /g) || []).length,
@@ -201,13 +204,25 @@ try {
     ]);
     assert.match(robots, /Allow: \//);
     assert.match(robots, /Disallow: \/admin/);
-    assert.match(robots, /Sitemap: https:\/\/amar\.ia\.br\/sitemap\.xml/);
+    assert.match(robots, /Sitemap: https:\/\/amaria\.me\/sitemap\.xml/);
     for (const slug of articleSlugs)
       assert.match(
         sitemap,
-        new RegExp(`<loc>https://amar\\.ia\\.br/conteudos/${slug}</loc>`),
+        new RegExp(`<loc>https://amaria\\.me/conteudos/${slug}</loc>`),
       );
     console.log("PASS indexable robots and dynamic editorial sitemap");
+  }
+  for (const legacyHost of ["amar.ia.br", "www.amaria.me"]) {
+    const response = await fetch(`${origin}/conteudos?origem=legado`, {
+      headers: { "x-forwarded-host": legacyHost },
+      redirect: "manual",
+    });
+    assert.equal(response.status, 308);
+    assert.equal(
+      response.headers.get("location"),
+      "https://amaria.me/conteudos?origem=legado",
+    );
+    console.log(`PASS canonical redirect ${legacyHost}`);
   }
   for (const [path, expected] of [
     ["/entrar", /name="email"/],
@@ -262,7 +277,7 @@ try {
   assert.equal(callback.status, 307);
   assert.equal(
     callback.headers.get("location"),
-    "https://amar.ia.br/auth/receber",
+    "https://amaria.me/auth/receber",
   );
   console.log("PASS callback rejects arbitrary redirect destination");
   console.log(

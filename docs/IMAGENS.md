@@ -1,4 +1,4 @@
-# Imagens editoriais — AMAR.IA
+# Imagens editoriais — AMARIA
 
 ## Marca oficial
 
@@ -57,7 +57,7 @@ direção comum.
 ### Amor-próprio
 
 Use case: photorealistic-natural
-Asset type: standalone landscape editorial photograph for an AMAR.IA article card.
+Asset type: standalone landscape editorial photograph for an AMARIA article card.
 Primary request: One original fictional adult woman in her early 30s with natural curly dark hair and warm brown skin, peacefully taking a quiet moment with herself in a sunlit refined home. Loosely folded arms resting around her shoulders in self-kindness, subtle happy reflective expression, elegant dusty rose shirt.
 Scene/backdrop: warm elegant home, window light and a soft lavender curtain.
 Style/medium: premium tasteful candid editorial photography, photorealistic and authentic, not an advertisement.
@@ -69,7 +69,7 @@ Constraints: fictional adult subject only, not a real person or user. No text, n
 ### Limites saudáveis
 
 Use case: photorealistic-natural
-Asset type: standalone landscape editorial photograph for an AMAR.IA article card.
+Asset type: standalone landscape editorial photograph for an AMARIA article card.
 Primary request: One original fictional adult woman around 40 in lilac linen clothing taking a calm personal pause beside an open balcony door. She is setting a closed notebook down and looking outward with composed resolve.
 Scene/backdrop: elegant modern warm room and distant garden, generous personal space visually, subtle pink flowers on a background side table.
 Style/medium: premium tasteful candid editorial photography, photorealistic and authentic, not an advertisement.
@@ -81,7 +81,7 @@ Constraints: fictional adult subject only, not a real person or user. No text, n
 ### Relacionamentos
 
 Use case: photorealistic-natural
-Asset type: standalone landscape editorial photograph for an AMAR.IA article card.
+Asset type: standalone landscape editorial photograph for an AMARIA article card.
 Primary request: Two original fictional adult women friends of different appearances in their 30s/40s sitting facing one another across a small outdoor café table in candid warm conversation. Both have clear individual space and relaxed natural gestures.
 Scene/backdrop: outdoor café with greenery bokeh, no legible signs.
 Style/medium: premium tasteful candid editorial photography, photorealistic and authentic, not an advertisement.
