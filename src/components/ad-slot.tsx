@@ -11,8 +11,12 @@ declare global {
   }
 }
 
+const DEFAULT_ARTICLE_TOP_SLOT = "8742526806";
+
 const slots: Record<Placement, string | undefined> = {
-  "article-top": process.env.NEXT_PUBLIC_ADSENSE_ARTICLE_TOP_SLOT,
+  "article-top":
+    process.env.NEXT_PUBLIC_ADSENSE_ARTICLE_TOP_SLOT ||
+    DEFAULT_ARTICLE_TOP_SLOT,
   "article-middle": process.env.NEXT_PUBLIC_ADSENSE_ARTICLE_MIDDLE_SLOT,
   "article-end": process.env.NEXT_PUBLIC_ADSENSE_ARTICLE_END_SLOT,
 };
@@ -44,11 +48,11 @@ export function AdSlot({ placement }: { placement: Placement }) {
       <span>Publicidade</span>
       <ins
         className="adsbygoogle"
-        style={{ display: "block" }}
+        style={{ display: "block", textAlign: "center" }}
+        data-ad-layout="in-article"
+        data-ad-format="fluid"
         data-ad-client={client}
         data-ad-slot={slot}
-        data-ad-format="auto"
-        data-full-width-responsive="true"
       />
     </aside>
   );
