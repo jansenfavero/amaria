@@ -3,7 +3,7 @@ import { getSupabaseConfig } from "@/lib/supabase/config";
 import { updateSession } from "@/lib/supabase/proxy";
 
 const CANONICAL_HOST = "amaria.me";
-const REDIRECT_HOSTS = new Set(["amar.ia.br", "www.amaria.me"]);
+const REDIRECT_HOSTS = new Set(["amar.ia.br"]);
 const SESSION_PATHS = [
   "/entrar",
   "/recuperar-acesso",

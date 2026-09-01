@@ -212,7 +212,7 @@ try {
       );
     console.log("PASS indexable robots and dynamic editorial sitemap");
   }
-  for (const legacyHost of ["amar.ia.br", "www.amaria.me"]) {
+  for (const legacyHost of ["amar.ia.br"]) {
     const response = await fetch(`${origin}/conteudos?origem=legado`, {
       headers: { "x-forwarded-host": legacyHost },
       redirect: "manual",
