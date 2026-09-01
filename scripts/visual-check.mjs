@@ -200,6 +200,7 @@ for (const name of [
   );
 }
 for (const name of [
+  "relacionamento-toxico-sinais-de-autoabandono-2026",
   "antes-de-namorar-defina-o-que-voce-procura",
   "quem-quer-algo-serio-demonstra-intencao",
   "nao-confunda-quimica-com-compatibilidade",

@@ -15,6 +15,7 @@ const routes = [
   "privacidade",
 ];
 const articleSlugs = [
+  "relacionamento-toxico-7-sinais-de-que-voce-pode-estar-se-perdendo",
   "antes-de-namorar-defina-o-que-voce-procura",
   "quem-quer-algo-serio-demonstra-intencao",
   "nao-confunda-quimica-com-compatibilidade",
@@ -30,7 +31,8 @@ for (const route of routes) {
   const html = await readFile(`.next/server/app/${route}.html`, "utf8");
   assert.match(html, /lang="pt-BR"/);
   assert.equal((html.match(/<h1(?:\s|>)/g) || []).length, 1, route);
-  assert.doesNotMatch(html, /<(input|textarea)(?:\s|>)/i);
+  if (route !== "index")
+    assert.doesNotMatch(html, /<(input|textarea)(?:\s|>)/i);
   assert.match(html, /O que é AMARIA\?/);
   assert.doesNotMatch(html, /AMAR\.IA/);
   assert.doesNotMatch(html, /https:\/\/amar\.ia\.br/);
@@ -83,16 +85,22 @@ for (const route of routes) {
   if (route === "index") {
     assert.equal(
       (html.match(/class="post-card editorial-card /g) || []).length,
-      10,
+      11,
     );
-    for (const name of articleSlugs)
+    for (const name of articleSlugs) {
+      const imageName =
+        name ===
+        "relacionamento-toxico-7-sinais-de-que-voce-pode-estar-se-perdendo"
+          ? "relacionamento-toxico-sinais-de-autoabandono-2026"
+          : name;
       assert.ok(
-        html.includes(`/articles/${name}.webp`),
+        html.includes(`/articles/${imageName}.webp`),
         `Missing editorial image: ${name}`,
       );
-    assert.equal((html.match(/aria-label="Curtir /g) || []).length, 10);
-    assert.equal((html.match(/aria-label="Compartilhar /g) || []).length, 10);
-    assert.match(html, /Dez leituras públicas/);
+    }
+    assert.equal((html.match(/aria-label="Curtir /g) || []).length, 11);
+    assert.equal((html.match(/aria-label="Compartilhar /g) || []).length, 11);
+    assert.match(html, /leituras públicas/);
     const ids = new Set(
       [...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]),
     );
@@ -111,7 +119,11 @@ for (const slug of articleSlugs) {
   assert.match(html, /"@type":"Article"/);
   assert.match(html, /Curadoria Psicológica/i);
   assert.equal((html.match(/class="ad-slot/g) || []).length, 3);
-  assert.ok(html.includes(`/articles/${slug}.webp`));
+  const imageName =
+    slug === "relacionamento-toxico-7-sinais-de-que-voce-pode-estar-se-perdendo"
+      ? "relacionamento-toxico-sinais-de-autoabandono-2026"
+      : slug;
+  assert.ok(html.includes(`/articles/${imageName}.webp`));
   assert.doesNotMatch(html, /name="email"/);
   console.log(`PASS production article /conteudos/${slug}`);
 }

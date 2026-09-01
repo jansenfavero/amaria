@@ -10,6 +10,9 @@ async function readCollection(path) {
 
 const articles = [
   ...(await readCollection(
+    "src/content/articles/self-loss-collection-one.ts",
+  )),
+  ...(await readCollection(
     "src/content/articles/relationship-collection-one.ts",
   )),
   ...(await readCollection(
@@ -18,7 +21,7 @@ const articles = [
 ];
 const slugs = new Set(articles.map((article) => article.slug));
 
-assert.equal(articles.length, 10, "The first collection must have 10 articles");
+assert.equal(articles.length, 11, "The editorial collection must have 11 articles");
 assert.equal(slugs.size, articles.length, "Article slugs must be unique");
 
 for (const article of articles) {
@@ -69,7 +72,7 @@ for (const article of articles) {
       `${article.slug}: broken internal link ${match[1]}`,
     );
 
-  const image = await stat(`public/articles/${article.slug}.webp`);
+  const image = await stat(`public${article.hero.src}`);
   assert.ok(image.size > 10000 && image.size < 300000);
   console.log(`PASS ${words} words · ${article.slug}`);
 }

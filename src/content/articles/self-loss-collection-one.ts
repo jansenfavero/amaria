@@ -18,7 +18,7 @@ export const selfLossCollectionOne = [
     "seoTitle": "Relacionamento tóxico: 7 sinais para observar | AMARIA",
     "seoDescription": "Conheça sete sinais de uma dinâmica relacional prejudicial e reflita sobre controle, ciúme, isolamento, identidade, autonomia e segurança.",
     "hero": {
-      "src": "/articles/relacionamento-toxico-sinais-de-autoabandono.webp",
+      "src": "/articles/relacionamento-toxico-sinais-de-autoabandono-2026.webp",
       "alt": "Mulher adulta observa o próprio reflexo junto à janela enquanto o parceiro aparece desfocado ao fundo"
     },
     "publishedAt": "2026-09-01T15:40:00.000Z",
@@ -161,3 +161,4 @@ export const selfLossCollectionOne = [
     ]
   }
 ] as const;
+

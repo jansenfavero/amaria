@@ -2,10 +2,8 @@ import Link from "next/link";
 import {
   ArrowRight,
   Compass,
-  Flower2,
   HeartHandshake,
   ShieldCheck,
-  Sparkles,
 } from "lucide-react";
 import { ArticleCard } from "@/components/article-card";
 import { RightRail } from "@/components/app-shell";
@@ -52,24 +50,6 @@ export function Feed() {
   return (
     <div className="content-grid" id="inicio">
       <div className="feed-column">
-        <section className="feed-welcome">
-          <div>
-            <p className="eyebrow">
-              <Sparkles size={13} aria-hidden="true" /> BEM-VINDA AO SEU ESPAÇO
-            </p>
-            <h1>
-              Mais perto <em>de você.</em>
-            </h1>
-            <p>
-              Conteúdo para escolher com clareza, se relacionar com presença e
-              continuar inteira.
-            </p>
-          </div>
-          <span className="welcome-flower" aria-hidden="true">
-            <Flower2 size={48} strokeWidth={1} />
-          </span>
-        </section>
-
         <SmartContentSearch articles={searchArticles} />
 
         <section

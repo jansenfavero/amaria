@@ -96,9 +96,9 @@ export function SmartContentSearch({
         <p className={styles.eyebrow}>
           <Sparkles size={14} aria-hidden="true" /> BUSCA EDITORIAL INTELIGENTE
         </p>
-        <h2 id="smart-search-title">
+        <h1 id="smart-search-title">
           Encontre a leitura que conversa com <em>o seu momento.</em>
-        </h2>
+        </h1>
         <p>
           Descreva uma dúvida, um sentimento ou uma situação. A AMARIA aproxima
           os conteúdos mais relevantes para você.
