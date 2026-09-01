@@ -67,37 +67,37 @@ export function ArticlePage({ article }: { article: Article }) {
           </Link>
         </nav>
 
-        <header className="article-hero-copy">
-          <Link
-            className="article-category"
-            href={`/conteudos/${article.categorySlug}`}
-          >
-            {article.category}
-          </Link>
-          <h1>{article.title}</h1>
-          <p className="article-subtitle">{article.subtitle}</p>
-          <div className="article-meta">
-            <span>
-              <Clock3 aria-hidden="true" /> {article.readingMinutes} min de
-              leitura
-            </span>
-            <span>
-              <CalendarDays aria-hidden="true" /> Publicado em{" "}
-              {dateFormatter.format(new Date(article.publishedAt))}
-            </span>
-            <span>Por {article.author}</span>
-          </div>
-        </header>
-
-        <figure className="article-hero-image">
+        <header className="article-hero">
           <Image
+            className="article-hero-image"
             src={article.hero.src}
             alt={article.hero.alt}
             fill
             sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1300px) calc(100vw - 330px), 940px"
             preload
           />
-        </figure>
+          <div className="article-hero-copy">
+            <Link
+              className="article-category"
+              href={`/conteudos/${article.categorySlug}`}
+            >
+              {article.category}
+            </Link>
+            <h1>{article.title}</h1>
+            <p className="article-subtitle">{article.subtitle}</p>
+            <div className="article-meta">
+              <span>
+                <Clock3 aria-hidden="true" /> {article.readingMinutes} min de
+                leitura
+              </span>
+              <span>
+                <CalendarDays aria-hidden="true" /> Publicado em{" "}
+                {dateFormatter.format(new Date(article.publishedAt))}
+              </span>
+              <span>Por {article.author}</span>
+            </div>
+          </div>
+        </header>
 
         <div className="article-layout">
           <div className="article-reading-column">
