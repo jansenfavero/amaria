@@ -55,14 +55,25 @@ for (const width of [320, 360, 390, 430, 760]) {
   assert.equal(value(".mobile-menu-toggle", "margin-left", width), "auto");
   assert.ok(pixels(value(".mobile-menu-toggle", "width", width)) >= 48);
   assert.ok(pixels(value(".mobile-menu-toggle", "height", width)) >= 48);
-  assert.ok(pixels(value(".mobile-brand .brand-icon", "width", width)) >= 44);
-  assert.ok(pixels(value(".mobile-brand .wordmark", "font-size", width)) >= 42);
+  assert.ok(pixels(value(".mobile-brand .brand-logo", "width", width)) >= 170);
   assert.ok(
     pixels(value(".mobile-page-status .preview-badge", "font-size", width)) >=
       12,
   );
   console.log(`PASS mobile type / controls at ${width}px (static CSS)`);
 }
+const logoPath = "public/brand/logo-horizontal.png";
+const [logoMetadata, logoFile] = await Promise.all([
+  sharp(logoPath).metadata(),
+  stat(logoPath),
+]);
+assert.equal(logoMetadata.format, "png");
+assert.equal(logoMetadata.width, 636);
+assert.equal(logoMetadata.height, 207);
+assert.ok(logoFile.size < 200000);
+console.log(
+  `PASS official horizontal logo: ${logoMetadata.width}×${logoMetadata.height}`,
+);
 for (const width of [761, 1024, 1440]) {
   assert.equal(value(".topbar-end", "display", width), "flex");
   for (const selector of [

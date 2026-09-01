@@ -12,6 +12,7 @@ import {
   Heart,
   House,
   Info,
+  LogIn,
   Menu,
   ShieldCheck,
   Sparkles,
@@ -36,6 +37,7 @@ const essentials = [
   { href: "/sobre", label: "O que é amar.ia?", icon: Info },
   { href: "/curadoria", label: "Nossa curadoria", icon: BookHeart },
   { href: "/privacidade", label: "Privacidade & cuidado", icon: ShieldCheck },
+  { href: "/entrar", label: "Acesso da equipe", icon: LogIn },
 ];
 
 function Navigation({ close }: { close?: () => void }) {

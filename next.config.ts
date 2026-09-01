@@ -22,6 +22,16 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        source:
+          "/:path(entrar|recuperar-acesso|definir-senha|minha-conta|admin|auth)/:rest*",
+        headers: [
+          { key: "Cache-Control", value: "private, no-store, max-age=0" },
+          { key: "Vercel-CDN-Cache-Control", value: "no-store" },
+          { key: "Referrer-Policy", value: "no-referrer" },
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+        ],
+      },
     ];
   },
 };

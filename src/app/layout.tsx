@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { isIndexable, site } from "@/lib/site";
+import { AuthReturnBridge } from "@/components/auth/auth-return-bridge";
 
 const manrope = localFont({
   src: [
@@ -98,6 +99,7 @@ export default function RootLayout({
           Pular para o conteúdo
         </a>
         {children}
+        <AuthReturnBridge />
       </body>
     </html>
   );

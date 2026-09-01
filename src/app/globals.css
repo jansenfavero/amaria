@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./auth.css";
 
 @theme inline {
   --color-plum: #52225e;
@@ -115,28 +116,18 @@ svg {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
   width: fit-content;
 }
-.brand-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  object-fit: cover;
+.brand-logo {
+  display: block;
+  width: 202px;
+  height: auto;
+  aspect-ratio: 636 / 207;
+  object-fit: contain;
   mix-blend-mode: multiply;
 }
-.wordmark {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-size: 2.625rem;
-  letter-spacing: -2.3px;
-  line-height: 1;
-  color: #59266b;
-}
-.wordmark-dot {
-  color: #b3367d;
-}
 .brand-descriptor {
-  padding-left: 52px;
+  padding-left: 22px;
   margin-top: 8px;
   font-size: 0.5625rem;
   letter-spacing: 1.1px;
@@ -1456,15 +1447,10 @@ dialog::backdrop {
     min-width: 0;
   }
   .mobile-brand .brand {
-    gap: 6px;
     min-height: 48px;
   }
-  .mobile-brand .brand-icon {
-    width: 44px;
-    height: 44px;
-  }
-  .mobile-brand .wordmark {
-    font-size: 2.625rem;
+  .mobile-brand .brand-logo {
+    width: 178px;
   }
   .mobile-menu-toggle {
     display: inline-flex;

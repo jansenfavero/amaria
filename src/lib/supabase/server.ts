@@ -3,13 +3,14 @@ import "server-only";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { getSupabaseConfig } from "./config";
+import type { Database } from "./database.types";
 
-/** Foundation for Phase 2; no auth or user-data routes are exposed yet. */
+/** Request-scoped SSR client. Never replace the public key with service_role. */
 export async function createClient() {
   const { url, publishableKey } = getSupabaseConfig();
   const cookieStore = await cookies();
 
-  return createServerClient(url, publishableKey, {
+  return createServerClient<Database>(url, publishableKey, {
     cookies: {
       getAll() {
         return cookieStore.getAll();
@@ -20,8 +21,7 @@ export async function createClient() {
             cookieStore.set(name, value, options);
           });
         } catch {
-          // Server Components cannot set cookies. When auth routes are enabled,
-          // wire updateSession (./proxy) into a root proxy for those routes.
+          // Server Components cannot set cookies. src/proxy.ts refreshes sessions.
         }
       },
     },

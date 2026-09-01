@@ -61,7 +61,7 @@ const sections = {
     eyebrow: "TRANSPARÊNCIA DESDE O COMEÇO",
     heading: "Seu espaço. A sua história.",
     description:
-      "A AMAR.IA está em pré-lançamento. Esta página explica o que a experiência atual faz e o que ainda estamos preparando antes de abrir contas, conversas e comunidade.",
+      "A AMAR.IA está em pré-lançamento. Saiba como funciona a prévia pública e o acesso restrito da equipe, antes da abertura de contas ao público, conversas e comunidade.",
     icon: ShieldCheck,
   },
 };
@@ -271,14 +271,43 @@ export default async function SectionPage({
                 link. A AMAR.IA não publica por você.
               </li>
               <li>
-                Não há cadastro, chat, campo de comentários, rastreadores de
-                publicidade ou analytics instalados na aplicação.
+                Não há cadastro público, chat, campo de comentários,
+                rastreadores de publicidade ou analytics instalados na
+                aplicação.
               </li>
               <li>
                 A hospedagem pode processar dados técnicos de acesso, como
                 endereço IP, para servir e proteger o site.
               </li>
             </ul>
+            <h2 id="equipe">Acesso restrito da equipe</h2>
+            <p>
+              Versão do aviso: equipe-2026-08-31. Apenas pessoas convidadas
+              podem usar a área de conta. O feed público não exige login.
+            </p>
+            <p>
+              Para esse acesso, o Supabase Auth processa e-mail, credenciais de
+              autenticação e sessões. A aplicação consulta o e-mail confirmado e
+              registra o perfil de permissão, se o acesso está ativo e a versão
+              e data de leitura deste aviso. Senhas não são armazenadas nas
+              tabelas da aplicação nem exibidas à equipe.
+            </p>
+            <p>
+              Cookies de sessão são necessários para manter o login e proteger
+              as áreas restritas. Não são usados para publicidade. A hospedagem
+              e o serviço de autenticação podem processar registros técnicos
+              para operação e segurança. Não envie relatos pessoais ou dados
+              sensíveis por esses formulários.
+            </p>
+            <p>
+              As permissões são mantidas pela administração; cada conta só pode
+              consultar seus próprios registros de acesso e leitura do aviso. Os
+              dados são mantidos enquanto necessários ao acesso da equipe.
+              Solicite correção, revogação de acesso ou exclusão à administração
+              pelo canal usado para o seu convite. Após confirmar a identidade,
+              a administração trata a solicitação; registros de segurança e
+              cópias de backup seguem os prazos dos respectivos provedores.
+            </p>
             <h2>Antes de abrir novas funcionalidades</h2>
             <p>
               Será necessário disponibilizar os avisos de privacidade e termos

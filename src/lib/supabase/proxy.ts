@@ -1,13 +1,14 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { getSupabaseConfig } from "./config";
+import type { Database } from "./database.types";
 
-/** Activate on authenticated routes in Phase 2, never on the static homepage. */
+/** Refresh auth-route cookies without making the public feed dynamic. */
 export async function updateSession(request: NextRequest) {
   const { url, publishableKey } = getSupabaseConfig();
   let response = NextResponse.next({ request });
 
-  const supabase = createServerClient(url, publishableKey, {
+  const supabase = createServerClient<Database>(url, publishableKey, {
     cookies: {
       getAll() {
         return request.cookies.getAll();

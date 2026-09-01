@@ -1,5 +1,7 @@
 # Fase 1 — Fundação AMAR.IA
 
+Registro histórico da fundação. Para o estado atual de autenticação e ativação da equipe, consulte [FASE-2A.md](FASE-2A.md).
+
 ## Escopo entregue no código
 
 - Next.js App Router + TypeScript estrito + Tailwind CSS.

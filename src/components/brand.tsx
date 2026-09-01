@@ -9,15 +9,12 @@ export function Brand() {
       aria-label="AMAR.IA — página inicial"
     >
       <Image
-        src="/brand/emblem.webp"
+        src="/brand/logo-horizontal.png"
         alt=""
-        width={48}
-        height={48}
-        className="brand-icon"
+        width={636}
+        height={207}
+        className="brand-logo"
       />
-      <span className="wordmark">
-        amar<span className="wordmark-dot">.</span>ia
-      </span>
     </Link>
   );
 }

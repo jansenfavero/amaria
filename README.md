@@ -4,9 +4,11 @@
 
 ## Estado atual
 
-Fase 1: fundação e interface de app com feed editorial, sidebar, quatro temas iniciais e páginas internas. Corações funcionam durante a visita; compartilhamento usa o navegador ou copia o link. Comentários, contas, chat, podcasts e comunidade permanecem identificados como futuros, sem coleta de relatos pessoais.
+Fase 1 concluída: fundação e interface de app com feed editorial, sidebar, quatro temas iniciais e páginas internas. Corações funcionam durante a visita; compartilhamento usa o navegador ou copia o link.
 
-Rotas: `/`, `/sobre`, `/maria`, `/podcasts`, `/comunidade`, `/curadoria` e `/privacidade`. As reflexões são prévias editoriais, não conteúdo anunciado como revisado pelas curadoras.
+Fase 2A em ativação: autenticação por convite para a equipe, recuperação e definição de senha, conta individual, permissões protegidas e painel administrativo inicial. Não há cadastro público. Comentários, chat, podcasts e comunidade permanecem identificados como futuros, sem coleta de relatos pessoais.
+
+Rotas públicas: `/`, `/sobre`, `/maria`, `/podcasts`, `/comunidade`, `/curadoria` e `/privacidade`. Acesso da equipe: `/entrar`, `/recuperar-acesso`, `/definir-senha`, `/minha-conta` e `/admin`. As reflexões são prévias editoriais, não conteúdo anunciado como revisado pelas curadoras.
 
 Interface com fundo degradê lilás/rosa, superfícies brancas contrastantes e imagens editoriais locais. Texto principal móvel de pelo menos 16 px; ações sociais de 14 px. Procedência das imagens em [docs/IMAGENS.md](docs/IMAGENS.md).
 
@@ -32,6 +34,7 @@ npm run typecheck
 npm run build
 node scripts/static-check.mjs
 node scripts/visual-check.mjs
+node scripts/auth-check.mjs
 npm run smoke
 npm start
 ```
@@ -40,11 +43,11 @@ O endpoint `/api/health` verifica apenas se a aplicação responde; não atesta 
 
 ## Configuração e publicação
 
-As instruções de implantação, pendências reais das conexões e critérios de segurança estão em [docs/FASE-1.md](docs/FASE-1.md).
+O registro da fundação está em [docs/FASE-1.md](docs/FASE-1.md). A implementação e os critérios de ativação do acesso estão em [docs/FASE-2A.md](docs/FASE-2A.md).
 
 - Domínio previsto: `amar.ia.br`.
 - `SITE_INDEXABLE=false` mantém o pré-lançamento fora dos mecanismos de busca; não substitui proteção de acesso.
-- Clientes Supabase em `src/lib/supabase/` são preparação para a Fase 2. O helper de sessão ainda não é usado por rotas públicas.
+- O acesso usa somente a publishable key no aplicativo. Identidade e permissões são verificadas no servidor, com RLS e papéis mantidos fora do cliente.
 - Há manifest e ícones; não há service worker ou armazenamento offline de conversas.
 
 ## Identidade e segurança editorial

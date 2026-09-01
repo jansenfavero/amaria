@@ -63,6 +63,7 @@ try {
     "/icon-512.png",
     "/apple-icon.png",
     "/brand/emblem.webp",
+    "/brand/logo-horizontal.png",
     "/editorial/amor-proprio.webp",
     "/editorial/limites.webp",
     "/editorial/relacionamentos.webp",
@@ -118,7 +119,7 @@ try {
       assert.deepEqual(await response.json(), {
         status: "ok",
         service: "amaria",
-        phase: 1,
+        phase: "2a-access-base",
       });
       assert.equal(response.headers.get("cache-control"), "no-store");
     } else if (path === "/manifest.webmanifest") {
@@ -138,6 +139,62 @@ try {
     }
     console.log(`PASS ${response.status} ${path}`);
   }
+  for (const [path, expected] of [
+    ["/entrar", /name="email"/],
+    ["/recuperar-acesso", /Solicitar recuperação/],
+    ["/auth/receber", /Confirmar meu acesso/],
+    ["/auth/link-invalido", /Solicitar outro link/],
+  ]) {
+    const response = await fetch(`${origin}${path}`, {
+      signal: AbortSignal.timeout(10000),
+    });
+    assert.equal(response.status, 200, path);
+    assert.equal(response.headers.get("referrer-policy"), "no-referrer");
+    assert.match(response.headers.get("cache-control"), /no-store/);
+    assert.equal(response.headers.get("x-robots-tag"), "noindex, nofollow");
+    const html = await response.text();
+    assert.match(html, expected);
+    assert.ok(html.includes("logo-horizontal.png"));
+    assert.match(html, /noindex/);
+    assert.equal((html.match(/<h1(?:\s|>)/g) || []).length, 1);
+    if (path === "/entrar") {
+      assert.match(html, /type="password"/);
+      assert.match(html, /autocomplete="current-password"/i);
+      assert.match(html, /Ainda não há cadastro público/);
+    }
+    console.log(`PASS auth page ${path}`);
+  }
+  for (const path of ["/admin", "/minha-conta", "/definir-senha"]) {
+    for (const cookie of ["", "sb-lhmrojqehenwviyytkmr-auth-token=malformed"]) {
+      const response = await fetch(`${origin}${path}`, {
+        redirect: "manual",
+        headers: cookie ? { cookie } : {},
+        signal: AbortSignal.timeout(10000),
+      });
+      assert.equal(response.status, 307, path);
+      assert.equal(
+        new URL(response.headers.get("location"), origin).pathname,
+        "/entrar",
+      );
+      assert.match(response.headers.get("cache-control"), /no-store/);
+      const body = await response.text();
+      assert.doesNotMatch(
+        body,
+        /Sessão de|contato@jansenfavero\.com|Sua permissão de administrador está ativa/,
+      );
+    }
+    console.log(`PASS protected ${path}: anonymous / malformed session denied`);
+  }
+  const callback = await fetch(
+    `${origin}/auth/callback?next=https://example.com`,
+    { redirect: "manual" },
+  );
+  assert.equal(callback.status, 307);
+  assert.equal(
+    callback.headers.get("location"),
+    "https://amar.ia.br/auth/receber",
+  );
+  console.log("PASS callback rejects arbitrary redirect destination");
   console.log(
     "Production HTTP checks passed. Browser interaction and remote deployment are separate verification steps.",
   );

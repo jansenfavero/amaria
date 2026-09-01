@@ -17,11 +17,13 @@ for (const route of routes) {
   assert.equal((html.match(/<h1(?:\s|>)/g) || []).length, 1, route);
   assert.doesNotMatch(html, /<(input|textarea|form)(?:\s|>)/i);
   assert.match(html, /O que é amar\.ia\?/);
+  assert.ok(html.includes("logo-horizontal.png"));
   assert.match(html, /id="conteudo-principal"/);
   const topbar = html.match(
     /<header class="app-topbar">([\s\S]*?)<\/header>/,
   )?.[1];
   assert.ok(topbar, `${route}: missing app header`);
+  assert.ok(topbar.includes("logo-horizontal.png"));
   assert.ok(
     topbar.indexOf('class="mobile-brand"') <
       topbar.indexOf('class="icon-button mobile-menu-toggle"'),
