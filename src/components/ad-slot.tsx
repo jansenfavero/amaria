@@ -12,12 +12,15 @@ declare global {
 }
 
 const DEFAULT_ARTICLE_TOP_SLOT = "8742526806";
+const DEFAULT_ARTICLE_MIDDLE_SLOT = "6718998693";
 
 const slots: Record<Placement, string | undefined> = {
   "article-top":
     process.env.NEXT_PUBLIC_ADSENSE_ARTICLE_TOP_SLOT ||
     DEFAULT_ARTICLE_TOP_SLOT,
-  "article-middle": process.env.NEXT_PUBLIC_ADSENSE_ARTICLE_MIDDLE_SLOT,
+  "article-middle":
+    process.env.NEXT_PUBLIC_ADSENSE_ARTICLE_MIDDLE_SLOT ||
+    DEFAULT_ARTICLE_MIDDLE_SLOT,
   "article-end": process.env.NEXT_PUBLIC_ADSENSE_ARTICLE_END_SLOT,
 };
 
