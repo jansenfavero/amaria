@@ -1,5 +1,9 @@
 # Imagens editoriais — AMAR.IA
 
+## Marca oficial
+
+`public/brand/logo-horizontal.png` é a marca horizontal oficial enviada pelo proprietário do projeto. O arquivo final mantém as dimensões de `636×207`, possui canal alfa real e não carrega fundo bege. A extração final do fundo foi mecânica, sem redesenho da tipografia, do símbolo, dos degradês ou das proporções da marca.
+
 As imagens ilustram os temas; não são retratos de usuárias ou das curadoras. Nenhum retrato é apresentado como testemunho. Créditos disponíveis no diálogo de leitura de cada card.
 
 | Arquivo                                 | Tema                                  | Origem                                     |

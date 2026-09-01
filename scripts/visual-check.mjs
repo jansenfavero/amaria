@@ -63,16 +63,28 @@ for (const width of [320, 360, 390, 430, 760]) {
   console.log(`PASS mobile type / controls at ${width}px (static CSS)`);
 }
 const logoPath = "public/brand/logo-horizontal.png";
-const [logoMetadata, logoFile] = await Promise.all([
+const [logoMetadata, logoFile, logoPixels] = await Promise.all([
   sharp(logoPath).metadata(),
   stat(logoPath),
+  sharp(logoPath).ensureAlpha().raw().toBuffer({ resolveWithObject: true }),
 ]);
 assert.equal(logoMetadata.format, "png");
 assert.equal(logoMetadata.width, 636);
 assert.equal(logoMetadata.height, 207);
+assert.equal(logoMetadata.hasAlpha, true);
+const { data: logoData, info: logoInfo } = logoPixels;
+for (const [x, y] of [
+  [0, 0],
+  [logoInfo.width - 1, 0],
+  [0, logoInfo.height - 1],
+  [logoInfo.width - 1, logoInfo.height - 1],
+]) {
+  const alpha = logoData[(y * logoInfo.width + x) * logoInfo.channels + 3];
+  assert.equal(alpha, 0, `Logo background is opaque at ${x},${y}`);
+}
 assert.ok(logoFile.size < 200000);
 console.log(
-  `PASS official horizontal logo: ${logoMetadata.width}×${logoMetadata.height}`,
+  `PASS transparent official logo: ${logoMetadata.width}×${logoMetadata.height}`,
 );
 for (const width of [761, 1024, 1440]) {
   assert.equal(value(".topbar-end", "display", width), "flex");
@@ -85,6 +97,10 @@ for (const width of [761, 1024, 1440]) {
 }
 assert.equal(value(".mobile-drawer", "margin"), "0 0 0 auto");
 console.log("PASS responsive header / right-hand drawer (static CSS)");
+assert.equal(value("html", "scrollbar-width", 1440), "thin");
+assert.ok(pixels(value("*::-webkit-scrollbar", "width", 1440)) <= 8);
+assert.equal(value(".topic-grid", "scrollbar-width", 390), "none");
+console.log("PASS subtle desktop scrollbar / hidden mobile topic scrollbar");
 function rgb(color) {
   if (color === "white") return [255, 255, 255];
   assert.match(color, /^#[\da-f]{6}$/i);
