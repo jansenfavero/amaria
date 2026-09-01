@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "next typegen && tsc --noEmit",
+    "editorial:check": "node scripts/editorial-check.mjs",
     "check": "npm run lint && npm run typecheck && npm run build",
     "smoke": "node scripts/smoke.mjs",
     "format": "prettier --write ."

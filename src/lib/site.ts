@@ -8,4 +8,6 @@ export const site = {
 } as const;
 
 export const isIndexable =
-  process.env.SITE_INDEXABLE === "true" && process.env.VERCEL_ENV !== "preview";
+  process.env.VERCEL_ENV === "production" ||
+  (process.env.SITE_INDEXABLE === "true" &&
+    process.env.VERCEL_ENV !== "preview");

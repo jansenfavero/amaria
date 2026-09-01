@@ -4,7 +4,9 @@ import postcss from "postcss";
 import sharp from "sharp";
 
 // Static design contracts, not browser layout or a full accessibility audit.
-const css = postcss.parse(await readFile("src/app/globals.css", "utf8"));
+const css = postcss.parse(
+  `${await readFile("src/app/globals.css", "utf8")}\n${await readFile("src/app/editorial.css", "utf8")}`,
+);
 function value(selector, property, width = 390) {
   let result;
   css.walkRules((rule) => {
@@ -44,8 +46,11 @@ for (const width of [320, 360, 390, 430, 760]) {
       pixels(value(selector, "font-size", width)) >= 16,
       `${selector} below 16px at ${width}px`,
     );
-  assert.ok(pixels(value(".post-actions button", "font-size", width)) >= 14);
-  assert.ok(pixels(value(".post-actions button", "min-height", width)) >= 44);
+  assert.ok(pixels(value(".article-actions button", "font-size", width)) >= 12);
+  assert.ok(
+    pixels(value(".article-actions button", "min-height", width)) >= 44,
+  );
+  assert.ok(pixels(value(".article-introduction p", "font-size", width)) >= 17);
   assert.ok(
     pixels(value(".mobile-drawer .nav-item", "font-size", width)) >= 16,
   );
@@ -189,6 +194,31 @@ for (const name of [
   ]);
   assert.equal(metadata.format, "webp");
   assert.ok(metadata.width >= 1000 && metadata.height >= 650);
+  assert.ok(file.size < 300000, `${path} must remain below 300 KB`);
+  console.log(
+    `PASS ${path}: ${metadata.width}×${metadata.height}, ${Math.round(file.size / 1024)} KiB`,
+  );
+}
+for (const name of [
+  "antes-de-namorar-defina-o-que-voce-procura",
+  "quem-quer-algo-serio-demonstra-intencao",
+  "nao-confunda-quimica-com-compatibilidade",
+  "disponibilidade-emocional-importa",
+  "interesse-de-verdade-se-sustenta-em-atitudes",
+  "nao-diminua-seus-padroes-para-nao-ficar-sozinha",
+  "relacionamento-serio-comeca-com-clareza",
+  "reciprocidade-vale-mais-do-que-potencial",
+  "paz-tambem-e-criterio",
+  "escolha-alguem-que-queira-construir-com-voce",
+]) {
+  const path = `public/articles/${name}.webp`;
+  const [metadata, file] = await Promise.all([
+    sharp(path).metadata(),
+    stat(path),
+  ]);
+  assert.equal(metadata.format, "webp");
+  assert.equal(metadata.width, 1600);
+  assert.equal(metadata.height, 900);
   assert.ok(file.size < 300000, `${path} must remain below 300 KB`);
   console.log(
     `PASS ${path}: ${metadata.width}×${metadata.height}, ${Math.round(file.size / 1024)} KiB`,

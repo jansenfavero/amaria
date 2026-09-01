@@ -53,7 +53,7 @@ const sections = {
     eyebrow: "CONHECIMENTO COM RESPONSABILIDADE",
     heading: "Cuidado também é escolher como conversar.",
     description:
-      "A proposta da AMAR.IA prevê curadoria de psicólogas para a construção de conteúdos, metodologia e limites de segurança da plataforma.",
+      "A AMAR.IA conta com curadoria psicológica para orientar conteúdos, metodologia e limites de segurança da plataforma.",
     icon: BookHeart,
   },
   privacidade: {
@@ -189,16 +189,17 @@ export default async function SectionPage({
               ))}
             </div>
             <div className="info-text">
-              <h2>Uma proposta em construção.</h2>
+              <h2>Curadoria técnico-científica.</h2>
               <p>
-                As profissionais foram indicadas pelo responsável pela AMAR.IA
-                para a curadoria. As reflexões desta prévia são textos de
-                apresentação dos temas e não são anunciadas como conteúdo já
-                revisado por elas.
+                Léa Fávero e Juciane Carneiro orientam a curadoria psicológica
+                da AMAR.IA, com atenção à linguagem, aos limites de segurança e
+                à responsabilidade dos conteúdos relacionais.
               </p>
               <p>
-                A especialização das curadoras não transforma a AMAR.IA em
-                psicoterapia ou ferramenta de EMDR.
+                Este conteúdo tem caráter informativo e educativo e não
+                substitui acompanhamento psicológico ou atendimento profissional
+                em saúde mental. A especialização das curadoras não transforma a
+                AMAR.IA em psicoterapia ou ferramenta de EMDR.
               </p>
             </div>
           </section>
@@ -252,8 +253,9 @@ export default async function SectionPage({
             <div className="safety-note">
               <Heart size={24} aria-hidden="true" />
               <p>
-                As curtidas do feed são individuais e duram apenas esta visita.
-                Não representam atividade de outras pessoas.
+                As curtidas ficam apenas no seu dispositivo e não representam
+                atividade de outras pessoas. Comentários públicos ainda não são
+                coletados.
               </p>
             </div>
           </section>

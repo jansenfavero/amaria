@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import {
   ArrowUpRight,
   BookHeart,
+  BookOpenText,
   Compass,
   Headphones,
   Heart,
@@ -14,6 +15,7 @@ import {
   Info,
   LogIn,
   Menu,
+  Search,
   ShieldCheck,
   Sparkles,
   UsersRound,
@@ -23,6 +25,8 @@ import { Brand } from "@/components/brand";
 
 const navigation = [
   { href: "/", label: "Para você", icon: House },
+  { href: "/conteudos", label: "Conteúdos", icon: BookOpenText },
+  { href: "/buscar", label: "Buscar", icon: Search },
   { href: "/#temas", label: "Explorar temas", icon: Compass },
   { href: "/maria", label: "Conselheira Maria", icon: Sparkles, soon: true },
   {
@@ -164,9 +168,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <House size={21} aria-hidden="true" />
           <span>Início</span>
         </Link>
-        <Link href="/#temas">
-          <Compass size={21} aria-hidden="true" />
-          <span>Explorar</span>
+        <Link href="/conteudos">
+          <BookOpenText size={21} aria-hidden="true" />
+          <span>Conteúdos</span>
         </Link>
         <Link href="/maria">
           <Sparkles size={21} aria-hidden="true" />

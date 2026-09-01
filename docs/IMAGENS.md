@@ -23,7 +23,36 @@ As três imagens geradas partiram de PNGs 1536×1024. Conversão mecânica para 
 - Licença consultada: https://unsplash.com/license — permite uso comercial e não comercial. Não revendemos a fotografia nem compilamos um serviço concorrente de imagens.
 - Consulta e download: 31/08/2026.
 
-## Prompts finais usados na ferramenta nativa
+## Coleção editorial — Buscando um relacionamento
+
+As dez capas abaixo foram geradas individualmente pelo modo nativo de geração
+de imagens. São personagens ficcionais adultos, não retratos de usuárias,
+curadoras ou testemunhos. Os PNGs originais foram apenas redimensionados e
+convertidos mecanicamente para WebP `1600×900`, sem texto, logotipo ou marca
+d'água. Todas as imagens ficam locais ao projeto.
+
+| Artigo                                          | Arquivo final                                                          | Direção específica do prompt                                                                               |
+| ----------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Antes de namorar, defina o que você procura     | `public/articles/antes-de-namorar-defina-o-que-voce-procura.webp`      | Mulher brasileira adulta, roupa terracota suave, escrevendo em caderno em apartamento contemporâneo claro. |
+| Quem quer algo sério demonstra intenção         | `public/articles/quem-quer-algo-serio-demonstra-intencao.webp`         | Encontro inicial em café urbano elegante; mulher com roupa verde-pistache.                                 |
+| Não confunda química com compatibilidade        | `public/articles/nao-confunda-quimica-com-compatibilidade.webp`        | Primeiro ou segundo encontro com conexão visual; mulher com roupa amarelo-mostarda.                        |
+| Disponibilidade emocional importa               | `public/articles/disponibilidade-emocional-importa.webp`               | Conversa atenta e serena em ambiente acolhedor; mulher com roupa coral.                                    |
+| Interesse de verdade se sustenta em atitudes    | `public/articles/interesse-de-verdade-se-sustenta-em-atitudes.webp`    | Mulher lendo mensagem no celular durante a rotina; roupa verde-menta e apartamento claro.                  |
+| Não diminua seus padrões para não ficar sozinha | `public/articles/nao-diminua-seus-padroes-para-nao-ficar-sozinha.webp` | Mulher segura caminhando sozinha em cenário urbano contemporâneo; roupa laranja/terracota.                 |
+| Relacionamento sério começa com clareza         | `public/articles/relacionamento-serio-comeca-com-clareza.webp`         | Casal em conversa calma em café-jardim; mulher com roupa verde-pistache.                                   |
+| Reciprocidade vale mais do que potencial        | `public/articles/reciprocidade-vale-mais-do-que-potencial.webp`        | Mulher reflexiva junto a uma janela; roupa amarelo suave/dourado.                                          |
+| Paz também é critério                           | `public/articles/paz-tambem-e-criterio.webp`                           | Casal tranquilo ao ar livre no final da tarde; mulher com roupa verde-água.                                |
+| Escolha alguém que queira construir com você    | `public/articles/escolha-alguem-que-queira-construir-com-voce.webp`    | Casal adulto caminhando e conversando em arquitetura sofisticada; sensação de parceria e futuro.           |
+
+Direção comum usada nos dez prompts: fotografia editorial horizontal `16:9`
+para uma plataforma premium brasileira de inteligência relacional feminina;
+beleza adulta, diversa e autêntica; pele, mãos e gestos realistas; luz natural
+cinematográfica; composição com respiro; paleta sofisticada; nenhuma roupa
+predominantemente roxa; sem texto, logotipo, interface ou marca d'água. Cada
+linha da tabela corresponde ao pedido visual específico acrescentado a essa
+direção comum.
+
+## Prompts finais das imagens editoriais iniciais
 
 ### Amor-próprio
 

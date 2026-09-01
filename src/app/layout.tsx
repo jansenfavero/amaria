@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 import "./globals.css";
 import { isIndexable, site } from "@/lib/site";
 import { AuthReturnBridge } from "@/components/auth/auth-return-bridge";
@@ -89,6 +90,8 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const adSenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -99,6 +102,15 @@ export default function RootLayout({
           Pular para o conteúdo
         </a>
         {children}
+        {adSenseClient ? (
+          <Script
+            id="google-adsense"
+            async
+            strategy="afterInteractive"
+            crossOrigin="anonymous"
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adSenseClient}`}
+          />
+        ) : null}
         <AuthReturnBridge />
       </body>
     </html>

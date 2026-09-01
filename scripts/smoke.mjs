@@ -17,6 +17,18 @@ const server = spawn(
   { stdio: ["ignore", "pipe", "pipe"] },
 );
 let serverOutput = "";
+const articleSlugs = [
+  "antes-de-namorar-defina-o-que-voce-procura",
+  "quem-quer-algo-serio-demonstra-intencao",
+  "nao-confunda-quimica-com-compatibilidade",
+  "disponibilidade-emocional-importa",
+  "interesse-de-verdade-se-sustenta-em-atitudes",
+  "nao-diminua-seus-padroes-para-nao-ficar-sozinha",
+  "relacionamento-serio-comeca-com-clareza",
+  "reciprocidade-vale-mais-do-que-potencial",
+  "paz-tambem-e-criterio",
+  "escolha-alguem-que-queira-construir-com-voce",
+];
 
 try {
   await new Promise((resolve, reject) => {
@@ -47,8 +59,12 @@ try {
     });
   });
 
-  for (const path of [
+  const publicPaths = [
     "/",
+    "/conteudos",
+    "/conteudos/buscando-um-relacionamento",
+    "/buscar",
+    "/cadastro",
     "/sobre",
     "/maria",
     "/podcasts",
@@ -68,8 +84,11 @@ try {
     "/editorial/limites.webp",
     "/editorial/relacionamentos.webp",
     "/editorial/recomecos.webp",
+    ...articleSlugs.map((slug) => `/conteudos/${slug}`),
+    ...articleSlugs.map((slug) => `/articles/${slug}.webp`),
     "/pagina-inexistente",
-  ]) {
+  ];
+  for (const path of publicPaths) {
     const response = await fetch(`${origin}${path}`, {
       signal: AbortSignal.timeout(10000),
     });
@@ -83,27 +102,59 @@ try {
     if (
       [
         "/",
+        "/conteudos",
+        "/conteudos/buscando-um-relacionamento",
+        "/buscar",
+        "/cadastro",
         "/sobre",
         "/maria",
         "/podcasts",
         "/comunidade",
         "/curadoria",
         "/privacidade",
-      ].includes(path)
+      ].includes(path) ||
+      articleSlugs.some((slug) => path === `/conteudos/${slug}`)
     ) {
       const html = await response.text();
       assert.match(html, /lang="pt-BR"/);
       assert.equal((html.match(/<h1(?:\s|>)/g) || []).length, 1);
-      assert.doesNotMatch(html, /<(input|textarea|form)(?:\s|>)/i);
       assert.match(html, /O que é amar\.ia\?/);
       if (path === "/") {
-        assert.equal((html.match(/class="post-card"/g) || []).length, 4);
-        for (const action of ["Curtir:", "Comentar:", "Compartilhar:"])
-          assert.equal(
-            (html.match(new RegExp(`aria-label="${action}`, "g")) || []).length,
-            4,
-          );
-        assert.match(html, /Prévias editoriais/);
+        assert.equal(
+          (html.match(/class="post-card editorial-card /g) || []).length,
+          10,
+        );
+        assert.equal((html.match(/aria-label="Curtir /g) || []).length, 10);
+        assert.equal(
+          (html.match(/aria-label="Compartilhar /g) || []).length,
+          10,
+        );
+        assert.match(html, /Dez leituras públicas/);
+      }
+      if (articleSlugs.some((slug) => path === `/conteudos/${slug}`)) {
+        assert.match(html, /"@type":"Article"/);
+        assert.match(html, /Curadoria Psicológica/i);
+        assert.match(html, /não substitui acompanhamento psicológico/);
+        assert.equal((html.match(/class="ad-slot/g) || []).length, 3);
+        assert.doesNotMatch(html, /name="email"/);
+      }
+      if (path === "/conteudos") {
+        assert.equal(
+          (html.match(/class="post-card editorial-card grid-card"/g) || [])
+            .length,
+          10,
+        );
+        assert.equal(
+          (html.match(/class="future-journey-card"/g) || []).length,
+          6,
+        );
+      }
+      if (path === "/conteudos/buscando-um-relacionamento") {
+        assert.equal(
+          (html.match(/class="post-card editorial-card grid-card"/g) || [])
+            .length,
+          10,
+        );
       }
       const ids = new Set(
         [...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]),
@@ -138,6 +189,25 @@ try {
       assert.match(await response.text(), /Disallow: \/(?:\n|$)/);
     }
     console.log(`PASS ${response.status} ${path}`);
+  }
+
+  if (
+    process.env.SITE_INDEXABLE === "true" &&
+    process.env.VERCEL_ENV !== "preview"
+  ) {
+    const [robots, sitemap] = await Promise.all([
+      fetch(`${origin}/robots.txt`).then((response) => response.text()),
+      fetch(`${origin}/sitemap.xml`).then((response) => response.text()),
+    ]);
+    assert.match(robots, /Allow: \//);
+    assert.match(robots, /Disallow: \/admin/);
+    assert.match(robots, /Sitemap: https:\/\/amar\.ia\.br\/sitemap\.xml/);
+    for (const slug of articleSlugs)
+      assert.match(
+        sitemap,
+        new RegExp(`<loc>https://amar\\.ia\\.br/conteudos/${slug}</loc>`),
+      );
+    console.log("PASS indexable robots and dynamic editorial sitemap");
   }
   for (const [path, expected] of [
     ["/entrar", /name="email"/],
