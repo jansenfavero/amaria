@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/conteudos",
     "/conteudos/buscando-um-relacionamento",
+    "/conteudos/estou-me-perdendo-nessa-relacao",
     "/sobre",
     "/maria",
     "/podcasts",
@@ -17,7 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/privacidade",
   ].map((path) => ({
     url: `${site.url}${path}`,
-    lastModified: new Date("2026-09-01T10:30:00.000Z"),
+    lastModified: new Date("2026-09-01T15:40:00.000Z"),
     changeFrequency: path.startsWith("/conteudos") ? "weekly" : "monthly",
     priority: path === "" ? 1 : path.startsWith("/conteudos") ? 0.8 : 0.5,
   }));

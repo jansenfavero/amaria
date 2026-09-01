@@ -1,30 +1,30 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, HeartHandshake, Search, Sparkles } from "lucide-react";
+import { ArrowLeft, Search, ShieldCheck, Sparkles } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { ArticleCard } from "@/components/article-card";
 import {
-  articleCategory,
   getArticlesByCategory,
+  selfLossArticleCategory,
 } from "@/content/articles";
 
-const categoryArticles = getArticlesByCategory(articleCategory.slug);
+const categoryArticles = getArticlesByCategory(selfLossArticleCategory.slug);
 
 export const metadata: Metadata = {
-  title: "Buscando um relacionamento",
+  title: "Estou me perdendo nessa relação",
   description:
-    "Dez artigos para mulheres que desejam reconhecer intenção, compatibilidade, disponibilidade e reciprocidade em uma relação séria.",
+    "Conteúdos para reconhecer controle, isolamento, autoabandono e perda de identidade, com atenção à autonomia e à segurança.",
   alternates: {
-    canonical: "/conteudos/buscando-um-relacionamento",
+    canonical: "/conteudos/estou-me-perdendo-nessa-relacao",
   },
   openGraph: {
-    title: "Buscando um relacionamento | AMARIA",
-    description: articleCategory.description,
-    url: "/conteudos/buscando-um-relacionamento",
+    title: "Estou me perdendo nessa relação | AMARIA",
+    description: selfLossArticleCategory.description,
+    url: "/conteudos/estou-me-perdendo-nessa-relacao",
   },
 };
 
-export default function RelationshipCategoryPage() {
+export default function SelfLossCategoryPage() {
   return (
     <AppShell>
       <div className="catalog-page">
@@ -33,22 +33,26 @@ export default function RelationshipCategoryPage() {
           <span aria-hidden="true">/</span>
           <Link href="/conteudos">Conteúdos</Link>
           <span aria-hidden="true">/</span>
-          <span>{articleCategory.name}</span>
+          <span>{selfLossArticleCategory.name}</span>
         </nav>
 
         <header className="category-hero">
           <span className="category-hero-icon">
-            <HeartHandshake aria-hidden="true" />
+            <ShieldCheck aria-hidden="true" />
           </span>
           <p className="eyebrow">
-            <Sparkles size={13} aria-hidden="true" /> PRIMEIRA COLEÇÃO EDITORIAL
+            <Sparkles size={13} aria-hidden="true" /> NOVA JORNADA EDITORIAL
           </p>
-          <h1>{articleCategory.name}</h1>
-          <p>{articleCategory.description}</p>
+          <h1>{selfLossArticleCategory.name}</h1>
+          <p>{selfLossArticleCategory.description}</p>
           <div className="category-hero-actions">
-            <span>{categoryArticles.length} artigos · leitura pública</span>
+            <span>
+              {categoryArticles.length}{" "}
+              {categoryArticles.length === 1 ? "artigo" : "artigos"} · leitura
+              pública
+            </span>
             <Link href="/buscar">
-              <Search size={16} /> Buscar nesta coleção
+              <Search size={16} /> Buscar nesta jornada
             </Link>
           </div>
         </header>
@@ -56,8 +60,8 @@ export default function RelationshipCategoryPage() {
         <section className="catalog-list" aria-labelledby="collection-title">
           <div className="catalog-section-heading">
             <div>
-              <span>DA CLAREZA À CONSTRUÇÃO</span>
-              <h2 id="collection-title">Siga no seu ritmo</h2>
+              <span>DA PERCEPÇÃO À RECONEXÃO</span>
+              <h2 id="collection-title">Volte a se escutar</h2>
             </div>
             <Link href="/conteudos" className="back-link compact-back">
               <ArrowLeft size={15} /> Todo o acervo

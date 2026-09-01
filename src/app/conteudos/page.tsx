@@ -3,13 +3,16 @@ import Link from "next/link";
 import { ArrowLeft, BookOpenText, Heart, Search, Sparkles } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { ArticleCard } from "@/components/article-card";
-import { articleCategory, articles } from "@/content/articles";
+import {
+  articleCategories,
+  articles,
+  getArticlesByCategory,
+} from "@/content/articles";
 
 const futureJourneys = [
   "Estou conhecendo alguém",
   "Não sei o que somos",
   "Estou em um relacionamento",
-  "Estou me perdendo nessa relação",
   "Terminou",
   "Quero recomeçar",
 ] as const;
@@ -17,7 +20,7 @@ const futureJourneys = [
 export const metadata: Metadata = {
   title: "Conteúdos sobre relacionamentos",
   description:
-    "Acesse o acervo público da AMARIA com reflexões sobre escolhas, reciprocidade, compatibilidade e relacionamentos sérios.",
+    "Acesse o acervo público da AMARIA com reflexões sobre escolhas, reciprocidade, autonomia, limites e relacionamentos mais conscientes.",
   alternates: { canonical: "/conteudos" },
   openGraph: {
     title: "Conteúdos sobre relacionamentos | AMARIA",
@@ -48,24 +51,32 @@ export default function ContentsPage() {
           <BookOpenText aria-hidden="true" />
         </header>
 
-        <section className="catalog-category-card">
-          <div>
-            <span>PRIMEIRA COLEÇÃO · {articles.length} ARTIGOS</span>
-            <h2>{articleCategory.name}</h2>
-            <p>{articleCategory.description}</p>
-          </div>
-          <div className="catalog-actions">
-            <Link
-              href={`/conteudos/${articleCategory.slug}`}
-              className="button button-primary"
-            >
-              Ver coleção
-            </Link>
-            <Link href="/buscar" className="button button-secondary">
-              <Search size={16} /> Buscar
-            </Link>
-          </div>
-        </section>
+        {articleCategories.map((category) => {
+          const categoryArticles = getArticlesByCategory(category.slug);
+          return (
+            <section className="catalog-category-card" key={category.slug}>
+              <div>
+                <span>
+                  COLEÇÃO · {categoryArticles.length}{" "}
+                  {categoryArticles.length === 1 ? "ARTIGO" : "ARTIGOS"}
+                </span>
+                <h2>{category.name}</h2>
+                <p>{category.description}</p>
+              </div>
+              <div className="catalog-actions">
+                <Link
+                  href={`/conteudos/${category.slug}`}
+                  className="button button-primary"
+                >
+                  Ver coleção
+                </Link>
+                <Link href="/buscar" className="button button-secondary">
+                  <Search size={16} /> Buscar
+                </Link>
+              </div>
+            </section>
+          );
+        })}
 
         <section className="catalog-list" aria-labelledby="catalog-title">
           <div className="catalog-section-heading">

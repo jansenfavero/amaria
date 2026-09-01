@@ -1,11 +1,11 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  BookOpenText,
   Compass,
   Flower2,
   HeartHandshake,
   Search,
+  ShieldCheck,
   Sparkles,
 } from "lucide-react";
 import { ArticleCard } from "@/components/article-card";
@@ -21,10 +21,10 @@ const topicCards = [
     className: "tone-rose",
   },
   {
-    href: "/conteudos",
-    title: "Todos os conteúdos",
-    caption: "Conheça a primeira coleção editorial.",
-    icon: BookOpenText,
+    href: "/conteudos/estou-me-perdendo-nessa-relacao",
+    title: "Estou me perdendo nessa relação",
+    caption: "Sinais, limites e reconexão consigo.",
+    icon: ShieldCheck,
     className: "tone-lilac",
   },
   {
@@ -100,15 +100,15 @@ export function Feed() {
 
         <div className="feed-toolbar editorial-feed-heading">
           <div>
-            <span className="eyebrow">PRIMEIRA COLEÇÃO EDITORIAL</span>
-            <h2>Buscando um relacionamento</h2>
+            <span className="eyebrow">ACERVO EDITORIAL</span>
+            <h2>Leituras para diferentes momentos</h2>
           </div>
           <Link href="/conteudos">Ver acervo</Link>
         </div>
 
         <p className="feed-disclosure">
-          Dez leituras públicas · curadoria psicológica · acesso livre, sem
-          login
+          {articles.length} leituras públicas · curadoria psicológica · acesso
+          livre, sem login
         </p>
 
         <div className="posts-list" aria-label="Artigos da AMARIA">

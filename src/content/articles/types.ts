@@ -9,13 +9,21 @@ export type ArticleSection = {
   subsections?: readonly ArticleSubsection[];
 };
 
+export type ArticleCategory =
+  | "Buscando um relacionamento"
+  | "Estou me perdendo nessa relação";
+
+export type ArticleCategorySlug =
+  | "buscando-um-relacionamento"
+  | "estou-me-perdendo-nessa-relacao";
+
 export type ArticleDraft = {
   slug: string;
   title: string;
   subtitle: string;
   excerpt: string;
-  category: "Buscando um relacionamento";
-  categorySlug: "buscando-um-relacionamento";
+  category: ArticleCategory;
+  categorySlug: ArticleCategorySlug;
   keywords: readonly string[];
   seoTitle: string;
   seoDescription: string;

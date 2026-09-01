@@ -1,13 +1,25 @@
 import type { Article, ArticleDraft } from "@/content/articles/types";
 import { collectionOne } from "@/content/articles/relationship-collection-one";
 import { collectionTwo } from "@/content/articles/relationship-collection-two";
+import { selfLossCollectionOne } from "@/content/articles/self-loss-collection-one";
 
-export const articleCategory = {
-  name: "Buscando um relacionamento",
-  slug: "buscando-um-relacionamento",
-  description:
-    "Clareza, critérios e escolhas mais conscientes para mulheres que desejam construir uma relação séria.",
-} as const;
+export const articleCategories = [
+  {
+    name: "Buscando um relacionamento",
+    slug: "buscando-um-relacionamento",
+    description:
+      "Clareza, critérios e escolhas mais conscientes para mulheres que desejam construir uma relação séria.",
+  },
+  {
+    name: "Estou me perdendo nessa relação",
+    slug: "estou-me-perdendo-nessa-relacao",
+    description:
+      "Sinais, limites e reflexões para reconhecer quando um vínculo começa a reduzir sua autonomia, sua voz ou sua segurança.",
+  },
+] as const;
+
+export const articleCategory = articleCategories[0];
+export const selfLossArticleCategory = articleCategories[1];
 
 const linkMarker = /\[\[([^|]+)\|([^\]]+)\]\]/g;
 
@@ -37,6 +49,7 @@ function countWords(article: ArticleDraft) {
 }
 
 const drafts = [
+  ...(selfLossCollectionOne as unknown as ArticleDraft[]),
   ...(collectionOne as unknown as ArticleDraft[]),
   ...(collectionTwo as unknown as ArticleDraft[]),
 ];
@@ -53,6 +66,12 @@ export const articles: Article[] = drafts.map((article) => {
 
 export function getArticle(slug: string) {
   return articles.find((article) => article.slug === slug);
+}
+
+export function getArticlesByCategory(
+  categorySlug: ArticleDraft["categorySlug"],
+) {
+  return articles.filter((article) => article.categorySlug === categorySlug);
 }
 
 export function getRelatedArticles(article: Article, limit = 3) {
