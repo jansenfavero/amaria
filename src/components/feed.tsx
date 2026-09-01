@@ -4,13 +4,14 @@ import {
   Compass,
   Flower2,
   HeartHandshake,
-  Search,
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
 import { ArticleCard } from "@/components/article-card";
 import { RightRail } from "@/components/app-shell";
+import { SmartContentSearch } from "@/components/smart-content-search";
 import { articles } from "@/content/articles";
+import styles from "./smart-content-search.module.css";
 
 const topicCards = [
   {
@@ -28,13 +29,6 @@ const topicCards = [
     className: "tone-lilac",
   },
   {
-    href: "/buscar",
-    title: "Buscar uma reflexão",
-    caption: "Encontre um tema, palavra ou pergunta.",
-    icon: Search,
-    className: "tone-sage",
-  },
-  {
     href: "/curadoria",
     title: "Nossa curadoria",
     caption: "Psicologia, cuidado e responsabilidade.",
@@ -44,6 +38,17 @@ const topicCards = [
 ] as const;
 
 export function Feed() {
+  const searchArticles = articles.map(
+    ({ slug, href, title, excerpt, category, keywords }) => ({
+      slug,
+      href,
+      title,
+      excerpt,
+      category,
+      keywords,
+    }),
+  );
+
   return (
     <div className="content-grid" id="inicio">
       <div className="feed-column">
@@ -65,6 +70,8 @@ export function Feed() {
           </span>
         </section>
 
+        <SmartContentSearch articles={searchArticles} />
+
         <section
           className="topics-section"
           id="temas"
@@ -74,7 +81,7 @@ export function Feed() {
             <h2 id="topics-title">O que faz sentido para você hoje?</h2>
             <span>EXPLORE</span>
           </div>
-          <div className="topic-grid">
+          <div className={`topic-grid ${styles.topicsThreeUp}`}>
             {topicCards.map(
               ({ href, title, caption, icon: Icon, className }) => (
                 <Link
