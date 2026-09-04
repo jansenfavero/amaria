@@ -186,8 +186,237 @@ export type Database = {
         };
         Relationships: [];
       };
+      member_profiles: {
+        Row: {
+          user_id: string;
+          display_name: string;
+          bio: string;
+          avatar_path: string;
+          is_founding_member: boolean;
+          founding_number: number | null;
+          registered_at: string;
+          last_active_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          user_id: string;
+          display_name?: string;
+          bio?: string;
+          avatar_path?: string;
+          is_founding_member?: boolean;
+          founding_number?: number | null;
+          registered_at?: string;
+          last_active_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          user_id?: string;
+          display_name?: string;
+          bio?: string;
+          avatar_path?: string;
+          is_founding_member?: boolean;
+          founding_number?: number | null;
+          registered_at?: string;
+          last_active_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      article_access: {
+        Row: {
+          id: string;
+          user_id: string | null;
+          article_slug: string;
+          accessed_at: string;
+          percentage_read: number;
+          completed: boolean;
+        };
+        Insert: {
+          id?: string;
+          user_id?: string | null;
+          article_slug: string;
+          accessed_at?: string;
+          percentage_read?: number;
+          completed?: boolean;
+        };
+        Update: {
+          id?: string;
+          user_id?: string | null;
+          article_slug?: string;
+          accessed_at?: string;
+          percentage_read?: number;
+          completed?: boolean;
+        };
+        Relationships: [];
+      };
+      article_comments: {
+        Row: {
+          id: string;
+          article_id: string;
+          user_id: string;
+          parent_comment_id: string | null;
+          content: string;
+          is_edited: boolean;
+          likes_count: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          article_id: string;
+          user_id: string;
+          parent_comment_id?: string | null;
+          content: string;
+          is_edited?: boolean;
+          likes_count?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          article_id?: string;
+          user_id?: string;
+          parent_comment_id?: string | null;
+          content?: string;
+          is_edited?: boolean;
+          likes_count?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "article_comments_article_id_fkey";
+            columns: ["article_id"];
+            isOneToOne: false;
+            referencedRelation: "articles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "article_comments_parent_comment_id_fkey";
+            columns: ["parent_comment_id"];
+            isOneToOne: false;
+            referencedRelation: "article_comments";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      comment_likes: {
+        Row: {
+          id: string;
+          comment_id: string;
+          user_id: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          comment_id: string;
+          user_id: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          comment_id?: string;
+          user_id?: string;
+          created_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "comment_likes_comment_id_fkey";
+            columns: ["comment_id"];
+            isOneToOne: false;
+            referencedRelation: "article_comments";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      article_likes: {
+        Row: {
+          id: string;
+          article_id: string;
+          user_id: string | null;
+          session_id: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          article_id: string;
+          user_id?: string | null;
+          session_id?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          article_id?: string;
+          user_id?: string | null;
+          session_id?: string | null;
+          created_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "article_likes_article_id_fkey";
+            columns: ["article_id"];
+            isOneToOne: false;
+            referencedRelation: "articles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      page_views: {
+        Row: {
+          id: string;
+          page_path: string;
+          article_slug: string | null;
+          user_id: string | null;
+          session_id: string;
+          viewed_at: string;
+          duration_seconds: number | null;
+          device_type: "desktop" | "mobile" | "tablet" | null;
+          referrer: string | null;
+        };
+        Insert: {
+          id?: string;
+          page_path: string;
+          article_slug?: string | null;
+          user_id?: string | null;
+          session_id: string;
+          viewed_at?: string;
+          duration_seconds?: number | null;
+          device_type?: "desktop" | "mobile" | "tablet" | null;
+          referrer?: string | null;
+        };
+        Update: {
+          id?: string;
+          page_path?: string;
+          article_slug?: string | null;
+          user_id?: string | null;
+          session_id?: string;
+          viewed_at?: string;
+          duration_seconds?: number | null;
+          device_type?: "desktop" | "mobile" | "tablet" | null;
+          referrer?: string | null;
+        };
+        Relationships: [];
+      };
     };
-    Views: { [_ in never]: never };
+    Views: {
+      dashboard_metrics: {
+        Row: {
+          total_members: number;
+          founding_members_count: number;
+          new_members_this_month: number;
+          total_articles: number;
+          total_page_views: number;
+          page_views_this_month: number;
+          total_article_likes: number;
+          total_comments: number;
+          comments_this_month: number;
+          articles_with_full_reads: number;
+        };
+        Insert: Record<string, never>;
+        Update: Record<string, never>;
+        Relationships: [];
+      };
+    };
     Functions: {
       current_session_is_active: { Args: never; Returns: boolean };
     };
