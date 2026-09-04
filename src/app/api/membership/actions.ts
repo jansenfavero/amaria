@@ -125,7 +125,7 @@ export async function recordPageViewAction(
   pagePath: string,
   articleSlug?: string,
   sessionId?: string,
-  deviceType?: string,
+  deviceType?: "desktop" | "mobile" | "tablet" | null,
   referrer?: string,
 ): Promise<void> {
   try {
@@ -137,7 +137,7 @@ export async function recordPageViewAction(
       article_slug: articleSlug || null,
       user_id: account?.id || null,
       session_id: sessionId || "anonymous",
-      device_type: deviceType || null,
+      device_type: deviceType as "desktop" | "mobile" | "tablet" | null || null,
       referrer: referrer || null,
     });
   } catch (error) {
@@ -158,7 +158,7 @@ export async function toggleArticleLikeAction(
       .from("article_likes")
       .select("id")
       .eq("article_id", articleId)
-      .eq("user_id", account?.id || null)
+      .eq("user_id", account?.id || "")
       .single();
 
     if (existing) {
