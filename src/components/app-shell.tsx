@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { Brand } from "@/components/brand";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { AccountMenu } from "@/components/auth/account-menu";
 
 const navigation = [
   { href: "/", label: "Para você", icon: House },
@@ -116,13 +117,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <span className="preview-badge">
             <span aria-hidden="true" /> PRÉ-LANÇAMENTO
           </span>
-          <Link
-            href="/sobre"
-            className="topbar-symbol"
-            aria-label="Conheça a AMARIA"
-          >
-            <Image src="/brand/emblem.webp" alt="" width={40} height={40} />
-          </Link>
+          <AccountMenu />
+        </div>
+        <div className="mobile-account-slot">
+          <AccountMenu mobile />
         </div>
         <button
           type="button"

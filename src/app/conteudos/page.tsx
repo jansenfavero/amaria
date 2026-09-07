@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, BookOpenText, Heart, Search, Sparkles } from "lucide-react";
+import { ArrowLeft, Heart, Search } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { ArticleCard } from "@/components/article-card";
+import { PageHero } from "@/components/page-hero";
 import {
   articleCategories,
   getArticlesByCategory,
@@ -40,19 +41,13 @@ export default async function ContentsPage() {
         <Link href="/" className="back-link">
           <ArrowLeft size={16} aria-hidden="true" /> Voltar ao início
         </Link>
-        <header className="catalog-hero">
-          <div>
-            <p className="eyebrow">
-              <Sparkles size={13} aria-hidden="true" /> ACERVO AMARIA
-            </p>
-            <h1>Conteúdos para relações mais conscientes.</h1>
-            <p>
-              Conheça 20% de cada leitura sem login. Membros gratuitas acessam
-              o conteúdo completo e participam das conversas.
-            </p>
-          </div>
-          <BookOpenText aria-hidden="true" />
-        </header>
+        <PageHero
+          eyebrow="ACERVO AMARIA"
+          title="Conteúdos para relações mais conscientes."
+          description="Conheça 20% de cada leitura sem login. Membros gratuitas acessam o conteúdo completo e participam das conversas."
+          image="/editorial/relacionamentos.webp"
+          imageAlt="Mulheres conversando com presença e acolhimento"
+        />
 
         {articleCategories.map((category) => {
           const categoryArticles = getArticlesByCategory(category.slug);

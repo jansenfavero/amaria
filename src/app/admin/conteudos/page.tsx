@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight, FilePlus2 } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { AdminNav } from "@/components/admin/admin-nav";
+import { PageHero } from "@/components/page-hero";
 import { requireAdmin } from "@/lib/auth/server";
 import { createClient } from "@/lib/supabase/server";
 
@@ -28,16 +29,18 @@ export default async function AdminContentsPage({
   return (
     <AppShell>
       <div className="admin-page">
-        <header className="admin-heading admin-heading-row">
-          <div>
-            <p className="auth-kicker">CURADORIA EDITORIAL</p>
-            <h1>Conteúdos.</h1>
-            <p>Crie, revise, programe e acompanhe o acervo da AMARIA.</p>
-          </div>
+        <PageHero
+          eyebrow="CURADORIA EDITORIAL"
+          title="Conteúdos."
+          description="Crie, revise, programe e acompanhe o acervo da AMARIA."
+          image="/editorial/amor-proprio.webp"
+          imageAlt="Mulher lendo e organizando conteúdos editoriais"
+          compact
+        >
           <Link href="/admin/conteudos/novo" className="button button-primary">
             <FilePlus2 size={18} aria-hidden="true" /> Novo artigo
           </Link>
-        </header>
+        </PageHero>
         <AdminNav />
         {aviso === "publicado" ? (
           <p className="admin-success" role="status">Artigo salvo com sucesso.</p>
@@ -80,4 +83,3 @@ export default async function AdminContentsPage({
     </AppShell>
   );
 }
-

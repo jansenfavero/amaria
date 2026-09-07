@@ -11,7 +11,7 @@ import {
   UsersRound,
   X,
 } from "lucide-react";
-import { createClient } from "@/lib/supabase/client";
+import { useAccount } from "@/components/auth/account-context";
 
 const DISMISS_KEY = "amaria:founder-invite-dismissed";
 const HIDE_FOR_MS = 7 * 24 * 60 * 60 * 1000;
@@ -19,6 +19,7 @@ const HIDE_FOR_MS = 7 * 24 * 60 * 60 * 1000;
 export function MembershipInvite() {
   const dialog = useRef<HTMLDialogElement>(null);
   const pathname = usePathname();
+  const account = useAccount();
 
   useEffect(() => {
     if (
@@ -26,22 +27,16 @@ export function MembershipInvite() {
       pathname.startsWith("/entrar") ||
       pathname.startsWith("/cadastro") ||
       pathname.startsWith("/meu-perfil") ||
-      pathname.startsWith("/auth/")
+      pathname.startsWith("/auth/") ||
+      account
     ) {
       return;
     }
 
     let cancelled = false;
-    const timer = window.setTimeout(async () => {
+    const timer = window.setTimeout(() => {
       const dismissedAt = Number(window.localStorage.getItem(DISMISS_KEY) ?? 0);
       if (Date.now() - dismissedAt < HIDE_FOR_MS) return;
-
-      try {
-        const { data } = await createClient().auth.getSession();
-        if (data.session) return;
-      } catch {
-        // The invitation can still be shown when auth is temporarily unavailable.
-      }
 
       if (!cancelled && dialog.current && !dialog.current.open) {
         dialog.current.showModal();
@@ -52,7 +47,7 @@ export function MembershipInvite() {
       cancelled = true;
       window.clearTimeout(timer);
     };
-  }, [pathname]);
+  }, [account, pathname]);
 
   function close() {
     window.localStorage.setItem(DISMISS_KEY, String(Date.now()));

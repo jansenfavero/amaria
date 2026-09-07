@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ShieldCheck } from "lucide-react";
-import { Brand } from "@/components/brand";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function AuthFrame({
   eyebrow = "SEU ESPAÇO AMARIA",
@@ -17,14 +17,30 @@ export function AuthFrame({
   return (
     <div className="auth-shell">
       <header className="auth-header">
-        <Brand />
-        <Link href="/" className="auth-back" aria-label="Voltar ao início">
-          <ArrowLeft size={18} aria-hidden="true" />
-          <span>Voltar ao início</span>
+        <Link href="/" className="auth-home-mark" aria-label="AMARIA — página inicial">
+          <Image src="/brand/emblem.webp" alt="" width={42} height={42} />
+          <span>AMARIA</span>
         </Link>
+        <div className="auth-header-actions">
+          <ThemeToggle compact />
+          <Link href="/" className="auth-back" aria-label="Voltar ao início">
+            <ArrowLeft size={18} aria-hidden="true" />
+            <span>Voltar ao início</span>
+          </Link>
+        </div>
       </header>
       <main id="conteudo-principal" className="auth-main">
         <aside className="auth-story" aria-label="Nossa essência">
+          <Image
+            src="/membership/founder-invitation.webp"
+            alt="Mulher lendo conteúdos da AMARIA pelo smartphone"
+            fill
+            priority
+            className="auth-story-image"
+            sizes="(max-width: 760px) calc(100vw - 32px), 48vw"
+          />
+          <span className="auth-story-shade" aria-hidden="true" />
+          <div className="auth-story-copy">
           <Image
             src="/brand/logo-horizontal.png"
             alt="AMARIA"
@@ -46,6 +62,7 @@ export function AuthFrame({
             <ShieldCheck size={19} aria-hidden="true" /> Perfil gratuito ·
             privacidade por princípio
           </span>
+          </div>
         </aside>
         <section className="auth-card" aria-labelledby="auth-title">
           <p className="auth-kicker">{eyebrow}</p>

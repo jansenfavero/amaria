@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AppShell } from "@/components/app-shell";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { ArticleEditor } from "@/components/admin/article-editor";
+import { PageHero } from "@/components/page-hero";
 import { requireAdmin } from "@/lib/auth/server";
 import { createClient } from "@/lib/supabase/server";
 
@@ -28,18 +29,17 @@ export default async function NewArticlePage({
   return (
     <AppShell>
       <div className="admin-page admin-editor-page">
-        <header className="admin-heading">
-          <p className="auth-kicker">NOVO CONTEÚDO</p>
-          <h1>Uma nova leitura começa aqui.</h1>
-          <p>
-            Estruture texto, mídia, curadoria e descoberta em uma única
-            experiência editorial.
-          </p>
-        </header>
+        <PageHero
+          eyebrow="NOVO CONTEÚDO"
+          title="Uma nova leitura começa aqui."
+          description="Estruture texto, mídia, curadoria e descoberta em uma única experiência editorial."
+          image="/editorial/recomecos.webp"
+          imageAlt="Mulher escrevendo em um ambiente acolhedor"
+          compact
+        />
         <AdminNav />
         <ArticleEditor categories={categories ?? []} warning={aviso} />
       </div>
     </AppShell>
   );
 }
-

@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { AdminNav } from "@/components/admin/admin-nav";
+import { PageHero } from "@/components/page-hero";
 import { requireAdmin } from "@/lib/auth/server";
 import { createClient } from "@/lib/supabase/server";
 
@@ -67,15 +68,16 @@ export default async function AdminPage() {
   return (
     <AppShell>
       <div className="admin-page admin-dashboard">
-        <header className="admin-heading">
-          <p className="auth-kicker">PAINEL AMARIA</p>
-          <h1>Visão geral da plataforma.</h1>
-          <p>
-            Acompanhe alcance, comunidade e participação para orientar os
-            próximos movimentos editoriais.
-          </p>
+        <PageHero
+          eyebrow="PAINEL AMARIA"
+          title="Visão geral da plataforma."
+          description="Acompanhe alcance, comunidade e participação para orientar os próximos movimentos editoriais."
+          image="/membership/founder-invitation.webp"
+          imageAlt="Mulher acessando a AMARIA pelo smartphone"
+          compact
+        >
           <span className="admin-identity">Sessão segura · {account.email}</span>
-        </header>
+        </PageHero>
         <AdminNav />
 
         <section className="metric-grid" aria-label="Métricas principais">
@@ -163,4 +165,3 @@ export default async function AdminPage() {
     </AppShell>
   );
 }
-

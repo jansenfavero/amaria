@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, type FocusEvent } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Search, Sparkles } from "lucide-react";
 import type { Article } from "@/content/articles/types";
@@ -91,6 +92,15 @@ export function SmartContentSearch({
 
   return (
     <section className={styles.searchPanel} aria-labelledby="smart-search-title">
+      <Image
+        className={styles.backdropImage}
+        src="/editorial/amor-proprio.webp"
+        alt="Mulher em um momento de reflexão e autocuidado"
+        fill
+        priority
+        sizes="(max-width: 760px) calc(100vw - 32px), 760px"
+      />
+      <span className={styles.backdropShade} aria-hidden="true" />
       <span className={styles.glow} aria-hidden="true" />
       <div className={styles.heading}>
         <p className={styles.eyebrow}>

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Search, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowLeft, Search } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { ArticleCard } from "@/components/article-card";
+import { PageHero } from "@/components/page-hero";
 import { selfLossArticleCategory } from "@/content/articles";
 import { getPublishedArticles } from "@/lib/articles-server";
 
@@ -37,15 +38,13 @@ export default async function SelfLossCategoryPage() {
           <span>{selfLossArticleCategory.name}</span>
         </nav>
 
-        <header className="category-hero">
-          <span className="category-hero-icon">
-            <ShieldCheck aria-hidden="true" />
-          </span>
-          <p className="eyebrow">
-            <Sparkles size={13} aria-hidden="true" /> NOVA JORNADA EDITORIAL
-          </p>
-          <h1>{selfLossArticleCategory.name}</h1>
-          <p>{selfLossArticleCategory.description}</p>
+        <PageHero
+          eyebrow="NOVA JORNADA EDITORIAL"
+          title={selfLossArticleCategory.name}
+          description={selfLossArticleCategory.description}
+          image="/articles/relacionamento-toxico-sinais-de-autoabandono-2026.webp"
+          imageAlt="Mulher contemplativa refletindo sobre seu relacionamento"
+        >
           <div className="category-hero-actions">
             <span>
               {categoryArticles.length}{" "}
@@ -56,7 +55,7 @@ export default async function SelfLossCategoryPage() {
               <Search size={16} /> Buscar nesta jornada
             </Link>
           </div>
-        </header>
+        </PageHero>
 
         <section className="catalog-list" aria-labelledby="collection-title">
           <div className="catalog-section-heading">

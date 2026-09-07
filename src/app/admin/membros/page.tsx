@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Crown, UsersRound } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { AdminNav } from "@/components/admin/admin-nav";
+import { PageHero } from "@/components/page-hero";
 import { requireAdmin } from "@/lib/auth/server";
 import { createClient } from "@/lib/supabase/server";
 
@@ -22,11 +23,14 @@ export default async function MembersPage() {
   return (
     <AppShell>
       <div className="admin-page">
-        <header className="admin-heading">
-          <p className="auth-kicker">COMUNIDADE</p>
-          <h1>Membros da AMARIA.</h1>
-          <p>Um diretório privado para acompanhar quem está chegando.</p>
-        </header>
+        <PageHero
+          eyebrow="COMUNIDADE"
+          title="Membros da AMARIA."
+          description="Um diretório privado para acompanhar quem está chegando."
+          image="/membership/founder-invitation.webp"
+          imageAlt="Mulher conectada à comunidade AMARIA"
+          compact
+        />
         <AdminNav />
         <section className="admin-panel-card">
           <div className="admin-panel-heading">
@@ -55,4 +59,3 @@ export default async function MembersPage() {
     </AppShell>
   );
 }
-

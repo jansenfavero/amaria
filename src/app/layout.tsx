@@ -7,6 +7,8 @@ import { ADSENSE_CLIENT } from "@/lib/adsense";
 import { AuthReturnBridge } from "@/components/auth/auth-return-bridge";
 import { MembershipInvite } from "@/components/membership-invite";
 import { AnalyticsTracker } from "@/components/analytics-tracker";
+import { AccountProvider } from "@/components/auth/account-context";
+import { getAccount } from "@/lib/auth/server";
 
 const manrope = localFont({
   src: [
@@ -94,9 +96,24 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  let account = null;
+  try {
+    const current = await getAccount();
+    account = current
+      ? {
+          email: current.email,
+          displayName: current.displayName,
+          role: current.role,
+          active: current.active,
+        }
+      : null;
+  } catch {
+    // Public reading remains available if identity is momentarily unavailable.
+  }
+
   return (
     <html
       lang="pt-BR"
@@ -115,9 +132,11 @@ export default function RootLayout({
         <a href="#conteudo-principal" className="skip-link">
           Pular para o conteúdo
         </a>
-        {children}
-        <AnalyticsTracker />
-        <MembershipInvite />
+        <AccountProvider account={account}>
+          {children}
+          <AnalyticsTracker />
+          <MembershipInvite />
+        </AccountProvider>
         <Script
           id="google-adsense"
           async

@@ -7,13 +7,26 @@
   color: #fffafd;
   border: 1px solid rgb(255 255 255 / 24%);
   border-radius: 24px;
-  background:
-    radial-gradient(circle at 91% 9%, rgb(245 143 194 / 46%), transparent 31%),
-    radial-gradient(circle at 4% 96%, rgb(193 146 233 / 42%), transparent 35%),
-    linear-gradient(135deg, #351344 0%, #64256f 51%, #973262 100%);
+  background: #351344;
   box-shadow:
     0 24px 60px rgb(63 22 78 / 27%),
     inset 0 1px 0 rgb(255 255 255 / 22%);
+}
+
+.backdropImage {
+  z-index: -3;
+  object-fit: cover;
+  object-position: center 42%;
+}
+
+.backdropShade {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  border-radius: inherit;
+  background:
+    linear-gradient(90deg, rgb(35 11 46 / 94%) 0%, rgb(65 19 67 / 86%) 58%, rgb(88 25 67 / 70%) 100%),
+    linear-gradient(0deg, rgb(29 8 36 / 62%), transparent 60%);
 }
 
 .searchPanel::before {

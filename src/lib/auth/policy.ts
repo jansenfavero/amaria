@@ -1,17 +1,22 @@
 export const PRIVACY_NOTICE_VERSION = "equipe-2026-08-31";
 
-export type AccountRole = "admin" | "curator" | "member";
+export type AccountRole = "superadmin" | "admin" | "curator" | "member";
 export type AuthFormState = {
   kind: "idle" | "error" | "success";
   message: string;
 };
 
 export function isAccountRole(value: unknown): value is AccountRole {
-  return value === "admin" || value === "curator" || value === "member";
+  return (
+    value === "superadmin" ||
+    value === "admin" ||
+    value === "curator" ||
+    value === "member"
+  );
 }
 
 export function canAccessAdmin(role: unknown, active: unknown): boolean {
-  return role === "admin" && active === true;
+  return (role === "superadmin" || role === "admin") && active === true;
 }
 
 export function validEmail(value: string): boolean {
@@ -23,6 +28,7 @@ export function validNewPassword(value: string): boolean {
 }
 
 export const roleLabels: Record<AccountRole, string> = {
+  superadmin: "Superadministrador",
   admin: "Administrador",
   curator: "Curadora",
   member: "Membro",

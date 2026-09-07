@@ -13,6 +13,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
+import { PageHero } from "@/components/page-hero";
 import { site } from "@/lib/site";
 
 const sections = {
@@ -22,6 +23,7 @@ const sections = {
     heading: "Para amar sem se perder de você.",
     description:
       "Um espaço de inteligência relacional para mulheres. A AMARIA nasce do encontro entre conhecimento, tecnologia e conexão humana — com respeito à singularidade de cada história.",
+    image: "/editorial/amor-proprio.webp",
     icon: Heart,
   },
   maria: {
@@ -30,6 +32,7 @@ const sections = {
     heading: "Uma conversa. Novas perspectivas.",
     description:
       "Maria é a proposta de uma conselheira com inteligência artificial para apoiar reflexões sobre a sua vida relacional. Um espaço pensado para conversar sobre vínculos e escolhas, no seu tempo.",
+    image: "/membership/founder-invitation.webp",
     icon: Sparkles,
   },
   podcasts: {
@@ -38,6 +41,7 @@ const sections = {
     heading: "Reflexões que acompanham o seu ritmo.",
     description:
       "Estamos preparando a proposta de áudios e podcasts sobre amor-próprio, limites, relacionamentos e recomeços. Para levar boas conversas com você, onde fizer sentido.",
+    image: "/editorial/recomecos.webp",
     icon: Headphones,
   },
   comunidade: {
@@ -46,6 +50,7 @@ const sections = {
     heading: "Histórias diferentes. Um lugar em comum.",
     description:
       "Uma comunidade exclusiva para mulheres, pensada para trocas respeitosas, aprendizados e conexão. Um lugar em que compartilhar não seja uma obrigação e cada história encontre respeito.",
+    image: "/editorial/relacionamentos.webp",
     icon: UsersRound,
   },
   curadoria: {
@@ -54,6 +59,7 @@ const sections = {
     heading: "Cuidado também é escolher como conversar.",
     description:
       "A AMARIA conta com curadoria psicológica para orientar conteúdos, metodologia e limites de segurança da plataforma.",
+    image: "/editorial/amor-proprio.webp",
     icon: BookHeart,
   },
   privacidade: {
@@ -62,6 +68,7 @@ const sections = {
     heading: "Seu espaço. A sua história.",
     description:
       "Conheça os dados necessários para seu perfil, leituras e interações, além das escolhas disponíveis para você.",
+    image: "/editorial/limites.webp",
     icon: ShieldCheck,
   },
 };
@@ -94,24 +101,19 @@ export default async function SectionPage({
   const { section } = await params;
   if (!isSection(section)) notFound();
   const content = sections[section];
-  const Icon = content.icon;
   return (
     <AppShell>
       <div className="info-page">
         <Link href="/" className="back-link">
           <ArrowLeft size={16} aria-hidden="true" /> Voltar para o seu feed
         </Link>
-        <header className="info-hero">
-          <span className="info-icon">
-            <Icon size={28} strokeWidth={1.3} aria-hidden="true" />
-          </span>
-          <p className="eyebrow">{content.eyebrow}</p>
-          <h1>{content.heading}</h1>
-          <p className="info-description">{content.description}</p>
-          <span className="info-watermark" aria-hidden="true">
-            AMARIA
-          </span>
-        </header>
+        <PageHero
+          eyebrow={content.eyebrow}
+          title={content.heading}
+          description={content.description}
+          image={content.image}
+          imageAlt="Mulher em um momento de reflexão"
+        />
         {section === "sobre" ? (
           <>
             <section className="info-section">

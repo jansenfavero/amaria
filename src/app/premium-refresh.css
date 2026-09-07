@@ -1,0 +1,754 @@
+/* AMARIA — premium application shell, account access and cross-theme polish. */
+:root {
+  --accent-pink: #e83088;
+  --accent-pink-strong: #c91e70;
+  --accent-lilac: #9250c6;
+  --hero-radius: 26px;
+}
+
+html[data-theme="dark"] {
+  --accent-pink: #ff70b5;
+  --accent-pink-strong: #ff4f9f;
+  --accent-lilac: #c58cf0;
+}
+
+/* Shared photographic introduction used on every primary screen. */
+.page-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(330px, 38vw, 430px);
+  display: flex;
+  align-items: flex-end;
+  margin: 0 0 30px;
+  padding: clamp(28px, 5vw, 56px);
+  overflow: hidden;
+  color: white;
+  border: 1px solid rgb(255 255 255 / 42%);
+  border-radius: var(--hero-radius);
+  background: #3a153f;
+  box-shadow: 0 24px 60px rgb(52 15 58 / 24%);
+}
+
+.page-hero.is-compact {
+  min-height: clamp(250px, 27vw, 310px);
+}
+
+.page-hero-image {
+  z-index: -3;
+  object-fit: cover;
+  object-position: center 42%;
+  transition: transform 600ms ease;
+}
+
+.page-hero:hover .page-hero-image {
+  transform: scale(1.015);
+}
+
+.page-hero-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(90deg, rgb(28 7 35 / 90%) 0%, rgb(45 11 45 / 75%) 55%, rgb(36 9 33 / 34%) 100%),
+    linear-gradient(0deg, rgb(29 7 32 / 90%) 0%, transparent 70%);
+}
+
+.page-hero-copy {
+  width: min(760px, 100%);
+}
+
+.page-hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 10px;
+  color: #ff9dcb;
+  font-size: 0.69rem;
+  font-weight: 800;
+  letter-spacing: 1.45px;
+  text-transform: uppercase;
+}
+
+.page-hero :is(h1, .page-hero-copy > p:not(.page-hero-eyebrow)) {
+  color: white;
+  text-shadow: 0 2px 24px rgb(17 2 19 / 35%);
+}
+
+.page-hero h1 {
+  max-width: 720px;
+  margin: 0;
+  font-size: clamp(2.65rem, 5.1vw, 4.6rem);
+  line-height: 0.96;
+  letter-spacing: -1.5px;
+  text-wrap: balance;
+}
+
+.page-hero.is-compact h1 {
+  font-size: clamp(2.35rem, 4vw, 3.65rem);
+}
+
+.page-hero-copy > p:not(.page-hero-eyebrow) {
+  max-width: 690px;
+  margin: 15px 0 0;
+  font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+  line-height: 1.7;
+}
+
+.page-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.page-hero-actions .category-hero-actions {
+  width: 100%;
+  margin: 0;
+  color: white;
+}
+
+.page-hero-actions .category-hero-actions :is(span, a),
+.page-hero .admin-identity {
+  color: white;
+}
+
+.page-hero .admin-identity {
+  display: inline-flex;
+  padding: 8px 12px;
+  border: 1px solid rgb(255 255 255 / 34%);
+  border-radius: 999px;
+  background: rgb(32 8 38 / 40%);
+  font-size: 0.72rem;
+  backdrop-filter: blur(10px);
+}
+
+/* Account emblem and authenticated member menu. */
+.mobile-account-slot {
+  display: none;
+}
+
+.account-menu {
+  position: relative;
+}
+
+.account-menu > summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.account-menu > summary::-webkit-details-marker {
+  display: none;
+}
+
+.account-trigger {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 auto;
+  background: rgb(255 255 255 / 64%);
+  box-shadow: 0 7px 20px rgb(78 29 87 / 12%);
+}
+
+.account-state-dot {
+  position: absolute;
+  right: -1px;
+  bottom: 4px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #fffafd;
+  border-radius: 50%;
+  background: var(--accent-pink);
+}
+
+.account-state-dot.is-online {
+  background: #39b98a;
+}
+
+.account-dropdown {
+  position: absolute;
+  z-index: 80;
+  top: calc(100% + 10px);
+  right: 0;
+  width: min(300px, calc(100vw - 28px));
+  padding: 9px;
+  color: var(--text-strong);
+  border: 1px solid var(--border-premium);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--panel) 94%, transparent);
+  box-shadow: 0 24px 64px rgb(37 9 43 / 28%);
+  backdrop-filter: blur(18px);
+}
+
+.account-dropdown-heading {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 10px 13px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--border-premium);
+}
+
+.account-avatar {
+  width: 39px;
+  height: 39px;
+  display: grid;
+  place-items: center;
+  color: white;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent-lilac), var(--accent-pink));
+}
+
+.account-avatar svg {
+  width: 20px;
+}
+
+.account-dropdown-heading strong,
+.account-dropdown-heading span {
+  display: block;
+}
+
+.account-dropdown-heading strong {
+  max-width: 190px;
+  overflow: hidden;
+  color: var(--text-strong);
+  font-size: 0.85rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.account-dropdown-heading span {
+  margin-top: 2px;
+  color: var(--accent-pink-strong);
+  font-size: 0.67rem;
+  font-weight: 750;
+}
+
+.account-dropdown > a,
+.account-dropdown button {
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 11px;
+  color: var(--text-body);
+  border-radius: 11px;
+  background: transparent;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+.account-dropdown :is(a, button):hover {
+  color: var(--text-strong);
+  background: color-mix(in srgb, var(--accent-pink) 10%, transparent);
+}
+
+.account-dropdown :is(a, button) svg {
+  width: 18px;
+  color: var(--accent-pink);
+}
+
+/* Centered invitation that always fits the visible viewport. */
+.membership-dialog {
+  position: fixed;
+  inset: 0;
+  width: min(930px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  overflow: hidden;
+}
+
+.membership-dialog-card {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.86fr) minmax(0, 1.14fr);
+  max-height: calc(100dvh - 34px);
+  overflow: hidden;
+}
+
+.membership-dialog-image {
+  min-height: 100%;
+  border-radius: 27px 0 0 27px;
+}
+
+.membership-dialog-image::after {
+  inset: 0;
+  background: linear-gradient(0deg, rgb(43 11 43 / 82%) 0%, transparent 58%);
+}
+
+.membership-dialog-image img {
+  object-position: center;
+}
+
+.membership-dialog-copy {
+  max-height: calc(100dvh - 34px);
+  padding: clamp(25px, 3.2vw, 38px);
+  overflow-y: auto;
+}
+
+.membership-dialog-copy > h2 {
+  font-size: clamp(2.1rem, 3.4vw, 3rem);
+  line-height: 1;
+}
+
+.membership-coming {
+  grid-template-columns: 1fr;
+  margin: 18px 0;
+}
+
+.membership-coming > div {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  align-items: start;
+  gap: 9px;
+  padding: 11px 13px;
+}
+
+.membership-coming span {
+  margin-top: 0;
+}
+
+/* Strong pink language for tags and interface glyphs. */
+:is(.eyebrow, .auth-kicker, .page-hero-eyebrow, .catalog-section-heading > div > span) {
+  color: var(--accent-pink-strong);
+}
+
+:is(.eyebrow, .auth-kicker, .page-hero-eyebrow) svg,
+.nav-item > svg,
+.topic-icon,
+.topic-arrow,
+.future-journey-card > span,
+.metric-card > svg,
+.info-tile > svg {
+  color: var(--accent-pink);
+}
+
+.nav-soon,
+.small-pill,
+.status-pill,
+.preview-badge {
+  color: var(--accent-pink-strong);
+  border-color: color-mix(in srgb, var(--accent-pink) 32%, transparent);
+}
+
+/* Topic image cards: legibility in both themes. */
+.topic-card {
+  min-height: 205px;
+  padding: 18px 16px;
+  color: white;
+  border-color: rgb(255 255 255 / 50%);
+  background: #3b163e;
+}
+
+.topic-card-overlay {
+  background:
+    linear-gradient(180deg, rgb(28 7 31 / 12%) 4%, rgb(29 8 34 / 55%) 48%, rgb(25 6 30 / 94%) 100%),
+    linear-gradient(90deg, rgb(52 13 53 / 36%), transparent 70%);
+}
+
+.topic-card strong,
+.topic-card > span:not(.topic-icon, .topic-card-overlay) {
+  color: white;
+  text-shadow: 0 2px 12px rgb(15 2 18 / 72%);
+}
+
+.topic-card strong {
+  font-size: clamp(0.82rem, 1.2vw, 0.93rem);
+  line-height: 1.33;
+}
+
+.topic-card > span:not(.topic-icon, .topic-card-overlay) {
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+.topic-card .topic-icon {
+  color: #ff77b6;
+  border: 1px solid rgb(255 255 255 / 32%);
+  background: rgb(34 8 38 / 50%);
+}
+
+.topic-card .topic-arrow {
+  color: #ff83bc;
+}
+
+/* Authentication: one brand lockup, one editorial image, premium contrast. */
+.auth-shell {
+  background:
+    radial-gradient(circle at 9% 6%, rgb(236 78 148 / 18%), transparent 30%),
+    linear-gradient(135deg, #f5e7fb, #fff8fc 48%, #f8dce9);
+}
+
+.auth-home-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  color: #42184e;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.auth-home-mark img {
+  border-radius: 50%;
+  box-shadow: 0 7px 20px rgb(76 23 82 / 16%);
+}
+
+.auth-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.auth-main {
+  width: min(1180px, 100%);
+  grid-template-columns: minmax(0, 1.04fr) minmax(420px, 0.96fr);
+  gap: clamp(26px, 4vw, 58px);
+}
+
+.auth-story {
+  position: relative;
+  isolation: isolate;
+  max-width: none;
+  min-height: min(680px, calc(100dvh - 190px));
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(28px, 4vw, 48px);
+  overflow: hidden;
+  color: white;
+  border: 1px solid rgb(255 255 255 / 48%);
+  border-radius: 30px;
+  box-shadow: 0 28px 80px rgb(55 14 62 / 25%);
+}
+
+.auth-story-image {
+  z-index: -3;
+  object-fit: cover;
+  object-position: center;
+}
+
+.auth-story-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(0deg, rgb(35 8 39 / 94%) 0%, rgb(49 10 45 / 48%) 58%, rgb(43 10 42 / 12%) 100%),
+    linear-gradient(90deg, rgb(41 10 43 / 42%), transparent);
+}
+
+.auth-story-copy {
+  width: min(460px, 100%);
+}
+
+.auth-story-logo {
+  width: min(250px, 72%);
+  margin: 0 0 8px;
+  filter: brightness(0) invert(1);
+}
+
+.auth-story-copy .auth-kicker {
+  display: block;
+  margin-bottom: 17px;
+  color: #ff9ac8;
+}
+
+.auth-motto {
+  margin: 0 0 16px;
+  color: white;
+  font-size: clamp(2.65rem, 4vw, 4rem);
+  text-shadow: 0 3px 24px rgb(16 2 18 / 45%);
+}
+
+.auth-story-copy > p:not(.auth-motto),
+.auth-story-note {
+  color: rgb(255 247 252 / 88%);
+}
+
+.auth-story-copy > p:not(.auth-motto) {
+  max-width: 410px;
+  line-height: 1.75;
+}
+
+.auth-card {
+  border-color: rgb(255 255 255 / 80%);
+  background: rgb(255 253 255 / 90%);
+  box-shadow: 0 28px 80px rgb(74 28 80 / 18%);
+  backdrop-filter: blur(18px);
+}
+
+.auth-card h1,
+.auth-field label {
+  color: var(--text-strong);
+}
+
+/* Dark surfaces and text remain distinct instead of collapsing into plum. */
+html[data-theme="dark"] .auth-shell {
+  background:
+    radial-gradient(circle at 12% 8%, rgb(186 45 111 / 23%), transparent 31%),
+    linear-gradient(135deg, #130a19, #211027 48%, #2f1427);
+}
+
+html[data-theme="dark"] :is(.auth-home-mark, .auth-back, .auth-footer) {
+  color: #f6e7f7;
+}
+
+html[data-theme="dark"] .auth-card {
+  border-color: #694371;
+  background: rgb(35 19 42 / 94%);
+}
+
+html[data-theme="dark"] :is(
+  .auth-field label,
+  .auth-card h1,
+  .account-details dd,
+  .info-section h2,
+  .info-tile h2,
+  .curator-card h2,
+  .catalog-category-card h2,
+  .catalog-section-heading h2,
+  .section-heading h2
+) {
+  color: #fff4fc;
+}
+
+html[data-theme="dark"] :is(
+  .auth-description,
+  .auth-hint,
+  .auth-form-note,
+  .auth-checkbox,
+  .account-details dt,
+  .info-text p,
+  .info-text li,
+  .info-tile p,
+  .curator-card p,
+  .catalog-category-card p,
+  .catalog-section-heading p,
+  .section-heading > span
+) {
+  color: #dcc9e0;
+}
+
+html[data-theme="dark"] :is(.info-section, .info-text, .info-tile, .curator-card, .info-callout) {
+  color: var(--text-body);
+  border-color: #704979;
+  background: #26172df2;
+  box-shadow: var(--shadow-card);
+}
+
+html[data-theme="dark"] :is(.auth-field input, .search-form input) {
+  color: #fff5fc;
+}
+
+html[data-theme="dark"] .account-trigger {
+  border-color: #795081;
+  background: #321d39;
+}
+
+html[data-theme="dark"] .account-state-dot {
+  border-color: #211428;
+}
+
+html[data-theme="dark"] .membership-dialog {
+  border-color: #76507e;
+  background: #25162c;
+}
+
+html[data-theme="dark"] .membership-coming > div {
+  border-color: #714979;
+  background: #311d38;
+}
+
+html[data-theme="dark"] .membership-coming :is(strong, span) {
+  color: #f4e2f4;
+}
+
+@media (max-height: 760px) and (min-width: 761px) {
+  .membership-dialog-copy {
+    padding-block: 22px;
+  }
+
+  .membership-dialog-copy > h2 {
+    font-size: 2.15rem;
+  }
+
+  .membership-dialog-copy > p:not(.eyebrow) {
+    margin-top: 7px;
+    line-height: 1.55;
+  }
+
+  .membership-coming {
+    margin-block: 12px;
+  }
+
+  .membership-coming > div {
+    padding-block: 8px;
+  }
+}
+
+@media (max-width: 760px) {
+  :root {
+    --hero-radius: 21px;
+  }
+
+  .page-hero,
+  .page-hero.is-compact {
+    min-height: 360px;
+    margin-bottom: 24px;
+    padding: 25px 21px;
+  }
+
+  .page-hero h1,
+  .page-hero.is-compact h1 {
+    max-width: 95%;
+    font-size: clamp(2rem, 10.8vw, 2.75rem);
+    line-height: 0.98;
+    letter-spacing: -0.7px;
+  }
+
+  .page-hero-copy > p:not(.page-hero-eyebrow) {
+    font-size: 0.98rem;
+    line-height: 1.65;
+  }
+
+  .page-hero-shade {
+    background:
+      linear-gradient(0deg, rgb(27 6 31 / 94%) 0%, rgb(38 8 40 / 55%) 68%, rgb(28 6 29 / 16%) 100%),
+      linear-gradient(90deg, rgb(34 7 36 / 32%), transparent);
+  }
+
+  .mobile-account-slot {
+    display: block;
+    margin-left: auto;
+  }
+
+  .account-trigger.is-mobile,
+  .account-menu.is-mobile .account-trigger {
+    width: 43px;
+    height: 43px;
+  }
+
+  .account-menu.is-mobile .account-dropdown {
+    position: fixed;
+    top: 70px;
+    right: 12px;
+  }
+
+  .membership-dialog {
+    width: calc(100vw - 20px);
+    max-height: calc(100dvh - 20px);
+  }
+
+  .membership-dialog-card {
+    grid-template-columns: 1fr;
+    max-height: calc(100dvh - 22px);
+    overflow-y: auto;
+  }
+
+  .membership-dialog-image {
+    min-height: clamp(145px, 25dvh, 210px);
+    border-radius: 21px 21px 0 0;
+  }
+
+  .membership-dialog-copy {
+    max-height: none;
+    padding: 21px 19px 18px;
+    overflow: visible;
+  }
+
+  .membership-dialog-copy > h2 {
+    font-size: clamp(1.9rem, 8.5vw, 2.35rem);
+  }
+
+  .membership-dialog-copy > p:not(.eyebrow) {
+    margin-top: 8px;
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .membership-coming {
+    margin: 13px 0;
+  }
+
+  .membership-coming > div {
+    padding: 8px 10px;
+  }
+
+  .membership-coming span {
+    font-size: 0.69rem;
+    line-height: 1.42;
+  }
+
+  .membership-dialog-image > span {
+    left: 18px;
+    bottom: 14px;
+  }
+
+  .topic-card {
+    min-height: 190px;
+  }
+
+  .auth-shell {
+    padding-inline: 16px;
+  }
+
+  .auth-main {
+    display: grid;
+    max-width: 540px;
+    gap: 16px;
+  }
+
+  .auth-story {
+    min-height: 270px;
+    display: flex;
+    padding: 22px;
+    border-radius: 23px;
+  }
+
+  .auth-story-logo {
+    width: 145px;
+  }
+
+  .auth-story-copy .auth-kicker,
+  .auth-story-copy > p:not(.auth-motto),
+  .auth-story-note {
+    display: none;
+  }
+
+  .auth-motto {
+    margin: 0;
+    font-size: clamp(2.25rem, 11vw, 3.15rem);
+  }
+
+  .auth-card {
+    padding: 28px 22px;
+  }
+
+  .auth-card h1 {
+    font-size: clamp(2.25rem, 10vw, 2.85rem);
+  }
+}
+
+@media (max-width: 420px) {
+  .auth-home-mark span {
+    display: none;
+  }
+
+  .page-hero,
+  .page-hero.is-compact {
+    min-height: 330px;
+  }
+
+  .topic-card strong {
+    font-size: 0.86rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-hero-image {
+    transition: none;
+  }
+}

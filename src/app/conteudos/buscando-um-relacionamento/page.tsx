@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, HeartHandshake, Search, Sparkles } from "lucide-react";
+import { ArrowLeft, Search } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { ArticleCard } from "@/components/article-card";
+import { PageHero } from "@/components/page-hero";
 import {
   articleCategory,
 } from "@/content/articles";
@@ -39,22 +40,20 @@ export default async function RelationshipCategoryPage() {
           <span>{articleCategory.name}</span>
         </nav>
 
-        <header className="category-hero">
-          <span className="category-hero-icon">
-            <HeartHandshake aria-hidden="true" />
-          </span>
-          <p className="eyebrow">
-            <Sparkles size={13} aria-hidden="true" /> PRIMEIRA COLEÇÃO EDITORIAL
-          </p>
-          <h1>{articleCategory.name}</h1>
-          <p>{articleCategory.description}</p>
+        <PageHero
+          eyebrow="PRIMEIRA COLEÇÃO EDITORIAL"
+          title={articleCategory.name}
+          description={articleCategory.description}
+          image="/editorial/relacionamentos.webp"
+          imageAlt="Mulheres conversando em um ambiente acolhedor"
+        >
           <div className="category-hero-actions">
             <span>{categoryArticles.length} artigos · prévia pública</span>
             <Link href="/buscar">
               <Search size={16} /> Buscar nesta coleção
             </Link>
           </div>
-        </header>
+        </PageHero>
 
         <section className="catalog-list" aria-labelledby="collection-title">
           <div className="catalog-section-heading">

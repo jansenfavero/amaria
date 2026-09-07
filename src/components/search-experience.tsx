@@ -2,8 +2,9 @@
 
 import { FormEvent, useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Search, Sparkles, X } from "lucide-react";
+import { ArrowLeft, Search, X } from "lucide-react";
 import { ArticleCard } from "@/components/article-card";
+import { PageHero } from "@/components/page-hero";
 import type { Article } from "@/content/articles/types";
 import { trackEvent } from "@/lib/analytics";
 
@@ -61,12 +62,13 @@ export function SearchExperience({
       <Link href="/conteudos" className="back-link">
         <ArrowLeft size={16} /> Voltar aos conteúdos
       </Link>
-      <header className="search-hero">
-        <p className="eyebrow">
-          <Sparkles size={13} /> ENCONTRE UMA REFLEXÃO
-        </p>
-        <h1>O que você deseja compreender hoje?</h1>
-        <p>Busque por uma palavra, tema ou pergunta.</p>
+      <PageHero
+        eyebrow="ENCONTRE UMA REFLEXÃO"
+        title="O que você deseja compreender hoje?"
+        description="Busque por uma palavra, tema ou pergunta e encontre a leitura que conversa com o seu momento."
+        image="/editorial/amor-proprio.webp"
+        imageAlt="Mulher em um momento tranquilo de reflexão"
+      >
         <form className="search-form" role="search" onSubmit={submit}>
           <Search aria-hidden="true" />
           <label className="visually-hidden" htmlFor="content-search">
@@ -90,7 +92,7 @@ export function SearchExperience({
             Buscar
           </button>
         </form>
-      </header>
+      </PageHero>
 
       <section className="search-results" aria-live="polite">
         <div className="catalog-section-heading">

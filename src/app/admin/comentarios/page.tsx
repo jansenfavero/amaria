@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AppShell } from "@/components/app-shell";
 import { AdminNav } from "@/components/admin/admin-nav";
+import { PageHero } from "@/components/page-hero";
 import { moderateCommentAction } from "@/app/admin/actions";
 import { requireAdmin } from "@/lib/auth/server";
 import { createClient } from "@/lib/supabase/server";
@@ -23,11 +24,14 @@ export default async function AdminCommentsPage() {
   return (
     <AppShell>
       <div className="admin-page">
-        <header className="admin-heading">
-          <p className="auth-kicker">MODERAÇÃO</p>
-          <h1>Conversas nos artigos.</h1>
-          <p>Preserve um espaço respeitoso, seguro e coerente com a curadoria.</p>
-        </header>
+        <PageHero
+          eyebrow="MODERAÇÃO"
+          title="Conversas nos artigos."
+          description="Preserve um espaço respeitoso, seguro e coerente com a curadoria."
+          image="/editorial/relacionamentos.webp"
+          imageAlt="Mulheres conversando com respeito e acolhimento"
+          compact
+        />
         <AdminNav />
         <section className="moderation-list">
           {comments?.length ? comments.map((comment) => (
@@ -59,4 +63,3 @@ export default async function AdminCommentsPage() {
     </AppShell>
   );
 }
-
