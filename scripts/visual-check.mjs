@@ -57,7 +57,7 @@ for (const width of [320, 360, 390, 430, 760]) {
   assert.equal(value(".topbar-end", "display", width), "none");
   assert.equal(value(".mobile-page-status", "display", width), "flex");
   assert.equal(value(".mobile-menu-toggle", "display", width), "inline-flex");
-  assert.equal(value(".mobile-menu-toggle", "margin-left", width), "auto");
+  assert.equal(value(".mobile-menu-toggle", "margin-left", width), "4px");
   assert.ok(pixels(value(".mobile-menu-toggle", "width", width)) >= 48);
   assert.ok(pixels(value(".mobile-menu-toggle", "height", width)) >= 48);
   assert.ok(pixels(value(".mobile-brand .brand-logo", "width", width)) >= 170);

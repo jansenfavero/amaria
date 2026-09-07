@@ -552,6 +552,53 @@ html[data-theme="dark"] .account-state-dot {
   border-color: #211428;
 }
 
+html[data-theme="dark"] .desktop-sidebar .brand-logo,
+html[data-theme="dark"] .mobile-brand .brand-logo,
+html[data-theme="dark"] .drawer-heading .brand-logo {
+  filter: brightness(1.38) saturate(1.18) drop-shadow(0 0 14px rgb(237 174 255 / 18%));
+}
+
+html[data-theme="dark"] :is(
+  .maria-preview,
+  .daily-note,
+  .community-preview,
+  .feed-toolbar,
+  .feed-end
+) {
+  color: var(--text-body);
+  border-color: #704979;
+  background: #26172df2;
+  box-shadow: var(--shadow-card);
+}
+
+html[data-theme="dark"] :is(
+  .maria-preview h2,
+  .maria-preview h2 em,
+  .daily-note p,
+  .community-preview strong,
+  .feed-toolbar h2,
+  .feed-toolbar a,
+  .feed-end p,
+  .feed-end a
+) {
+  color: #fff3fc;
+}
+
+html[data-theme="dark"] :is(
+  .maria-preview > p,
+  .rail-footnote,
+  .note-signature,
+  .community-preview p,
+  .feed-disclosure
+) {
+  color: #d9c6dd;
+}
+
+html[data-theme="dark"] .maria-symbol {
+  border-color: #76507e;
+  background: #321e39;
+}
+
 html[data-theme="dark"] .membership-dialog {
   border-color: #76507e;
   background: #25162c;
@@ -623,6 +670,10 @@ html[data-theme="dark"] .membership-coming :is(strong, span) {
   .mobile-account-slot {
     display: block;
     margin-left: auto;
+  }
+
+  .mobile-menu-toggle {
+    margin-left: 4px;
   }
 
   .account-trigger.is-mobile,
@@ -744,6 +795,10 @@ html[data-theme="dark"] .membership-coming :is(strong, span) {
 
   .topic-card strong {
     font-size: 0.86rem;
+  }
+
+  .mobile-brand .brand-logo {
+    width: 170px;
   }
 }
 
