@@ -496,6 +496,10 @@ html[data-theme="dark"] :is(.auth-home-mark, .auth-back, .auth-footer) {
   color: #f6e7f7;
 }
 
+html[data-theme="dark"] :is(.auth-text-link, .auth-checkbox a, .auth-signout) {
+  color: #ff9ac8;
+}
+
 html[data-theme="dark"] .auth-card {
   border-color: #694371;
   background: rgb(35 19 42 / 94%);
