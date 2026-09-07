@@ -5,7 +5,7 @@ import sharp from "sharp";
 
 // Static design contracts, not browser layout or a full accessibility audit.
 const css = postcss.parse(
-  `${await readFile("src/app/globals.css", "utf8")}\n${await readFile("src/app/editorial.css", "utf8")}`,
+  `${await readFile("src/app/globals.css", "utf8")}\n${await readFile("src/app/editorial.css", "utf8")}\n${await readFile("src/app/phase-2b.css", "utf8")}`,
 );
 function value(selector, property, width = 390) {
   let result;

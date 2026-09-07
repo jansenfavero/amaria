@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { AppShell } from "@/components/app-shell";
 import { SearchExperience } from "@/components/search-experience";
-import { articles } from "@/content/articles";
+import { getPublishedArticles } from "@/lib/articles-server";
 
 export const metadata: Metadata = {
   title: "Buscar conteúdos",
@@ -18,6 +18,7 @@ export default async function SearchPage({
 }) {
   const { q } = await searchParams;
   const initialQuery = Array.isArray(q) ? q[0] : (q ?? "");
+  const articles = await getPublishedArticles();
 
   return (
     <AppShell>

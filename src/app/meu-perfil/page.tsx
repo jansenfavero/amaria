@@ -1,110 +1,156 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, UserRound, CalendarDays, Sparkles } from "lucide-react";
-import { AppShell } from "@/components/app-shell";
-import { getAccount } from "@/lib/auth/server";
+import {
+  ArrowRight,
+  BookOpenText,
+  Crown,
+  LogOut,
+  MessageCircleHeart,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
+import { AuthFrame } from "@/components/auth/auth-frame";
+import {
+  deleteAccountAction,
+  signOutAction,
+  updateProfileAction,
+} from "@/app/auth/actions";
+import { requireAccount } from "@/lib/auth/server";
+import { canAccessAdmin, roleLabels } from "@/lib/auth/policy";
 import { createClient } from "@/lib/supabase/server";
-import { MemberRegisterForm } from "@/components/membership/member-register-form";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
-  title: "Seja Membro",
-  description: "Cadastre-se como membro gratuito da AMARIA e tenha acesso a conteúdos completos e comunidade.",
+  title: "Meu Perfil",
+  robots: { index: false, follow: false },
 };
 
-export default async function BecomeMemberPage() {
-  const account = await getAccount();
-  
-  // Get member profile if exists
-  let memberProfile = null;
-  if (account) {
-    const supabase = await createClient();
-    const { data } = await supabase
-      .from("member_profiles")
-      .select("*")
-      .eq("user_id", account.id)
-      .single();
-    memberProfile = data;
-  }
+export default async function MemberProfilePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ aviso?: string }>;
+}) {
+  const account = await requireAccount();
+  const supabase = await createClient();
+  const { data: profile } = await supabase
+    .from("member_profiles")
+    .select("display_name, founder_number, marketing_opt_in, created_at")
+    .eq("id", account.id)
+    .single();
+  const { aviso } = await searchParams;
+  const admin = canAccessAdmin(account.role, account.active);
 
   return (
-    <AppShell>
-      <div className="become-member-page">
-        <header className="become-member-hero">
-          <p className="page-eyebrow">COMUNIDADE AMARIA</p>
-          <h1>Seja membro gratuito da AMARIA</h1>
-          <p className="hero-description">
-            Junte-se a mulheres que buscam autoconhecimento, relacionamentos 
-            mais saudáveis e inteligência relacional.
-          </p>
-        </header>
-
-        {memberProfile ? (
-          <section className="already-member-section">
-            <div className="member-card">
-              <UserRound size={48} />
-              <h2>Você já é membro!</h2>
-              <p>Bem-vinda de volta, <strong>{memberProfile.display_name}</strong>.</p>
-              {memberProfile.is_founding_member && (
-                <div className="founding-badge">
-                  <Sparkles size={16} />
-                  <span>Membro Fundadora #{memberProfile.founding_number}</span>
-                </div>
-              )}
-              <Link href="/meu-perfil" className="button button-primary">
-                Ir para Meu Perfil <ArrowRight size={18} />
-              </Link>
-            </div>
-          </section>
-        ) : (
-          <div className="member-register-layout">
-            <div className="register-form-column">
-              <MemberRegisterForm account={account} />
-            </div>
-
-            <aside className="benefits-sidebar">
-              <h3>Benefícios de ser membro</h3>
-              
-              <div className="benefit-card">
-                <Sparkles size={24} />
-                <div>
-                  <strong>Acesso completo aos artigos</strong>
-                  <p>Leia 100% dos conteúdos após os primeiros 20% gratuitos.</p>
-                </div>
-              </div>
-
-              <div className="benefit-card">
-                <UserRound size={24} />
-                <div>
-                  <strong>Comente e participe</strong>
-                  <p>Interaja com os artigos e compartilhe suas reflexões com a comunidade.</p>
-                </div>
-              </div>
-
-              <div className="benefit-card">
-                <CalendarDays size={24} />
-                <div>
-                  <strong>Eventos exclusivos</strong>
-                  <p>Participe de encontros virtuais e presenciais com outras membros.</p>
-                </div>
-              </div>
-
-              <div className="benefit-card highlight">
-                <Sparkles size={24} />
-                <div>
-                  <strong>Maria - Conselheira IA</strong>
-                  <p>Em breve: uma inteligência artificial para organizar seus pensamentos sobre relacionamentos.</p>
-                </div>
-              </div>
-
-              <div className="founding-callout">
-                <h4>Seja uma das 100 primeiras</h4>
-                <p>Membros fundadoras têm benefícios exclusivos, incluindo acesso antecipado a novos recursos e participação em decisões da comunidade.</p>
-              </div>
-            </aside>
+    <AuthFrame
+      eyebrow="MEU PERFIL"
+      title={profile?.display_name ? `Olá, ${profile.display_name}.` : "Seu espaço na AMARIA."}
+      description="Acompanhe sua participação, escolha como quer receber novidades e volte às leituras que fazem sentido para você."
+    >
+      {profile?.founder_number ? (
+        <div className="founder-badge">
+          <Crown aria-hidden="true" />
+          <div>
+            <strong>Membro fundadora #{profile.founder_number}</strong>
+            <span>Você está entre as 100 primeiras mulheres da AMARIA.</span>
           </div>
-        )}
+        </div>
+      ) : null}
+
+      {aviso === "salvo" ? (
+        <p className="auth-message auth-message-success" role="status">
+          Perfil atualizado com sucesso.
+        </p>
+      ) : aviso ? (
+        <p className="auth-message auth-message-error" role="alert">
+          Não foi possível concluir essa ação. Confira os dados e tente novamente.
+        </p>
+      ) : null}
+
+      <div className="member-benefits">
+        <div>
+          <BookOpenText aria-hidden="true" />
+          <strong>Leituras completas</strong>
+          <span>Acesso gratuito a todos os artigos.</span>
+        </div>
+        <div>
+          <MessageCircleHeart aria-hidden="true" />
+          <strong>Conversas nos artigos</strong>
+          <span>Comente com cuidado e presença.</span>
+        </div>
+        <div>
+          <Sparkles aria-hidden="true" />
+          <strong>Próximos capítulos</strong>
+          <span>Maria, comunidade e encontros em breve.</span>
+        </div>
       </div>
-    </AppShell>
+
+      <form action={updateProfileAction} className="profile-form">
+        <div className="auth-field">
+          <label htmlFor="display_name">Seu nome</label>
+          <input
+            id="display_name"
+            name="display_name"
+            defaultValue={profile?.display_name ?? ""}
+            minLength={2}
+            maxLength={80}
+            required
+          />
+        </div>
+        <label className="auth-checkbox">
+          <input
+            type="checkbox"
+            name="marketing"
+            defaultChecked={profile?.marketing_opt_in ?? false}
+          />
+          <span>Quero receber novidades editoriais e convites da AMARIA.</span>
+        </label>
+        <button type="submit" className="button button-primary">
+          Salvar meu perfil <ArrowRight size={17} aria-hidden="true" />
+        </button>
+      </form>
+
+      <dl className="account-details">
+        <div>
+          <dt>E-mail confirmado</dt>
+          <dd>{account.email}</dd>
+        </div>
+        <div>
+          <dt>Perfil de acesso</dt>
+          <dd>{account.role ? roleLabels[account.role] : "Membro"}</dd>
+        </div>
+      </dl>
+
+      {admin ? (
+        <Link href="/admin" className="button button-secondary profile-admin-link">
+          <ShieldCheck size={18} aria-hidden="true" />
+          Abrir painel administrativo
+        </Link>
+      ) : null}
+
+      <div className="account-actions">
+        <Link className="auth-text-link" href="/definir-senha">
+          Alterar minha senha
+        </Link>
+        <form action={signOutAction}>
+          <button type="submit" className="auth-signout">
+            <LogOut size={18} aria-hidden="true" /> Sair
+          </button>
+        </form>
+      </div>
+
+      <details className="delete-account">
+        <summary>Excluir meu perfil e meus dados</summary>
+        <p>
+          Esta ação é permanente e remove seu acesso, perfil e comentários.
+          Digite <strong>EXCLUIR MINHA CONTA</strong> para confirmar.
+        </p>
+        <form action={deleteAccountAction}>
+          <label htmlFor="confirmation">Confirmação</label>
+          <input id="confirmation" name="confirmation" required />
+          <button type="submit">Excluir definitivamente</button>
+        </form>
+      </details>
+    </AuthFrame>
   );
 }
+

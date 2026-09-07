@@ -1,6 +1,7 @@
 import "server-only";
 
 import { cache } from "react";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getSupabaseConfig } from "@/lib/supabase/config";
@@ -42,11 +43,18 @@ export type Account = {
   email: string;
   role: AccountRole | null;
   active: boolean;
+  displayName: string;
+  founderNumber: number | null;
 };
 
 /** React cache is request-scoped. Identity and live permissions are server-owned. */
 export const getAccount = cache(async (): Promise<Account | null> => {
   if (!authIsConfigured()) return null;
+  const cookieStore = await cookies();
+  const hasAuthCookie = cookieStore
+    .getAll()
+    .some(({ name }) => /^sb-.+-auth-token(?:\.\d+)?$/.test(name));
+  if (!hasAuthCookie) return null;
   const supabase = await createClient();
   const { data, error } = await supabase.auth.getUser();
   const user = data.user;
@@ -66,11 +74,27 @@ export const getAccount = cache(async (): Promise<Account | null> => {
     .maybeSingle();
   if (accessError)
     throw new Error("Não foi possível verificar as permissões da conta.");
+  if (access?.role === "member" && access.active === true) {
+    const { error: founderError } = await supabase.rpc(
+      "claim_member_founder_number",
+    );
+    if (founderError)
+      throw new Error("Não foi possível concluir o perfil de membro.");
+  }
+  const { data: profile, error: profileError } = await supabase
+    .from("member_profiles")
+    .select("display_name, founder_number")
+    .eq("id", user.id)
+    .maybeSingle();
+  if (profileError)
+    throw new Error("Não foi possível carregar o perfil da conta.");
   return {
     id: user.id,
     email: user.email ?? "",
     role: isAccountRole(access?.role) ? access.role : null,
     active: access?.active === true,
+    displayName: profile?.display_name ?? "",
+    founderNumber: profile?.founder_number ?? null,
   };
 });
 

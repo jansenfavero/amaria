@@ -61,7 +61,7 @@ const sections = {
     eyebrow: "TRANSPARÊNCIA DESDE O COMEÇO",
     heading: "Seu espaço. A sua história.",
     description:
-      "A AMARIA está em pré-lançamento. Saiba como funciona a prévia pública e o acesso restrito da equipe, antes da abertura de contas ao público, conversas e comunidade.",
+      "Conheça os dados necessários para seu perfil, leituras e interações, além das escolhas disponíveis para você.",
     icon: ShieldCheck,
   },
 };
@@ -242,20 +242,21 @@ export default async function SectionPage({
           <section className="info-section info-text">
             <h2>O pertencimento começa pelo respeito.</h2>
             <p>
-              Antes de abrir a comunidade, precisamos preparar contas,
-              privacidade, regras de convivência, moderação e formas de
-              denunciar conteúdos.
+              Os perfis de membros e os comentários nos artigos já contam com
+              autenticação, privacidade e moderação. A comunidade ampla ainda
+              será aberta somente depois de concluirmos regras de convivência,
+              denúncias e ferramentas adicionais de proteção.
             </p>
             <p>
-              Publicações de usuárias e comentários ainda não estão ativos.
-              Nesta versão, nenhuma mensagem ou relato pessoal é coletado.
+              Publicações entre membros ainda não estão ativas. Nos artigos,
+              membros podem comentar de forma opcional e respeitosa.
             </p>
             <div className="safety-note">
               <Heart size={24} aria-hidden="true" />
               <p>
-                As curtidas ficam apenas no seu dispositivo e não representam
-                atividade de outras pessoas. Comentários públicos ainda não são
-                coletados.
+                Comentários são públicos depois de publicados, mas escrever
+                exige um perfil confirmado. Nunca compartilhe informações
+                sensíveis de terceiros.
               </p>
             </div>
           </section>
@@ -265,60 +266,59 @@ export default async function SectionPage({
             <h2>O que acontece nesta versão</h2>
             <ul>
               <li>
-                As curtidas ficam na memória desta página e desaparecem ao
-                recarregar ou sair dela. Não são enviadas ao Supabase.
+                Visualizações, curtidas e compartilhamentos são contabilizados
+                com um identificador aleatório do navegador. A aplicação não
+                armazena IP nem agente do navegador nessas tabelas de métricas.
               </li>
               <li>
                 O compartilhamento usa os recursos do seu navegador ou copia o
                 link. A AMARIA não publica por você.
               </li>
               <li>
-                Não há cadastro público, chat, campo de comentários,
-                rastreadores de publicidade ou analytics instalados na
-                aplicação.
+                O cadastro gratuito processa nome, e-mail, credencial,
+                confirmação de privacidade e preferência de novidades.
+                Comentários opcionais ficam associados ao perfil.
               </li>
               <li>
-                A hospedagem pode processar dados técnicos de acesso, como
-                endereço IP, para servir e proteger o site.
+                Google AdSense, Vercel e Supabase podem processar dados técnicos
+                conforme suas próprias políticas para publicidade, hospedagem,
+                autenticação e segurança.
               </li>
             </ul>
-            <h2 id="equipe">Acesso restrito da equipe</h2>
+            <h2 id="equipe">Perfis de membros e administração</h2>
             <p>
-              Versão do aviso: equipe-2026-08-31. Apenas pessoas convidadas
-              podem usar a área de conta. O feed público não exige login.
+              Versão do aviso para membros: membros-2026-09-03. Qualquer pessoa
+              com acesso ao próprio e-mail pode solicitar cadastro; o conteúdo
+              completo e os comentários exigem confirmação.
             </p>
             <p>
-              Para esse acesso, o Supabase Auth processa e-mail, credenciais de
-              autenticação e sessões. A aplicação consulta o e-mail confirmado e
-              registra o perfil de permissão, se o acesso está ativo e a versão
-              e data de leitura deste aviso. Senhas não são armazenadas nas
-              tabelas da aplicação nem exibidas à equipe.
+              O Supabase Auth processa e-mail, credenciais e sessões. Senhas não
+              são armazenadas nas tabelas editoriais nem exibidas à equipe. O
+              papel administrativo é definido no banco e não pode ser alterado
+              pelo próprio perfil.
             </p>
             <p>
-              Cookies de sessão são necessários para manter o login e proteger
-              as áreas restritas. Não são usados para publicidade. A hospedagem
-              e o serviço de autenticação podem processar registros técnicos
-              para operação e segurança. Não envie relatos pessoais ou dados
-              sensíveis por esses formulários.
+              Cookies de sessão mantêm o login e protegem áreas restritas. Um
+              cookie técnico separado mantém o identificador aleatório das
+              métricas e curtidas. O Google pode utilizar tecnologias próprias
+              nos espaços de anúncio exibidos dentro de artigos.
             </p>
             <p>
-              As permissões são mantidas pela administração; cada conta só pode
-              consultar seus próprios registros de acesso e leitura do aviso. Os
-              dados são mantidos enquanto necessários ao acesso da equipe.
-              Solicite correção, revogação de acesso ou exclusão à administração
-              pelo canal usado para o seu convite. Após confirmar a identidade,
-              a administração trata a solicitação; registros de segurança e
-              cópias de backup seguem os prazos dos respectivos provedores.
+              Cada membro pode editar o próprio nome e preferência de contato
+              em “Meu Perfil”. A exclusão definitiva da conta também está
+              disponível nessa tela e remove perfil, acesso e comentários
+              associados; registros técnicos e backups seguem os prazos dos
+              provedores.
             </p>
-            <h2>Antes de abrir novas funcionalidades</h2>
+            <h2>Funcionalidades ainda em preparação</h2>
             <p>
-              Será necessário disponibilizar os avisos de privacidade e termos
-              aplicáveis, canais para exercer direitos, consentimento quando
-              necessário e regras de retenção e exclusão de dados.
+              Maria e a comunidade interativa permanecem identificadas como “em
+              breve”. Antes da abertura, receberão avisos e controles
+              específicos para conversas, segurança e retenção.
             </p>
             <p>
-              Este é um aviso sobre a prévia atual, não a política definitiva de
-              uma comunidade em funcionamento.
+              Para dúvidas ou exercício de direitos, escreva para
+              contato@jansenfavero.com.
             </p>
           </section>
         ) : null}

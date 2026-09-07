@@ -13,15 +13,16 @@ import {
   Heart,
   House,
   Info,
-  LogIn,
   Menu,
   Search,
   ShieldCheck,
   Sparkles,
   UsersRound,
+  UserRound,
   X,
 } from "lucide-react";
 import { Brand } from "@/components/brand";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const navigation = [
   { href: "/", label: "Para você", icon: House },
@@ -41,7 +42,7 @@ const essentials = [
   { href: "/sobre", label: "O que é AMARIA?", icon: Info },
   { href: "/curadoria", label: "Nossa curadoria", icon: BookHeart },
   { href: "/privacidade", label: "Privacidade & cuidado", icon: ShieldCheck },
-  { href: "/entrar", label: "Acesso da equipe", icon: LogIn },
+  { href: "/meu-perfil", label: "Meu Perfil", icon: UserRound },
 ];
 
 function Navigation({ close }: { close?: () => void }) {
@@ -111,6 +112,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <Heart size={14} aria-hidden="true" />
         </p>
         <div className="topbar-end">
+          <ThemeToggle compact />
           <span className="preview-badge">
             <span aria-hidden="true" /> PRÉ-LANÇAMENTO
           </span>

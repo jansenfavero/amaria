@@ -4,7 +4,7 @@ import { ArrowLeft, ShieldCheck } from "lucide-react";
 import { Brand } from "@/components/brand";
 
 export function AuthFrame({
-  eyebrow = "ACESSO DA EQUIPE",
+  eyebrow = "SEU ESPAÇO AMARIA",
   title,
   description,
   children,
@@ -39,12 +39,12 @@ export function AuthFrame({
             se perder <em>de você.</em>
           </p>
           <p>
-            Um espaço em construção, com cuidado em cada detalhe. Começando por
-            quem faz tudo acontecer.
+            Leituras para reconhecer padrões, organizar escolhas e voltar a se
+            escutar — no seu tempo.
           </p>
           <span className="auth-story-note">
-            <ShieldCheck size={19} aria-hidden="true" /> Pré-lançamento · acesso
-            por convite
+            <ShieldCheck size={19} aria-hidden="true" /> Perfil gratuito ·
+            privacidade por princípio
           </span>
         </aside>
         <section className="auth-card" aria-labelledby="auth-title">

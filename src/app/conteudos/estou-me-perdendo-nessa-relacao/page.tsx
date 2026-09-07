@@ -3,12 +3,8 @@ import Link from "next/link";
 import { ArrowLeft, Search, ShieldCheck, Sparkles } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { ArticleCard } from "@/components/article-card";
-import {
-  getArticlesByCategory,
-  selfLossArticleCategory,
-} from "@/content/articles";
-
-const categoryArticles = getArticlesByCategory(selfLossArticleCategory.slug);
+import { selfLossArticleCategory } from "@/content/articles";
+import { getPublishedArticles } from "@/lib/articles-server";
 
 export const metadata: Metadata = {
   title: "Estou me perdendo nessa relação",
@@ -24,7 +20,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SelfLossCategoryPage() {
+export const dynamic = "force-dynamic";
+
+export default async function SelfLossCategoryPage() {
+  const categoryArticles = (await getPublishedArticles()).filter(
+    (article) => article.categorySlug === selfLossArticleCategory.slug,
+  );
   return (
     <AppShell>
       <div className="catalog-page">
@@ -49,7 +50,7 @@ export default function SelfLossCategoryPage() {
             <span>
               {categoryArticles.length}{" "}
               {categoryArticles.length === 1 ? "artigo" : "artigos"} · leitura
-              pública
+              com prévia pública
             </span>
             <Link href="/buscar">
               <Search size={16} /> Buscar nesta jornada

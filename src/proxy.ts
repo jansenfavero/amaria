@@ -6,10 +6,14 @@ const CANONICAL_HOST = "amaria.me";
 const REDIRECT_HOSTS = new Set(["amar.ia.br"]);
 const SESSION_PATHS = [
   "/entrar",
+  "/cadastro",
   "/recuperar-acesso",
   "/definir-senha",
   "/minha-conta",
+  "/meu-perfil",
   "/admin",
+  "/conteudos",
+  "/api/interactions",
   "/auth",
 ];
 
@@ -48,6 +52,10 @@ export async function proxy(request: NextRequest) {
     // Pages fail closed and explain configuration errors; the public feed works.
     return NextResponse.next();
   }
+  const hasAuthCookie = request.cookies
+    .getAll()
+    .some(({ name }) => /^sb-.+-auth-token(?:\.\d+)?$/.test(name));
+  if (!hasAuthCookie) return NextResponse.next();
   const { response } = await updateSession(request);
   return response;
 }

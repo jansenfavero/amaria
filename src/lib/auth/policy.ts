@@ -25,5 +25,12 @@ export function validNewPassword(value: string): boolean {
 export const roleLabels: Record<AccountRole, string> = {
   admin: "Administrador",
   curator: "Curadora",
-  member: "Usuária",
+  member: "Membro",
 };
+
+export const MEMBER_PRIVACY_NOTICE_VERSION = "membros-2026-09-03";
+
+export function validDisplayName(value: string): boolean {
+  const normalized = value.trim();
+  return normalized.length >= 2 && normalized.length <= 80;
+}

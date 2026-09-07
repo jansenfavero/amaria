@@ -1,49 +1,33 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft, Mail, ShieldCheck, Sparkles } from "lucide-react";
-import { AppShell } from "@/components/app-shell";
+import { redirect } from "next/navigation";
+import { AuthFrame, AuthUnavailable } from "@/components/auth/auth-frame";
+import { AuthForm } from "@/components/auth/auth-form";
+import { authIsConfigured, getAccount } from "@/lib/auth/server";
 
+export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
-  title: "Cadastro gratuito",
-  description: "Acompanhe a abertura das contas gratuitas da AMARIA.",
+  title: "Seja membro",
+  description:
+    "Crie gratuitamente seu perfil AMARIA e acesse as leituras completas.",
   alternates: { canonical: "/cadastro" },
   robots: { index: false, follow: true },
 };
 
-export default function SignupPage() {
+export default async function SignupPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ next?: string }>;
+}) {
+  const configured = authIsConfigured();
+  const { next } = await searchParams;
+  if (configured && (await getAccount())) redirect("/meu-perfil");
   return (
-    <AppShell>
-      <div className="signup-page">
-        <Link href="/conteudos" className="back-link">
-          <ArrowLeft size={16} /> Voltar aos conteúdos
-        </Link>
-        <section className="signup-card">
-          <span className="signup-icon">
-            <Sparkles aria-hidden="true" />
-          </span>
-          <p className="eyebrow">CONTAS GRATUITAS · EM PREPARAÇÃO</p>
-          <h1>Seu espaço na AMARIA está chegando.</h1>
-          <p>
-            A leitura dos artigos já é pública e não exige conta. Antes de abrir
-            cadastros, estamos concluindo as proteções de privacidade e a
-            experiência para guardar reflexões com segurança.
-          </p>
-          <a
-            href="mailto:contato@jansenfavero.com?subject=Quero%20acompanhar%20a%20abertura%20da%20AMARIA"
-            className="button button-primary"
-          >
-            <Mail size={17} /> Quero receber o aviso
-          </a>
-          <div className="signup-note">
-            <ShieldCheck aria-hidden="true" />
-            <p>
-              Nenhum cadastro é coletado nesta página. O botão abre seu
-              aplicativo de e-mail para que você escolha se deseja entrar em
-              contato.
-            </p>
-          </div>
-        </section>
-      </div>
-    </AppShell>
+    <AuthFrame
+      eyebrow="MEMBRO FUNDADORA"
+      title="Um espaço inteiro para você."
+      description="Crie seu perfil gratuito para continuar todas as leituras, comentar e participar dos próximos capítulos da AMARIA."
+    >
+      {configured ? <AuthForm mode="signup" next={next} /> : <AuthUnavailable />}
+    </AuthFrame>
   );
 }

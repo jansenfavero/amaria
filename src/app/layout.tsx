@@ -5,6 +5,8 @@ import "./globals.css";
 import { isIndexable, site } from "@/lib/site";
 import { ADSENSE_CLIENT } from "@/lib/adsense";
 import { AuthReturnBridge } from "@/components/auth/auth-return-bridge";
+import { MembershipInvite } from "@/components/membership-invite";
+import { AnalyticsTracker } from "@/components/analytics-tracker";
 
 const manrope = localFont({
   src: [
@@ -87,7 +89,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#6b2b85",
-  colorScheme: "light",
+  colorScheme: "light dark",
   width: "device-width",
   initialScale: 1,
 };
@@ -96,12 +98,26 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${manrope.variable} ${cormorant.variable}`}>
+    <html
+      lang="pt-BR"
+      className={`${manrope.variable} ${cormorant.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var t=localStorage.getItem('amaria:theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t}catch(e){}})()",
+          }}
+        />
+      </head>
       <body>
         <a href="#conteudo-principal" className="skip-link">
           Pular para o conteúdo
         </a>
         {children}
+        <AnalyticsTracker />
+        <MembershipInvite />
         <Script
           id="google-adsense"
           async

@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next";
-import { articles } from "@/content/articles";
+import { getPublishedArticles } from "@/lib/articles-server";
 import { isIndexable, site } from "@/lib/site";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   if (!isIndexable) return [];
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -23,7 +23,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: path === "" ? 1 : path.startsWith("/conteudos") ? 0.8 : 0.5,
   }));
 
-  const articleRoutes: MetadataRoute.Sitemap = articles.map((article) => ({
+  const publishedArticles = await getPublishedArticles();
+  const articleRoutes: MetadataRoute.Sitemap = publishedArticles.map((article) => ({
     url: `${site.url}${article.href}`,
     lastModified: new Date(article.updatedAt),
     changeFrequency: "monthly",

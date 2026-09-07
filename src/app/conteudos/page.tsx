@@ -5,9 +5,9 @@ import { AppShell } from "@/components/app-shell";
 import { ArticleCard } from "@/components/article-card";
 import {
   articleCategories,
-  articles,
   getArticlesByCategory,
 } from "@/content/articles";
+import { getPublishedArticles } from "@/lib/articles-server";
 
 const futureJourneys = [
   "Estou conhecendo alguém",
@@ -30,7 +30,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContentsPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ContentsPage() {
+  const publishedArticles = await getPublishedArticles();
   return (
     <AppShell>
       <div className="catalog-page">
@@ -44,8 +47,8 @@ export default function ContentsPage() {
             </p>
             <h1>Conteúdos para relações mais conscientes.</h1>
             <p>
-              Leituras públicas, sem login, para transformar dúvidas em boas
-              perguntas e escolhas mais claras.
+              Conheça 20% de cada leitura sem login. Membros gratuitas acessam
+              o conteúdo completo e participam das conversas.
             </p>
           </div>
           <BookOpenText aria-hidden="true" />
@@ -84,10 +87,10 @@ export default function ContentsPage() {
               <span>PUBLICADOS</span>
               <h2 id="catalog-title">Todas as leituras</h2>
             </div>
-            <p>{articles.length} artigos · acesso livre</p>
+            <p>{publishedArticles.length} artigos · perfil gratuito</p>
           </div>
           <div className="article-card-grid">
-            {articles.map((article, index) => (
+            {publishedArticles.map((article, index) => (
               <ArticleCard
                 article={article}
                 key={article.slug}

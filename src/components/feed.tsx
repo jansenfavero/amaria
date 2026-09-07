@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   Compass,
@@ -8,7 +9,7 @@ import {
 import { ArticleCard } from "@/components/article-card";
 import { RightRail } from "@/components/app-shell";
 import { SmartContentSearch } from "@/components/smart-content-search";
-import { articles } from "@/content/articles";
+import { getPublishedArticles } from "@/lib/articles-server";
 import styles from "./smart-content-search.module.css";
 
 const topicCards = [
@@ -18,6 +19,7 @@ const topicCards = [
     caption: "Clareza para escolher e construir.",
     icon: HeartHandshake,
     className: "tone-rose",
+    image: "/editorial/relacionamentos.webp",
   },
   {
     href: "/conteudos/estou-me-perdendo-nessa-relacao",
@@ -25,6 +27,7 @@ const topicCards = [
     caption: "Sinais, limites e reconexão consigo.",
     icon: ShieldCheck,
     className: "tone-lilac",
+    image: "/articles/relacionamento-toxico-sinais-de-autoabandono-2026.webp",
   },
   {
     href: "/curadoria",
@@ -32,11 +35,13 @@ const topicCards = [
     caption: "Psicologia, cuidado e responsabilidade.",
     icon: Compass,
     className: "tone-sand",
+    image: "/editorial/amor-proprio.webp",
   },
 ] as const;
 
-export function Feed() {
-  const searchArticles = articles.map(
+export async function Feed() {
+  const publishedArticles = await getPublishedArticles();
+  const searchArticles = publishedArticles.map(
     ({ slug, href, title, excerpt, category, keywords }) => ({
       slug,
       href,
@@ -63,12 +68,20 @@ export function Feed() {
           </div>
           <div className={`topic-grid ${styles.topicsThreeUp}`}>
             {topicCards.map(
-              ({ href, title, caption, icon: Icon, className }) => (
+              ({ href, title, caption, icon: Icon, className, image }) => (
                 <Link
                   href={href}
                   key={href}
                   className={`topic-card ${className}`}
                 >
+                  <Image
+                    className="topic-card-image"
+                    src={image}
+                    alt=""
+                    fill
+                    sizes="(max-width: 760px) calc(100vw - 64px), 220px"
+                  />
+                  <span className="topic-card-overlay" aria-hidden="true" />
                   <span className="topic-icon">
                     <Icon size={22} strokeWidth={1.35} aria-hidden="true" />
                   </span>
@@ -94,12 +107,12 @@ export function Feed() {
         </div>
 
         <p className="feed-disclosure">
-          {articles.length} leituras públicas · curadoria psicológica · acesso
-          livre, sem login
+          {publishedArticles.length} leituras · 20% abertas para conhecer ·
+          acesso completo gratuito para membros
         </p>
 
         <div className="posts-list" aria-label="Artigos da AMARIA">
-          {articles.map((article, index) => (
+          {publishedArticles.map((article, index) => (
             <ArticleCard
               article={article}
               key={article.slug}

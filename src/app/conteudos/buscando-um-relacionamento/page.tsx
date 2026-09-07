@@ -5,10 +5,8 @@ import { AppShell } from "@/components/app-shell";
 import { ArticleCard } from "@/components/article-card";
 import {
   articleCategory,
-  getArticlesByCategory,
 } from "@/content/articles";
-
-const categoryArticles = getArticlesByCategory(articleCategory.slug);
+import { getPublishedArticles } from "@/lib/articles-server";
 
 export const metadata: Metadata = {
   title: "Buscando um relacionamento",
@@ -24,7 +22,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RelationshipCategoryPage() {
+export const dynamic = "force-dynamic";
+
+export default async function RelationshipCategoryPage() {
+  const categoryArticles = (await getPublishedArticles()).filter(
+    (article) => article.categorySlug === articleCategory.slug,
+  );
   return (
     <AppShell>
       <div className="catalog-page">
@@ -46,7 +49,7 @@ export default function RelationshipCategoryPage() {
           <h1>{articleCategory.name}</h1>
           <p>{articleCategory.description}</p>
           <div className="category-hero-actions">
-            <span>{categoryArticles.length} artigos · leitura pública</span>
+            <span>{categoryArticles.length} artigos · prévia pública</span>
             <Link href="/buscar">
               <Search size={16} /> Buscar nesta coleção
             </Link>

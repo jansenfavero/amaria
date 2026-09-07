@@ -4,8 +4,10 @@ import { AppShell } from "@/components/app-shell";
 import { ArticlePage } from "@/components/article-page";
 import { articles, getArticle, plainArticleText } from "@/content/articles";
 import { isIndexable, site } from "@/lib/site";
+import { getAccount } from "@/lib/auth/server";
+import { getCmsArticle } from "@/lib/articles-server";
 
-export const dynamicParams = false;
+export const dynamic = "force-dynamic";
 
 export function generateStaticParams() {
   return articles.map((article) => ({ slug: article.slug }));
@@ -17,7 +19,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const article = getArticle(slug);
+  const article = getArticle(slug) ?? (await getCmsArticle(slug, false));
   if (!article) return {};
 
   return {
@@ -63,7 +65,11 @@ export default async function ArticleRoute({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = getArticle(slug);
+  const account = await getAccount();
+  const isMember = Boolean(account?.active && account.role);
+  const staticArticle = getArticle(slug);
+  const article =
+    staticArticle ?? (await getCmsArticle(slug, isMember));
   if (!article) notFound();
 
   const articleBody = [
@@ -81,7 +87,11 @@ export default async function ArticleRoute({
     "@type": "Article",
     headline: article.title,
     description: article.seoDescription,
-    image: [`${site.url}${article.hero.src}`],
+    image: [
+      article.hero.src.startsWith("http")
+        ? article.hero.src
+        : `${site.url}${article.hero.src}`,
+    ],
     datePublished: article.publishedAt,
     dateModified: article.updatedAt,
     inLanguage: "pt-BR",
@@ -89,7 +99,7 @@ export default async function ArticleRoute({
     articleSection: article.category,
     keywords: article.keywords.join(", "),
     wordCount: article.wordCount,
-    articleBody,
+    ...(isMember ? { articleBody } : {}),
     author: { "@type": "Organization", name: article.author, url: site.url },
     publisher: {
       "@type": "Organization",
@@ -142,7 +152,11 @@ export default async function ArticleRoute({
           __html: JSON.stringify(breadcrumbsJsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <ArticlePage article={article} />
+      <ArticlePage
+        article={article}
+        isMember={isMember}
+        previewAlreadyLimited={!staticArticle && !isMember}
+      />
     </AppShell>
   );
 }

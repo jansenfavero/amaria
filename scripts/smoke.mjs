@@ -14,10 +14,14 @@ const server = spawn(
     "--port",
     port,
   ],
-  { stdio: ["ignore", "pipe", "pipe"] },
+  {
+    stdio: ["ignore", "pipe", "pipe"],
+    env: { ...process.env, AMARIA_DISABLE_REMOTE_FOR_SMOKE: "true" },
+  },
 );
 let serverOutput = "";
 const articleSlugs = [
+  "relacionamento-toxico-7-sinais-de-que-voce-pode-estar-se-perdendo",
   "antes-de-namorar-defina-o-que-voce-procura",
   "quem-quer-algo-serio-demonstra-intencao",
   "nao-confunda-quimica-com-compatibilidade",
@@ -28,6 +32,10 @@ const articleSlugs = [
   "reciprocidade-vale-mais-do-que-potencial",
   "paz-tambem-e-criterio",
   "escolha-alguem-que-queira-construir-com-voce",
+];
+const articleImageSlugs = [
+  "relacionamento-toxico-sinais-de-autoabandono-2026",
+  ...articleSlugs.slice(1),
 ];
 
 try {
@@ -86,7 +94,7 @@ try {
     "/editorial/relacionamentos.webp",
     "/editorial/recomecos.webp",
     ...articleSlugs.map((slug) => `/conteudos/${slug}`),
-    ...articleSlugs.map((slug) => `/articles/${slug}.webp`),
+    ...articleImageSlugs.map((slug) => `/articles/${slug}.webp`),
     "/pagina-inexistente",
   ];
   for (const path of publicPaths) {
@@ -119,7 +127,7 @@ try {
       const html = await response.text();
       assert.match(html, /lang="pt-BR"/);
       assert.equal((html.match(/<h1(?:\s|>)/g) || []).length, 1);
-      assert.match(html, /O que é AMARIA\?/);
+      if (path !== "/cadastro") assert.match(html, /O que é AMARIA\?/);
       assert.doesNotMatch(html, /AMAR\.IA/);
       assert.doesNotMatch(html, /https:\/\/amar\.ia\.br/);
       assert.match(html, /https:\/\/amaria\.me/);
@@ -134,31 +142,32 @@ try {
       if (path === "/") {
         assert.equal(
           (html.match(/class="post-card editorial-card /g) || []).length,
-          10,
+          11,
         );
-        assert.equal((html.match(/aria-label="Curtir /g) || []).length, 10);
+        assert.equal((html.match(/aria-label="Curtir /g) || []).length, 11);
         assert.equal(
           (html.match(/aria-label="Compartilhar /g) || []).length,
-          10,
+          11,
         );
-        assert.match(html, /Dez leituras públicas/);
+        assert.match(html, /20% abertas para conhecer/);
       }
       if (articleSlugs.some((slug) => path === `/conteudos/${slug}`)) {
         assert.match(html, /"@type":"Article"/);
-        assert.match(html, /Curadoria Psicológica/i);
-        assert.match(html, /não substitui acompanhamento psicológico/);
-        assert.equal((html.match(/class="ad-slot/g) || []).length, 3);
+        assert.match(html, /20%/);
+        assert.match(html, /CONTINUE GRATUITAMENTE/);
+        assert.doesNotMatch(html, /Curadoria Psicológica/i);
+        assert.equal((html.match(/class="ad-slot/g) || []).length, 1);
         assert.doesNotMatch(html, /name="email"/);
       }
       if (path === "/conteudos") {
         assert.equal(
           (html.match(/class="post-card editorial-card grid-card"/g) || [])
             .length,
-          10,
+          11,
         );
         assert.equal(
           (html.match(/class="future-journey-card"/g) || []).length,
-          6,
+          5,
         );
       }
       if (path === "/conteudos/buscando-um-relacionamento") {
@@ -182,7 +191,7 @@ try {
       assert.deepEqual(await response.json(), {
         status: "ok",
         service: "amaria",
-        phase: "2a-access-base",
+        phase: "2b-member-platform",
       });
       assert.equal(response.headers.get("cache-control"), "no-store");
     } else if (path === "/manifest.webmanifest") {
@@ -242,6 +251,7 @@ try {
   );
   console.log("PASS Google AdSense ads.txt");
   for (const [path, expected] of [
+    ["/cadastro", /Criar meu perfil gratuito/],
     ["/entrar", /name="email"/],
     ["/recuperar-acesso", /Solicitar recuperação/],
     ["/auth/receber", /Confirmar meu acesso/],
@@ -262,11 +272,15 @@ try {
     if (path === "/entrar") {
       assert.match(html, /type="password"/);
       assert.match(html, /autocomplete="current-password"/i);
-      assert.match(html, /Ainda não há cadastro público/);
+      assert.match(html, /Quero ser membro/);
+    }
+    if (path === "/cadastro") {
+      assert.match(html, /autocomplete="new-password"/i);
+      assert.match(html, /name="privacy"/);
     }
     console.log(`PASS auth page ${path}`);
   }
-  for (const path of ["/admin", "/minha-conta", "/definir-senha"]) {
+  for (const path of ["/admin", "/meu-perfil", "/definir-senha"]) {
     for (const cookie of ["", "sb-lhmrojqehenwviyytkmr-auth-token=malformed"]) {
       const response = await fetch(`${origin}${path}`, {
         redirect: "manual",
@@ -287,6 +301,15 @@ try {
     }
     console.log(`PASS protected ${path}: anonymous / malformed session denied`);
   }
+  const legacyAccount = await fetch(`${origin}/minha-conta`, {
+    redirect: "manual",
+  });
+  assert.equal(legacyAccount.status, 307);
+  assert.equal(
+    new URL(legacyAccount.headers.get("location"), origin).pathname,
+    "/meu-perfil",
+  );
+  console.log("PASS legacy account route redirects to Meu Perfil");
   const callback = await fetch(
     `${origin}/auth/callback?next=https://example.com`,
     { redirect: "manual" },

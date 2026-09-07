@@ -3,6 +3,15 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "lhmrojqehenwviyytkmr.supabase.co",
+        pathname: "/storage/v1/object/public/editorial-media/**",
+      },
+    ],
+  },
   async headers() {
     return [
       {
@@ -24,7 +33,7 @@ const nextConfig: NextConfig = {
       },
       {
         source:
-          "/:path(entrar|recuperar-acesso|definir-senha|minha-conta|admin|auth)/:rest*",
+          "/:path(entrar|cadastro|recuperar-acesso|definir-senha|minha-conta|meu-perfil|admin|auth)/:rest*",
         headers: [
           { key: "Cache-Control", value: "private, no-store, max-age=0" },
           { key: "Vercel-CDN-Cache-Control", value: "no-store" },

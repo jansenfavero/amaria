@@ -3,10 +3,16 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
-import { authIsConfigured, getAuthOrigin } from "@/lib/auth/server";
 import {
+  authIsConfigured,
+  getAuthOrigin,
+  requireAccount,
+} from "@/lib/auth/server";
+import {
+  MEMBER_PRIVACY_NOTICE_VERSION,
   PRIVACY_NOTICE_VERSION,
   validEmail,
+  validDisplayName,
   validNewPassword,
   type AuthFormState,
 } from "@/lib/auth/policy";
@@ -19,12 +25,83 @@ function field(data: FormData, name: string): string {
   return typeof value === "string" ? value : "";
 }
 
+function safeNext(formData: FormData) {
+  const next = field(formData, "next");
+  return next.startsWith("/") && !next.startsWith("//") && next.length <= 400
+    ? next
+    : "/meu-perfil";
+}
+
+export async function signUpAction(
+  _previous: AuthFormState,
+  formData: FormData,
+): Promise<AuthFormState> {
+  const displayName = field(formData, "display_name").trim();
+  const email = field(formData, "email").trim().toLowerCase();
+  const password = field(formData, "password");
+  const next = safeNext(formData);
+  if (!validDisplayName(displayName))
+    return failure("Informe seu nome com 2 a 80 caracteres.");
+  if (!validEmail(email)) return failure("Informe um e-mail válido.");
+  if (!validNewPassword(password))
+    return failure("Use uma senha segura com pelo menos 12 caracteres.");
+  if (password !== field(formData, "confirmation"))
+    return failure("As senhas não coincidem.");
+  if (formData.get("privacy") !== "on")
+    return failure("Leia e aceite o aviso de privacidade para continuar.");
+  if (!authIsConfigured())
+    return failure("O cadastro está temporariamente indisponível.");
+
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${getAuthOrigin()}/auth/callback?next=${encodeURIComponent(next)}`,
+        data: {
+          display_name: displayName,
+          privacy_notice_version: MEMBER_PRIVACY_NOTICE_VERSION,
+          marketing_opt_in: formData.get("marketing") === "on",
+        },
+      },
+    });
+    if (error) {
+      return failure(
+        "Não foi possível concluir o cadastro. Confira os dados ou tente novamente em alguns minutos.",
+      );
+    }
+    if (data.session) {
+      revalidatePath("/meu-perfil");
+      redirect(next);
+    }
+  } catch (error) {
+    if (
+      error &&
+      typeof error === "object" &&
+      "digest" in error
+    ) {
+      throw error;
+    }
+    return failure(
+      "Não conseguimos conectar agora. Aguarde um momento e tente novamente.",
+    );
+  }
+
+  return {
+    kind: "success",
+    message:
+      "Cadastro recebido. Abra o e-mail de confirmação enviado pela AMARIA para ativar seu perfil e continuar a leitura.",
+  };
+}
+
 export async function signInAction(
   _previous: AuthFormState,
   formData: FormData,
 ): Promise<AuthFormState> {
   const email = field(formData, "email").trim();
   const password = field(formData, "password");
+  const next = safeNext(formData);
   if (!validEmail(email) || !password || password.length > 256) {
     return failure("Confira seu e-mail e sua senha para continuar.");
   }
@@ -48,7 +125,7 @@ export async function signInAction(
     );
   }
   revalidatePath("/minha-conta");
-  redirect("/minha-conta");
+  redirect(next);
 }
 
 export async function recoverAccessAction(
@@ -65,7 +142,7 @@ export async function recoverAccessAction(
     const supabase = await createClient();
     // Supabase enforces sending limits. Never reveal whether this email exists.
     await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${getAuthOrigin()}/auth/callback`,
+      redirectTo: `${getAuthOrigin()}/auth/callback?next=/definir-senha`,
     });
   } catch {
     return failure(
@@ -154,4 +231,31 @@ export async function signOutAction(): Promise<void> {
   }
   revalidatePath("/minha-conta");
   redirect("/entrar?aviso=sessao-encerrada");
+}
+
+export async function updateProfileAction(formData: FormData): Promise<void> {
+  const account = await requireAccount();
+  const displayName = field(formData, "display_name").trim();
+  if (!validDisplayName(displayName)) redirect("/meu-perfil?aviso=nome");
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("member_profiles")
+    .update({
+      display_name: displayName,
+      marketing_opt_in: formData.get("marketing") === "on",
+    })
+    .eq("id", account.id);
+  if (error) redirect("/meu-perfil?aviso=erro");
+  revalidatePath("/meu-perfil");
+  redirect("/meu-perfil?aviso=salvo");
+}
+
+export async function deleteAccountAction(formData: FormData): Promise<void> {
+  const confirmation = field(formData, "confirmation");
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("delete_my_account", {
+    p_confirmation: confirmation,
+  });
+  if (error) redirect("/meu-perfil?aviso=exclusao");
+  redirect("/?conta=excluida");
 }

@@ -9,13 +9,9 @@ export type ArticleSection = {
   subsections?: readonly ArticleSubsection[];
 };
 
-export type ArticleCategory =
-  | "Buscando um relacionamento"
-  | "Estou me perdendo nessa relação";
+export type ArticleCategory = string;
 
-export type ArticleCategorySlug =
-  | "buscando-um-relacionamento"
-  | "estou-me-perdendo-nessa-relacao";
+export type ArticleCategorySlug = string;
 
 export type ArticleDraft = {
   slug: string;
@@ -31,6 +27,8 @@ export type ArticleDraft = {
     src: string;
     alt: string;
   };
+  audioUrl?: string;
+  videoUrl?: string;
   publishedAt: string;
   updatedAt: string;
   author: "AMARIA";
