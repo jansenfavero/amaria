@@ -67,6 +67,11 @@ export async function signUpAction(
       },
     });
     if (error) {
+      if (error.code === "signup_disabled") {
+        return failure(
+          "Novos cadastros estão temporariamente pausados. A equipe AMARIA já foi avisada.",
+        );
+      }
       return failure(
         "Não foi possível concluir o cadastro. Confira os dados ou tente novamente em alguns minutos.",
       );
@@ -76,11 +81,7 @@ export async function signUpAction(
       redirect(next);
     }
   } catch (error) {
-    if (
-      error &&
-      typeof error === "object" &&
-      "digest" in error
-    ) {
+    if (error && typeof error === "object" && "digest" in error) {
       throw error;
     }
     return failure(
@@ -117,7 +118,7 @@ export async function signInAction(
     });
     if (error)
       return failure(
-        "Não foi possível entrar. Confira os dados e a confirmação do seu e-mail. Se precisar, recupere seu acesso.",
+        "Não foi possível entrar. Se ainda não criou seu perfil, use “Criar conta”. Se já criou, confira a senha e a confirmação do e-mail.",
       );
   } catch {
     return failure(

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { ArticleCard } from "@/components/article-card";
 import { PageHero } from "@/components/page-hero";
@@ -30,15 +30,9 @@ export default async function SelfLossCategoryPage() {
   return (
     <AppShell>
       <div className="catalog-page">
-        <nav className="article-breadcrumbs" aria-label="Caminho da página">
-          <Link href="/">Início</Link>
-          <span aria-hidden="true">/</span>
-          <Link href="/conteudos">Conteúdos</Link>
-          <span aria-hidden="true">/</span>
-          <span>{selfLossArticleCategory.name}</span>
-        </nav>
-
         <PageHero
+          backHref="/conteudos"
+          backLabel="Voltar aos conteúdos"
           eyebrow="NOVA JORNADA EDITORIAL"
           title={selfLossArticleCategory.name}
           description={selfLossArticleCategory.description}
@@ -63,9 +57,6 @@ export default async function SelfLossCategoryPage() {
               <span>DA PERCEPÇÃO À RECONEXÃO</span>
               <h2 id="collection-title">Volte a se escutar</h2>
             </div>
-            <Link href="/conteudos" className="back-link compact-back">
-              <ArrowLeft size={15} /> Todo o acervo
-            </Link>
           </div>
           <div className="article-card-grid">
             {categoryArticles.map((article, index) => (

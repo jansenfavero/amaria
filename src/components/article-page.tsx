@@ -41,6 +41,19 @@ function wordCount(value: string) {
   return value.trim().split(/\s+/).filter(Boolean).length;
 }
 
+function articleWordCount(article: Pick<Article, "introduction" | "sections">) {
+  return [
+    ...article.introduction,
+    ...article.sections.flatMap((section) => [
+      ...section.paragraphs,
+      ...(section.subsections?.flatMap((item) => item.paragraphs) ?? []),
+    ]),
+  ].reduce(
+    (total, paragraph) => total + wordCount(paragraph.replace(/\*\*/g, "")),
+    0,
+  );
+}
+
 function clipParagraph(value: string, remaining: number) {
   const words = value.replace(/\*\*/g, "").trim().split(/\s+/).filter(Boolean);
   if (words.length <= remaining) {
@@ -63,7 +76,9 @@ function buildPublicPreview(article: Article): Preview {
   ];
   const limit = Math.max(
     1,
-    Math.floor(paragraphs.reduce((total, item) => total + wordCount(item), 0) * 0.2),
+    Math.floor(
+      paragraphs.reduce((total, item) => total + wordCount(item), 0) * 0.2,
+    ),
   );
   let remaining = limit;
   const introduction: string[] = [];
@@ -213,21 +228,19 @@ export async function ArticlePage({
           sections: [...article.sections],
         }
       : buildPublicPreview(article);
+  const totalWords = articleWordCount(article);
+  const visibleWords = preview ? articleWordCount(preview) : totalWords;
 
   return (
     <>
       <ReadingProgress />
-      <article className="article-page" data-article>
-        <nav className="article-breadcrumbs" aria-label="Caminho da página">
-          <Link href="/">Início</Link>
-          <span aria-hidden="true">/</span>
-          <Link href="/conteudos">Conteúdos</Link>
-          <span aria-hidden="true">/</span>
-          <Link href={`/conteudos/${article.categorySlug}`}>
-            {article.category}
-          </Link>
-        </nav>
-
+      <article
+        className="article-page"
+        data-article
+        data-reading-access={isMember ? "complete" : "preview"}
+        data-visible-words={visibleWords}
+        data-total-words={totalWords}
+      >
         <header className="article-hero">
           <Image
             className="article-hero-image"
@@ -237,6 +250,14 @@ export async function ArticlePage({
             sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1300px) calc(100vw - 330px), 940px"
             preload
           />
+          <Link
+            className="article-hero-back"
+            href={`/conteudos/${article.categorySlug}`}
+            aria-label="Voltar aos conteúdos"
+          >
+            <ArrowLeft size={20} aria-hidden="true" />
+            <span className="visually-hidden">Voltar aos conteúdos</span>
+          </Link>
           <div className="article-hero-copy">
             <Link
               className="article-category"
@@ -248,7 +269,8 @@ export async function ArticlePage({
             <p className="article-subtitle">{article.subtitle}</p>
             <div className="article-meta">
               <span>
-                <Clock3 aria-hidden="true" /> {article.readingMinutes} min de leitura
+                <Clock3 aria-hidden="true" /> {article.readingMinutes} min de
+                leitura
               </span>
               <span>
                 <CalendarDays aria-hidden="true" /> Publicado em{" "}
@@ -262,7 +284,10 @@ export async function ArticlePage({
         <div className="article-layout">
           <div className="article-reading-column">
             {isMember && article.audioUrl ? (
-              <section className="article-audio" aria-labelledby="article-audio-title">
+              <section
+                className="article-audio"
+                aria-labelledby="article-audio-title"
+              >
                 <Headphones aria-hidden="true" />
                 <div>
                   <span>VERSÃO EM ÁUDIO</span>
@@ -281,7 +306,10 @@ export async function ArticlePage({
             />
 
             {!isMember ? (
-              <section className="article-access-gate" aria-labelledby="access-gate-title">
+              <section
+                className="article-access-gate"
+                aria-labelledby="access-gate-title"
+              >
                 <div className="access-progress">
                   <strong>20%</strong>
                   <span>da leitura</span>
@@ -290,7 +318,9 @@ export async function ArticlePage({
                   <span className="eyebrow">
                     <LockKeyhole aria-hidden="true" /> CONTINUE GRATUITAMENTE
                   </span>
-                  <h2 id="access-gate-title">Esta reflexão continua com você.</h2>
+                  <h2 id="access-gate-title">
+                    Esta reflexão continua com você.
+                  </h2>
                   <p>
                     Crie seu perfil gratuito para acessar este artigo completo,
                     comentar e fazer parte das próximas experiências da AMARIA.
@@ -300,7 +330,8 @@ export async function ArticlePage({
                       href={`/cadastro?next=/conteudos/${article.slug}`}
                       className="button button-primary"
                     >
-                      Quero continuar a leitura <ArrowRight size={17} aria-hidden="true" />
+                      Quero continuar a leitura{" "}
+                      <ArrowRight size={17} aria-hidden="true" />
                     </Link>
                     <Link
                       href={`/entrar?next=/conteudos/${article.slug}`}
@@ -329,7 +360,12 @@ export async function ArticlePage({
 
                 <section className="article-maria-cta">
                   <div className="maria-cta-symbol">
-                    <Image src="/brand/emblem.webp" alt="" width={88} height={88} />
+                    <Image
+                      src="/brand/emblem.webp"
+                      alt=""
+                      width={88}
+                      height={88}
+                    />
                   </div>
                   <div>
                     <span>CONSELHEIRA MARIA · EM BREVE</span>
@@ -350,8 +386,8 @@ export async function ArticlePage({
                     <span>CURADORIA PSICOLÓGICA</span>
                     <h2>Cuidado editorial em cada conversa</h2>
                     <p>
-                      Curadoria da plataforma por {article.curators.join(" e ")}.
-                      Conteúdo informativo e educativo; não substitui
+                      Curadoria da plataforma por {article.curators.join(" e ")}
+                      . Conteúdo informativo e educativo; não substitui
                       acompanhamento profissional e não realiza diagnóstico,
                       psicoterapia ou EMDR.
                     </p>

@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
-  ArrowLeft,
   ArrowUpRight,
   BookHeart,
   Headphones,
@@ -104,10 +103,9 @@ export default async function SectionPage({
   return (
     <AppShell>
       <div className="info-page">
-        <Link href="/" className="back-link">
-          <ArrowLeft size={16} aria-hidden="true" /> Voltar para o seu feed
-        </Link>
         <PageHero
+          backHref="/"
+          backLabel="Voltar para o seu feed"
           eyebrow={content.eyebrow}
           title={content.heading}
           description={content.description}
@@ -306,8 +304,8 @@ export default async function SectionPage({
               nos espaços de anúncio exibidos dentro de artigos.
             </p>
             <p>
-              Cada membro pode editar o próprio nome e preferência de contato
-              em “Meu Perfil”. A exclusão definitiva da conta também está
+              Cada membro pode editar o próprio nome e preferência de contato em
+              “Meu Perfil”. A exclusão definitiva da conta também está
               disponível nessa tela e remove perfil, acesso e comentários
               associados; registros técnicos e backups seguem os prazos dos
               provedores.

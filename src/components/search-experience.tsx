@@ -1,8 +1,7 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
-import Link from "next/link";
-import { ArrowLeft, Search, X } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { ArticleCard } from "@/components/article-card";
 import { PageHero } from "@/components/page-hero";
 import type { Article } from "@/content/articles/types";
@@ -59,10 +58,9 @@ export function SearchExperience({
 
   return (
     <div className="search-page">
-      <Link href="/conteudos" className="back-link">
-        <ArrowLeft size={16} /> Voltar aos conteúdos
-      </Link>
       <PageHero
+        backHref="/conteudos"
+        backLabel="Voltar aos conteúdos"
         eyebrow="ENCONTRE UMA REFLEXÃO"
         title="O que você deseja compreender hoje?"
         description="Busque por uma palavra, tema ou pergunta e encontre a leitura que conversa com o seu momento."

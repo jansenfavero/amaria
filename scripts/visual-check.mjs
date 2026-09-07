@@ -102,6 +102,14 @@ for (const width of [761, 1024, 1440]) {
 }
 assert.equal(value(".mobile-drawer", "margin"), "0 0 0 auto");
 console.log("PASS responsive header / right-hand drawer (static CSS)");
+assert.equal(value(".auth-home-mark img", "filter", 1440), "none");
+assert.equal(value(".topic-card", "box-shadow", 1440), "none");
+assert.equal(value(".topic-card .topic-icon", "border", 1440), "0");
+assert.ok(pixels(value(".page-hero-back", "width", 390)) >= 44);
+assert.ok(pixels(value(".page-hero-back", "height", 390)) >= 44);
+console.log(
+  "PASS official auth logo / clipped topic cards / hero back control",
+);
 assert.equal(value("html", "scrollbar-width", 1440), "thin");
 assert.ok(pixels(value("*::-webkit-scrollbar", "width", 1440)) <= 8);
 assert.equal(value(".topic-grid", "scrollbar-width", 390), "none");

@@ -23,11 +23,16 @@ export default async function SignupPage({
   if (configured && (await getAccount())) redirect("/meu-perfil");
   return (
     <AuthFrame
+      activeMode="signup"
       eyebrow="MEMBRO FUNDADORA"
       title="Um espaço inteiro para você."
       description="Crie seu perfil gratuito para continuar todas as leituras, comentar e participar dos próximos capítulos da AMARIA."
     >
-      {configured ? <AuthForm mode="signup" next={next} /> : <AuthUnavailable />}
+      {configured ? (
+        <AuthForm mode="signup" next={next} />
+      ) : (
+        <AuthUnavailable />
+      )}
     </AuthFrame>
   );
 }

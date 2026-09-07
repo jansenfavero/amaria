@@ -155,6 +155,17 @@ try {
         assert.match(html, /"@type":"Article"/);
         assert.match(html, /20%/);
         assert.match(html, /CONTINUE GRATUITAMENTE/);
+        assert.match(html, /data-reading-access="preview"/);
+        const visibleWords = Number(
+          html.match(/data-visible-words="(\d+)"/)?.[1],
+        );
+        const totalWords = Number(html.match(/data-total-words="(\d+)"/)?.[1]);
+        assert.ok(Number.isFinite(visibleWords) && visibleWords > 0);
+        assert.ok(Number.isFinite(totalWords) && totalWords > visibleWords);
+        assert.ok(
+          visibleWords / totalWords <= 0.205,
+          `Public preview exceeds 20% for ${path}`,
+        );
         assert.doesNotMatch(html, /Curadoria Psicológica/i);
         assert.equal((html.match(/class="ad-slot/g) || []).length, 1);
         assert.doesNotMatch(html, /name="email"/);
@@ -273,14 +284,28 @@ try {
       assert.match(html, /type="password"/);
       assert.match(html, /autocomplete="current-password"/i);
       assert.match(html, /Quero ser membro/);
+      assert.match(html, /aria-label="Acesso à AMARIA"/);
+      assert.match(html, /<a(?=[^>]*aria-current="page")[^>]*>Entrar<\/a>/);
     }
     if (path === "/cadastro") {
       assert.match(html, /autocomplete="new-password"/i);
       assert.match(html, /name="privacy"/);
+      assert.match(
+        html,
+        /<a(?=[^>]*aria-current="page")[^>]*>Criar conta<\/a>/,
+      );
     }
     console.log(`PASS auth page ${path}`);
   }
-  for (const path of ["/admin", "/meu-perfil", "/definir-senha"]) {
+  for (const path of [
+    "/admin",
+    "/admin/conteudos",
+    "/admin/conteudos/novo",
+    "/admin/membros",
+    "/admin/comentarios",
+    "/meu-perfil",
+    "/definir-senha",
+  ]) {
     for (const cookie of ["", "sb-lhmrojqehenwviyytkmr-auth-token=malformed"]) {
       const response = await fetch(`${origin}${path}`, {
         redirect: "manual",

@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Heart, Search } from "lucide-react";
+import { Heart, Search } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { ArticleCard } from "@/components/article-card";
 import { PageHero } from "@/components/page-hero";
-import {
-  articleCategories,
-  getArticlesByCategory,
-} from "@/content/articles";
+import { articleCategories, getArticlesByCategory } from "@/content/articles";
 import { getPublishedArticles } from "@/lib/articles-server";
 
 const futureJourneys = [
@@ -38,10 +35,9 @@ export default async function ContentsPage() {
   return (
     <AppShell>
       <div className="catalog-page">
-        <Link href="/" className="back-link">
-          <ArrowLeft size={16} aria-hidden="true" /> Voltar ao início
-        </Link>
         <PageHero
+          backHref="/"
+          backLabel="Voltar ao início"
           eyebrow="ACERVO AMARIA"
           title="Conteúdos para relações mais conscientes."
           description="Conheça 20% de cada leitura sem login. Membros gratuitas acessam o conteúdo completo e participam das conversas."

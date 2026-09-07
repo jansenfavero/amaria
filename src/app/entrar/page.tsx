@@ -26,6 +26,7 @@ export default async function SignInPage({
         : null;
   return (
     <AuthFrame
+      activeMode="login"
       eyebrow="SEU PERFIL"
       title="Que bom ter você aqui."
       description="Entre para continuar suas leituras, comentar e acompanhar seu espaço na AMARIA."
