@@ -377,16 +377,18 @@ html[data-theme="dark"] {
   padding: 18px 16px;
   overflow: clip;
   color: white;
-  border: 0;
+  border: 0 !important;
   border-radius: 18px;
   background: #3b163e;
-  box-shadow: none;
+  box-shadow: none !important;
   clip-path: inset(0 round 18px);
   transform: translateZ(0);
 }
 
-.topic-card:hover {
-  box-shadow: none;
+.topic-card:hover,
+.topic-card.selected {
+  outline: 0;
+  box-shadow: none !important;
 }
 
 .topic-card-overlay {
