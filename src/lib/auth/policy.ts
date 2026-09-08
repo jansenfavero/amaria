@@ -23,8 +23,15 @@ export function validEmail(value: string): boolean {
   return value.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+export const PASSWORD_MIN_LENGTH = 6;
+
 export function validNewPassword(value: string): boolean {
-  return value.length >= 12 && new TextEncoder().encode(value).length <= 72;
+  return (
+    value.length >= PASSWORD_MIN_LENGTH &&
+    new TextEncoder().encode(value).length <= 72 &&
+    /\p{L}/u.test(value) &&
+    /\p{N}/u.test(value)
+  );
 }
 
 export const roleLabels: Record<AccountRole, string> = {

@@ -9,7 +9,7 @@ import {
   signInAction,
   signUpAction,
 } from "@/app/auth/actions";
-import type { AuthFormState } from "@/lib/auth/policy";
+import { PASSWORD_MIN_LENGTH, type AuthFormState } from "@/lib/auth/policy";
 
 type Mode = "login" | "signup" | "recover" | "password";
 const initialState: AuthFormState = { kind: "idle", message: "" };
@@ -20,7 +20,13 @@ const actions = {
   password: setPasswordAction,
 };
 
-export function AuthForm({ mode, next = "/meu-perfil" }: { mode: Mode; next?: string }) {
+export function AuthForm({
+  mode,
+  next = "/meu-perfil",
+}: {
+  mode: Mode;
+  next?: string;
+}) {
   const [state, action, pending] = useActionState(actions[mode], initialState);
   const [showPassword, setShowPassword] = useState(false);
   const feedback = useRef<HTMLParagraphElement>(null);
@@ -83,7 +89,9 @@ export function AuthForm({ mode, next = "/meu-perfil" }: { mode: Mode; next?: st
               autoComplete={
                 passwordMode || signup ? "new-password" : "current-password"
               }
-              minLength={passwordMode || signup ? 12 : undefined}
+              minLength={
+                passwordMode || signup ? PASSWORD_MIN_LENGTH : undefined
+              }
               maxLength={passwordMode || signup ? 72 : 256}
               aria-describedby={
                 passwordMode || signup ? "password-hint" : undefined
@@ -107,8 +115,7 @@ export function AuthForm({ mode, next = "/meu-perfil" }: { mode: Mode; next?: st
           </div>
           {passwordMode || signup ? (
             <p id="password-hint" className="auth-hint">
-              Use ao menos 12 caracteres. Uma frase longa, única e fácil de
-              lembrar costuma ser mais segura.
+              Use ao menos 6 caracteres, combinando letras e números.
             </p>
           ) : null}
         </div>
@@ -122,7 +129,7 @@ export function AuthForm({ mode, next = "/meu-perfil" }: { mode: Mode; next?: st
             name="confirmation"
             type={showPassword ? "text" : "password"}
             autoComplete="new-password"
-            minLength={12}
+            minLength={PASSWORD_MIN_LENGTH}
             maxLength={72}
             required
             disabled={pending}
@@ -135,11 +142,7 @@ export function AuthForm({ mode, next = "/meu-perfil" }: { mode: Mode; next?: st
           <input type="checkbox" name="privacy" required disabled={pending} />
           <span>
             Li e aceito o{" "}
-            <Link
-              href="/privacidade"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link href="/privacidade" target="_blank" rel="noopener noreferrer">
               aviso de privacidade (abre em outra aba)
             </Link>{" "}
             para criar e proteger meu perfil.
@@ -151,8 +154,8 @@ export function AuthForm({ mode, next = "/meu-perfil" }: { mode: Mode; next?: st
         <label className="auth-checkbox">
           <input type="checkbox" name="marketing" disabled={pending} />
           <span>
-            Quero receber novidades editoriais e convites da AMARIA. Posso
-            mudar esta escolha no Meu Perfil.
+            Quero receber novidades editoriais e convites da AMARIA. Posso mudar
+            esta escolha no Meu Perfil.
           </span>
         </label>
       ) : null}
@@ -181,7 +184,11 @@ export function AuthForm({ mode, next = "/meu-perfil" }: { mode: Mode; next?: st
       >
         {pending ? (
           <>
-            <LoaderCircle className="auth-spinner" size={20} aria-hidden="true" />
+            <LoaderCircle
+              className="auth-spinner"
+              size={20}
+              aria-hidden="true"
+            />
             Aguarde…
           </>
         ) : (

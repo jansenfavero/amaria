@@ -158,6 +158,57 @@ function ratio(a, b) {
   const [light, dark] = [luminance(a), luminance(b)].sort((x, y) => y - x);
   return (light + 0.05) / (dark + 0.05);
 }
+const darkChecks = [
+  [
+    "dark social heading",
+    value('html[data-theme="dark"] .article-social-block h2', "color"),
+    "#1a0e21",
+  ],
+  [
+    "dark social action",
+    value('html[data-theme="dark"] .article-actions button', "color"),
+    "#211428",
+  ],
+  [
+    "dark related heading",
+    value('html[data-theme="dark"] .related-section > h2', "color"),
+    "#1a0e21",
+  ],
+  [
+    "dark related card title",
+    value('html[data-theme="dark"] .related-card h3', "color"),
+    "#211227",
+  ],
+  [
+    "dark related metadata",
+    value('html[data-theme="dark"] .related-card span', "color"),
+    "#211227",
+  ],
+  [
+    "dark membership copy",
+    value('html[data-theme="dark"] .comments-membership p', "color"),
+    "#241329",
+  ],
+  [
+    "dark article navigation",
+    value('html[data-theme="dark"] .article-pagination > a', "color"),
+    "#211328",
+  ],
+];
+for (const [label, foreground, background] of darkChecks) {
+  const contrast = ratio(rgb(foreground), rgb(background));
+  assert.ok(contrast >= 4.5, `${label}: ${contrast.toFixed(2)}:1`);
+  console.log(`PASS ${label} contrast ${contrast.toFixed(2)}:1`);
+}
+assert.equal(
+  value('html[data-theme="dark"] .related-link', "color"),
+  "#fb3b6a",
+);
+assert.equal(
+  value('html[data-theme="dark"] .article-pagination small', "color"),
+  "#fb3b6a",
+);
+console.log("PASS dark editorial accent hierarchy");
 const checks = [
   [
     "mobile launch badge",

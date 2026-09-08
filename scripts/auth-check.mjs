@@ -15,6 +15,7 @@ const policy = await import(
 );
 let cases = 0;
 for (const role of [
+  "superadmin",
   "admin",
   "curator",
   "member",
@@ -27,11 +28,12 @@ for (const role of [
   for (const active of [true, false, "true", 1, null, undefined]) {
     assert.equal(
       policy.canAccessAdmin(role, active),
-      role === "admin" && active === true,
+      (role === "superadmin" || role === "admin") && active === true,
     );
     cases++;
   }
 }
+assert.equal(policy.isAccountRole("superadmin"), true);
 assert.equal(policy.isAccountRole("admin"), true);
 assert.equal(policy.isAccountRole("curator"), true);
 assert.equal(policy.isAccountRole("member"), true);
@@ -47,14 +49,17 @@ for (const value of [
 ]) {
   assert.equal(policy.validEmail(value), false);
 }
-assert.equal(policy.validNewPassword("x".repeat(11)), false);
-assert.equal(policy.validNewPassword("x".repeat(12)), true);
-assert.equal(policy.validNewPassword("x".repeat(72)), true);
-assert.equal(policy.validNewPassword("x".repeat(73)), false);
-assert.equal(policy.validNewPassword("é".repeat(36)), true);
-assert.equal(policy.validNewPassword("é".repeat(37)), false);
-assert.equal(policy.validNewPassword("💜".repeat(18)), true);
-assert.equal(policy.validNewPassword("💜".repeat(19)), false);
+assert.equal(policy.PASSWORD_MIN_LENGTH, 6);
+assert.equal(policy.validNewPassword("ab123"), false);
+assert.equal(policy.validNewPassword("abc123"), true);
+assert.equal(policy.validNewPassword("abcdef"), false);
+assert.equal(policy.validNewPassword("123456"), false);
+assert.equal(policy.validNewPassword(`${"a".repeat(71)}1`), true);
+assert.equal(policy.validNewPassword(`${"a".repeat(72)}1`), false);
+assert.equal(policy.validNewPassword(`${"é".repeat(35)}a1`), true);
+assert.equal(policy.validNewPassword(`${"é".repeat(36)}a1`), false);
+assert.equal(policy.validNewPassword(`a1${"💜".repeat(17)}`), true);
+assert.equal(policy.validNewPassword(`a1${"💜".repeat(18)}`), false);
 console.log(
   `PASS ${cases} role/status combinations; email and password boundaries`,
 );

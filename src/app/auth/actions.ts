@@ -44,7 +44,9 @@ export async function signUpAction(
     return failure("Informe seu nome com 2 a 80 caracteres.");
   if (!validEmail(email)) return failure("Informe um e-mail válido.");
   if (!validNewPassword(password))
-    return failure("Use uma senha segura com pelo menos 12 caracteres.");
+    return failure(
+      "Use pelo menos 6 caracteres, combinando ao menos uma letra e um número.",
+    );
   if (password !== field(formData, "confirmation"))
     return failure("As senhas não coincidem.");
   if (formData.get("privacy") !== "on")
@@ -164,7 +166,7 @@ export async function setPasswordAction(
   const password = field(formData, "password");
   if (!validNewPassword(password))
     return failure(
-      "Use pelo menos 12 caracteres, com no máximo 72 bytes. Uma frase longa e única é uma boa escolha.",
+      "Use pelo menos 6 caracteres, combinando ao menos uma letra e um número.",
     );
   if (password !== field(formData, "confirmation"))
     return failure("As senhas não coincidem. Confira os dois campos.");
