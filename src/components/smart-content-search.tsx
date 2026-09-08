@@ -91,7 +91,10 @@ export function SmartContentSearch({
   const showResults = expanded && normalize(query).length >= 2;
 
   return (
-    <section className={styles.searchPanel} aria-labelledby="smart-search-title">
+    <section
+      className={styles.searchPanel}
+      aria-labelledby="smart-search-title"
+    >
       <Image
         className={styles.backdropImage}
         src="/editorial/amor-proprio.webp"
@@ -118,7 +121,10 @@ export function SmartContentSearch({
       <div className={styles.searchArea} onBlur={closeWhenFocusLeaves}>
         <form className={styles.searchForm} action="/buscar" role="search">
           <Search size={21} aria-hidden="true" />
-          <label className={styles.visuallyHidden} htmlFor="smart-content-search">
+          <label
+            className={styles.visuallyHidden}
+            htmlFor="smart-content-search"
+          >
             Buscar no acervo da AMARIA
           </label>
           <input
@@ -131,7 +137,7 @@ export function SmartContentSearch({
               setExpanded(true);
             }}
             onFocus={() => setExpanded(true)}
-            placeholder="Ex.: ciúme, limites, reciprocidade..."
+            placeholder="Ex.: ciúme, limites..."
             autoComplete="off"
             role="combobox"
             aria-autocomplete="list"
@@ -178,7 +184,9 @@ export function SmartContentSearch({
               </>
             ) : (
               <div className={styles.noResults}>
-                <strong>Ainda não encontramos uma correspondência direta.</strong>
+                <strong>
+                  Ainda não encontramos uma correspondência direta.
+                </strong>
                 <Link href={`/buscar?q=${encodeURIComponent(query.trim())}`}>
                   Explorar a busca completa <ArrowRight size={15} />
                 </Link>
@@ -191,7 +199,11 @@ export function SmartContentSearch({
       <div className={styles.quickSearches} aria-label="Buscas sugeridas">
         <span>Talvez você esteja buscando:</span>
         {quickSearches.map((item) => (
-          <button key={item} type="button" onClick={() => chooseQuickSearch(item)}>
+          <button
+            key={item}
+            type="button"
+            onClick={() => chooseQuickSearch(item)}
+          >
             {item}
           </button>
         ))}

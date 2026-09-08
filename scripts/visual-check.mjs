@@ -7,6 +7,9 @@ import sharp from "sharp";
 const css = postcss.parse(
   `${await readFile("src/app/globals.css", "utf8")}\n${await readFile("src/app/editorial.css", "utf8")}\n${await readFile("src/app/phase-2b.css", "utf8")}\n${await readFile("src/app/premium-refresh.css", "utf8")}`,
 );
+const smartSearchCss = postcss.parse(
+  await readFile("src/components/smart-content-search.module.css", "utf8"),
+);
 function value(selector, property, width = 390) {
   let result;
   css.walkRules((rule) => {
@@ -65,6 +68,12 @@ for (const width of [320, 360, 390, 430, 760]) {
     pixels(value(".mobile-page-status .preview-badge", "font-size", width)) >=
       12,
   );
+  assert.equal(
+    value(".auth-main", "grid-template-columns", width),
+    "minmax(0, 1fr)",
+  );
+  assert.equal(value(".auth-card", "order", width), "1");
+  assert.equal(value(".auth-story", "order", width), "2");
   console.log(`PASS mobile type / controls at ${width}px (static CSS)`);
 }
 const logoPath = "public/brand/logo-horizontal.png";
@@ -103,6 +112,8 @@ for (const width of [761, 1024, 1440]) {
 assert.equal(value(".mobile-drawer", "margin"), "0 0 0 auto");
 console.log("PASS responsive header / right-hand drawer (static CSS)");
 assert.equal(value(".auth-home-mark img", "filter", 1440), "none");
+assert.equal(value(":root", "--accent-pink", 1440), "#fb3b6a");
+assert.equal(value(":root", "--accent-pink-strong", 1440), "#fb3b6a");
 assert.equal(value(".topic-card", "box-shadow", 1440), "none");
 assert.equal(value(".topic-card .topic-icon", "border", 1440), "0");
 assert.ok(pixels(value(".page-hero-back", "width", 390)) >= 44);
@@ -110,6 +121,19 @@ assert.ok(pixels(value(".page-hero-back", "height", 390)) >= 44);
 console.log(
   "PASS official auth logo / clipped topic cards / hero back control",
 );
+let searchOverflow;
+let searchClip;
+smartSearchCss.walkRules(".searchPanel", (rule) => {
+  rule.walkDecls("overflow", (declaration) => {
+    searchOverflow = declaration.value;
+  });
+  rule.walkDecls("clip-path", (declaration) => {
+    searchClip = declaration.value;
+  });
+});
+assert.equal(searchOverflow, "hidden");
+assert.match(searchClip, /^inset\(0 round /);
+console.log("PASS search artwork is clipped to the rounded card");
 assert.equal(value("html", "scrollbar-width", 1440), "thin");
 assert.ok(pixels(value("*::-webkit-scrollbar", "width", 1440)) <= 8);
 assert.equal(value(".topic-grid", "scrollbar-width", 390), "none");

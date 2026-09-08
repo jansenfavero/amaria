@@ -4,6 +4,7 @@
   isolation: isolate;
   margin: 0 0 30px;
   padding: 30px;
+  overflow: hidden;
   color: #fffafd;
   border: 1px solid rgb(255 255 255 / 24%);
   border-radius: 24px;
@@ -11,12 +12,16 @@
   box-shadow:
     0 24px 60px rgb(63 22 78 / 27%),
     inset 0 1px 0 rgb(255 255 255 / 22%);
+  clip-path: inset(0 round 24px);
+  contain: paint;
+  transform: translateZ(0);
 }
 
 .backdropImage {
   z-index: -3;
   object-fit: cover;
   object-position: center 42%;
+  border-radius: inherit;
 }
 
 .backdropShade {
@@ -25,7 +30,12 @@
   z-index: -2;
   border-radius: inherit;
   background:
-    linear-gradient(90deg, rgb(35 11 46 / 94%) 0%, rgb(65 19 67 / 86%) 58%, rgb(88 25 67 / 70%) 100%),
+    linear-gradient(
+      90deg,
+      rgb(35 11 46 / 94%) 0%,
+      rgb(65 19 67 / 86%) 58%,
+      rgb(88 25 67 / 70%) 100%
+    ),
     linear-gradient(0deg, rgb(29 8 36 / 62%), transparent 60%);
 }
 
@@ -61,7 +71,7 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 8px;
-  color: #f5d9f2;
+  color: #fb3b6a;
   font-size: 0.6875rem;
   font-weight: 800;
   letter-spacing: 1.45px;
@@ -77,7 +87,7 @@
 }
 
 .heading h1 em {
-  color: #ffc5df;
+  color: #fb3b6a;
 }
 
 .heading > p:last-child {
@@ -126,7 +136,9 @@
   border: 0;
   outline: 0;
   background: transparent;
-  font: 600 0.9375rem/1.4 var(--font-manrope), sans-serif;
+  font:
+    600 0.9375rem/1.4 var(--font-manrope),
+    sans-serif;
 }
 
 .searchForm input::placeholder {
@@ -145,16 +157,17 @@
   gap: 8px;
   min-height: 48px;
   padding: 10px 17px;
-  color: white;
+  color: #2b0d1a;
   border-radius: 11px;
-  background: linear-gradient(135deg, #7a318c, #a62f6d);
+  background: #fb3b6a;
   font-size: 0.8125rem;
   font-weight: 800;
   box-shadow: 0 6px 16px rgb(112 37 117 / 23%);
 }
 
 .searchForm > button:hover {
-  background: linear-gradient(135deg, #682679, #92285f);
+  background: #fb3b6a;
+  box-shadow: 0 8px 22px rgb(251 59 106 / 34%);
 }
 
 .suggestions {
@@ -273,8 +286,9 @@
 }
 
 .quickSearches button:hover {
-  border-color: rgb(255 255 255 / 44%);
-  background: rgb(255 255 255 / 16%);
+  color: #2b0d1a;
+  border-color: #fb3b6a;
+  background: #fb3b6a;
 }
 
 .topicsThreeUp.topicsThreeUp {
@@ -296,8 +310,9 @@
 @media (max-width: 760px) {
   .searchPanel {
     margin-bottom: 28px;
-    padding: 24px 18px 20px;
+    padding: 23px 18px 20px;
     border-radius: 21px;
+    clip-path: inset(0 round 21px);
   }
 
   .searchPanel::before {
@@ -306,7 +321,8 @@
   }
 
   .heading h1 {
-    font-size: clamp(2.125rem, 10vw, 2.625rem);
+    max-width: 18ch;
+    font-size: clamp(2rem, 9.2vw, 2.45rem);
     line-height: 1.04;
   }
 
