@@ -39,6 +39,13 @@ assert.equal(policy.isAccountRole("curator"), true);
 assert.equal(policy.isAccountRole("member"), true);
 assert.equal(policy.isAccountRole({ role: "admin" }), false);
 assert.equal(policy.validEmail("pessoa@example.com"), true);
+assert.equal(policy.safeAuthDestination("/meu-perfil"), "/meu-perfil");
+assert.equal(
+  policy.safeAuthDestination("/conteudos/artigo#comentarios"),
+  "/conteudos/artigo#comentarios",
+);
+assert.equal(policy.safeAuthDestination("https://example.com"), "/meu-perfil");
+assert.equal(policy.safeAuthDestination("//example.com"), "/meu-perfil");
 for (const value of [
   "",
   "invalido",
@@ -63,6 +70,18 @@ assert.equal(policy.validNewPassword(`a1${"💜".repeat(18)}`), false);
 console.log(
   `PASS ${cases} role/status combinations; email and password boundaries`,
 );
+
+const [actionsSource, confirmationTemplate] = await Promise.all([
+  readFile("src/app/auth/actions.ts", "utf8"),
+  readFile("supabase/templates/confirmation.html", "utf8"),
+]);
+assert.match(actionsSource, /error\?\.code === "email_not_confirmed"/);
+assert.match(actionsSource, /data\.user\?\.email_confirmed_at/);
+assert.match(confirmationTemplate, /https:\/\/amaria\.me\/auth\/confirm\?/);
+assert.match(confirmationTemplate, /\{\{ \.TokenHash \}\}/);
+assert.match(confirmationTemplate, /logo-horizontal\.png/);
+assert.doesNotMatch(confirmationTemplate, /localhost/i);
+console.log("PASS verified-email gate and branded confirmation template");
 
 const css = postcss.parse(await readFile("src/app/auth.css", "utf8"));
 function value(selector, property, width) {

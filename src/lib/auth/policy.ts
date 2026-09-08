@@ -23,6 +23,18 @@ export function validEmail(value: string): boolean {
   return value.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+export function safeAuthDestination(
+  value: unknown,
+  fallback = "/meu-perfil",
+): string {
+  return typeof value === "string" &&
+    value.startsWith("/") &&
+    !value.startsWith("//") &&
+    value.length <= 500
+    ? value
+    : fallback;
+}
+
 export const PASSWORD_MIN_LENGTH = 6;
 
 export function validNewPassword(value: string): boolean {

@@ -1274,6 +1274,43 @@ html[data-theme="dark"] .article-pagination > a:hover {
   transform: translateY(-2px);
 }
 
+.auth-confirmed-panel {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 22px;
+  padding: 18px;
+  color: #594460;
+  border: 1px solid rgb(251 59 106 / 24%);
+  border-radius: 18px;
+  background: linear-gradient(145deg, #fff7fb, #f8eef9);
+}
+
+.auth-confirmed-panel > svg {
+  flex: 0 0 auto;
+  color: #fb3b6a;
+}
+
+.auth-confirmed-panel strong {
+  display: block;
+  color: #3d174a;
+}
+
+.auth-confirmed-panel p {
+  margin-top: 4px;
+  font-size: 0.875rem;
+}
+
+html[data-theme="dark"] .auth-confirmed-panel {
+  color: #d9c6dd;
+  border-color: rgb(251 59 106 / 30%);
+  background: linear-gradient(145deg, #321b38, #241329);
+}
+
+html[data-theme="dark"] .auth-confirmed-panel strong {
+  color: #fff3fd;
+}
+
 @media (max-width: 760px) {
   .article-hero {
     min-height: clamp(520px, 132vw, 610px);

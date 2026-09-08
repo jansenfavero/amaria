@@ -11,6 +11,7 @@ import {
 import {
   MEMBER_PRIVACY_NOTICE_VERSION,
   PRIVACY_NOTICE_VERSION,
+  safeAuthDestination,
   validEmail,
   validDisplayName,
   validNewPassword,
@@ -26,10 +27,7 @@ function field(data: FormData, name: string): string {
 }
 
 function safeNext(formData: FormData) {
-  const next = field(formData, "next");
-  return next.startsWith("/") && !next.startsWith("//") && next.length <= 400
-    ? next
-    : "/meu-perfil";
+  return safeAuthDestination(field(formData, "next"));
 }
 
 export async function signUpAction(
@@ -79,8 +77,9 @@ export async function signUpAction(
       );
     }
     if (data.session) {
-      revalidatePath("/meu-perfil");
-      redirect(next);
+      // A public signup must never leave an active session before the user
+      // completes the email-verification flow configured in Supabase Auth.
+      await supabase.auth.signOut({ scope: "global" });
     }
   } catch (error) {
     if (error && typeof error === "object" && "digest" in error) {
@@ -94,7 +93,7 @@ export async function signUpAction(
   return {
     kind: "success",
     message:
-      "Cadastro recebido. Abra o e-mail de confirmação enviado pela AMARIA para ativar seu perfil e continuar a leitura.",
+      "Cadastro recebido. Enviamos um e-mail da AMARIA: confirme o endereço para ativar seu perfil e continuar a leitura.",
   };
 }
 
@@ -114,14 +113,25 @@ export async function signInAction(
     );
   try {
     const supabase = await createClient();
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
+    if (error?.code === "email_not_confirmed") {
+      return failure(
+        "Confirme seu e-mail antes de entrar. Abra a mensagem mais recente enviada pela AMARIA.",
+      );
+    }
     if (error)
       return failure(
         "Não foi possível entrar. Se ainda não criou seu perfil, use “Criar conta”. Se já criou, confira a senha e a confirmação do e-mail.",
       );
+    if (!data.user?.email_confirmed_at || data.user.is_anonymous) {
+      await supabase.auth.signOut({ scope: "global" });
+      return failure(
+        "Confirme seu e-mail antes de entrar. Abra a mensagem mais recente enviada pela AMARIA.",
+      );
+    }
   } catch {
     return failure(
       "Não conseguimos conectar agora. Aguarde um momento e tente novamente.",

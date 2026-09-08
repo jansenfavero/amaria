@@ -1,13 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { authIsConfigured, getAuthOrigin } from "@/lib/auth/server";
-
-function safeDestination(value: string | null) {
-  if (!value || !value.startsWith("/") || value.startsWith("//")) {
-    return "/meu-perfil";
-  }
-  return value.length <= 500 ? value : "/meu-perfil";
-}
+import { safeAuthDestination } from "@/lib/auth/policy";
 
 export async function GET(request: NextRequest) {
   if (!authIsConfigured()) {
@@ -15,7 +9,7 @@ export async function GET(request: NextRequest) {
   }
   const origin = getAuthOrigin();
   const code = request.nextUrl.searchParams.get("code");
-  const next = safeDestination(request.nextUrl.searchParams.get("next"));
+  const next = safeAuthDestination(request.nextUrl.searchParams.get("next"));
   if (request.nextUrl.searchParams.has("error")) {
     return NextResponse.redirect(new URL("/auth/link-invalido", origin));
   }
@@ -24,8 +18,12 @@ export async function GET(request: NextRequest) {
   }
   try {
     const supabase = await createClient();
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
-    if (!error) {
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+    if (
+      !error &&
+      data.user?.email_confirmed_at &&
+      data.user.is_anonymous !== true
+    ) {
       return NextResponse.redirect(new URL(next, origin));
     }
   } catch {

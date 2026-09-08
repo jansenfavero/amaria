@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Confirme seu perfil na AMARIA</title>
+  </head>
+  <body style="margin: 0; padding: 0; background: #f8f0f6">
+    <table
+      role="presentation"
+      width="100%"
+      cellspacing="0"
+      cellpadding="0"
+      border="0"
+      style="background: #f8f0f6"
+    >
+      <tr>
+        <td align="center" style="padding: 32px 16px">
+          <table
+            role="presentation"
+            width="100%"
+            cellspacing="0"
+            cellpadding="0"
+            border="0"
+            style="
+              max-width: 620px;
+              overflow: hidden;
+              border: 1px solid #ead6e8;
+              border-radius: 24px;
+              background: #fffdfd;
+              box-shadow: 0 18px 50px rgba(74, 27, 82, 0.12);
+            "
+          >
+            <tr>
+              <td align="center" style="padding: 38px 32px 22px">
+                <img
+                  src="https://amaria.me/brand/logo-horizontal.png"
+                  width="220"
+                  alt="AMARIA"
+                  style="
+                    display: block;
+                    width: 220px;
+                    max-width: 80%;
+                    height: auto;
+                    border: 0;
+                  "
+                />
+              </td>
+            </tr>
+            <tr>
+              <td
+                style="
+                  padding: 0 38px 40px;
+                  font-family: Arial, Helvetica, sans-serif;
+                  color: #4a2156;
+                "
+              >
+                <p
+                  style="
+                    margin: 0 0 12px;
+                    color: #fb3b6a;
+                    font-size: 12px;
+                    font-weight: 700;
+                    letter-spacing: 1.5px;
+                  "
+                >
+                  INTELIGÊNCIA RELACIONAL FEMININA
+                </p>
+                <h1
+                  style="
+                    margin: 0 0 18px;
+                    color: #3d174a;
+                    font-family: Georgia, &quot;Times New Roman&quot;, serif;
+                    font-size: 36px;
+                    font-weight: 500;
+                    line-height: 1.08;
+                  "
+                >
+                  Confirme seu perfil na AMARIA.
+                </h1>
+                <p
+                  style="
+                    margin: 0 0 12px;
+                    color: #594460;
+                    font-size: 17px;
+                    line-height: 1.7;
+                  "
+                >
+                  Olá, {{ .Data.display_name }}.
+                </p>
+                <p
+                  style="
+                    margin: 0 0 26px;
+                    color: #594460;
+                    font-size: 17px;
+                    line-height: 1.7;
+                  "
+                >
+                  Falta apenas confirmar seu endereço de e-mail para ativar o
+                  perfil gratuito e continuar suas leituras.
+                </p>
+                <table
+                  role="presentation"
+                  cellspacing="0"
+                  cellpadding="0"
+                  border="0"
+                >
+                  <tr>
+                    <td
+                      align="center"
+                      bgcolor="#fb3b6a"
+                      style="border-radius: 14px"
+                    >
+                      <a
+                        href="https://amaria.me/auth/confirm?token_hash={{ .TokenHash }}&amp;type=email&amp;next=/meu-perfil"
+                        style="
+                          display: inline-block;
+                          padding: 16px 26px;
+                          color: #2b0d1a;
+                          font-size: 16px;
+                          font-weight: 700;
+                          text-decoration: none;
+                        "
+                        >Confirmar meu perfil</a
+                      >
+                    </td>
+                  </tr>
+                </table>
+                <p
+                  style="
+                    margin: 28px 0 0;
+                    color: #806c85;
+                    font-size: 13px;
+                    line-height: 1.7;
+                  "
+                >
+                  Se você não criou este perfil, ignore esta mensagem. Por
+                  segurança, use sempre o e-mail mais recente enviado pela
+                  AMARIA.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td
+                style="
+                  padding: 22px 38px;
+                  border-top: 1px solid #f0e1ee;
+                  background: #fff7fb;
+                  color: #806c85;
+                  font-family: Arial, Helvetica, sans-serif;
+                  font-size: 12px;
+                  line-height: 1.6;
+                "
+              >
+                AMARIA · Inteligência Relacional Feminina<br />
+                <a href="https://amaria.me" style="color: #8c2f72">amaria.me</a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

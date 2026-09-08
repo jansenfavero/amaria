@@ -266,6 +266,7 @@ try {
     ["/entrar", /name="email"/],
     ["/recuperar-acesso", /Solicitar recuperação/],
     ["/auth/receber", /Confirmar meu acesso/],
+    ["/auth/confirmado", /Continuar na AMARIA/],
     ["/auth/link-invalido", /Solicitar outro link/],
   ]) {
     const response = await fetch(`${origin}${path}`, {
@@ -345,6 +346,18 @@ try {
     "https://amaria.me/auth/receber",
   );
   console.log("PASS callback rejects arbitrary redirect destination");
+  const invalidConfirmation = await fetch(
+    `${origin}/auth/confirm?token_hash=invalid&type=unsupported&next=https://example.com`,
+    { redirect: "manual" },
+  );
+  assert.equal(invalidConfirmation.status, 307);
+  assert.equal(
+    invalidConfirmation.headers.get("location"),
+    "https://amaria.me/auth/link-invalido",
+  );
+  console.log(
+    "PASS confirmation route rejects invalid token type and open redirect",
+  );
   console.log(
     "Production HTTP checks passed. Browser interaction and remote deployment are separate verification steps.",
   );
