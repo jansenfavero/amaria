@@ -91,8 +91,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fff7fb" },
-    { media: "(prefers-color-scheme: dark)", color: "#1b0d22" },
+    { media: "(max-width: 760px), (prefers-color-scheme: light)", color: "#fff7fb" },
+    { media: "(min-width: 761px) and (prefers-color-scheme: dark)", color: "#1b0d22" },
   ],
   colorScheme: "light dark",
   width: "device-width",
@@ -127,7 +127,7 @@ export default async function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "(function(){try{var t=localStorage.getItem('amaria:theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t}catch(e){}})()",
+              "(function(){try{var t=localStorage.getItem('amaria:theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(max-width: 760px)').matches?'light':matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme='light'}})()",
           }}
         />
       </head>
