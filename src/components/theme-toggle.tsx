@@ -8,6 +8,7 @@ type Theme = "light" | "dark";
 function preferredTheme(): Theme {
   const saved = window.localStorage.getItem("amaria:theme");
   if (saved === "light" || saved === "dark") return saved;
+  if (window.matchMedia("(max-width: 760px)").matches) return "light";
   return window.matchMedia("(prefers-color-scheme: dark)").matches
     ? "dark"
     : "light";
